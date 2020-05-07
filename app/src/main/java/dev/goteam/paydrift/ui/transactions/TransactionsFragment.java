@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui.dashboard;
+package dev.goteam.paydrift.ui.transactions;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import dev.goteam.paydrift.R;
 
-public class DashboardFragment extends Fragment {
+public class TransactionsFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private TransactionsViewModel transactionsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        transactionsViewModel =
+                ViewModelProviders.of(this).get(TransactionsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_transactions, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        transactionsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
