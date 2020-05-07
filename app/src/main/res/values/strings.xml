@@ -7,4 +7,12 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="welcome_to_sharpsend_app">Welcome To Sharpsend App</string>
+  <string name="transfer_funds_text">Transfer Funds</string>
+  <string name="transfer_funds_details">Send money to any bank <br /> account in Nigeria</string>
+  <string name="buy_airtime_text">Buy Airtime</string>
+  <string name="buy_airtime_details">Get instant call credit on any phone with zero stress</string>
+  <string name="check_airtime_text">Check Airtime</string>
+  <string name="check_airtime_details">Easily check your airtime account balance with one-click</string>
+  <string name="get_started_text">Get Started</string>
+  <string name="username_label">Username</string>
 </resources>

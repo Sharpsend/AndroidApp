@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="ColoredButton" parent="Widget.MaterialComponents.Button">
+	<item name="android:padding">20dp</item>
+	<item name="android:layout_marginTop">10dp</item>
+	<item name="android:backgroundTint">@color/colorPrimaryDark</item>
+	<item name="rippleColor">@android:color/transparent</item>
+  </style>
+</resources>
