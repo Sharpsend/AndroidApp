@@ -15,4 +15,8 @@
   <string name="check_airtime_details">Easily check your airtime account balance with one-click</string>
   <string name="get_started_text">Get Started</string>
   <string name="username_label">Username</string>
+  <string name="create_an_account_text">Create an account</string>
+  <string name="pin_label">PIN</string>
+  <string name="confirm_pin_label">Confirm PIN</string>
+  <string name="sign_up_text">Sign Up</string>
 </resources>
