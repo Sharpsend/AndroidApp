@@ -86,6 +86,7 @@
 	  app:layout_constraintEnd_toEndOf="parent"
 	  android:contentDescription="@string/use_fingerprint_text"
 	  app:layout_constraintBottom_toBottomOf="parent"
+	  android:id="@+id/fingerprint_cta"
 	  android:layout_marginBottom="20dp"
 	  android:visibility="gone"
 	  android:src="@drawable/fingerprint"/>

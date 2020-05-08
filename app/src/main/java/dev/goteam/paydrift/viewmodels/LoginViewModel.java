@@ -9,6 +9,7 @@ import dev.goteam.paydrift.utils.Prefs;
 public class LoginViewModel extends AndroidViewModel {
 
     private String[] userData;
+    private boolean fingerPrintIsEnabled = true;
 
     public LoginViewModel(Application application) {
         super(application);
@@ -17,6 +18,10 @@ public class LoginViewModel extends AndroidViewModel {
 
     public String getUsername() {
         return userData[1];
+    }
+
+    public boolean isFingerPrintIsEnabled() {
+        return fingerPrintIsEnabled;
     }
 
     public String getPin() {

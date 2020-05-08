@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.biometric.BiometricManager;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -19,6 +20,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import dev.goteam.paydrift.R;
 import dev.goteam.paydrift.databinding.FragmentLoginBinding;
+import dev.goteam.paydrift.listeners.OnFingerprintAuthenticatedListener;
+import dev.goteam.paydrift.utils.FingerprintUtils;
 import dev.goteam.paydrift.viewmodels.LoginViewModel;
 import dev.goteam.paydrift.viewmodels.LoginViewModelFactory;
 
@@ -26,6 +29,7 @@ public class LoginFragment extends Fragment implements TextWatcher {
 
     private FragmentLoginBinding binding;
     private LoginViewModel loginViewModel;
+    private OnFingerprintAuthenticatedListener mOnFingerprintAuthenticatedListener;
 
 
     @Nullable
@@ -44,11 +48,22 @@ public class LoginFragment extends Fragment implements TextWatcher {
         LoginViewModelFactory loginViewModelFactory = new LoginViewModelFactory(requireActivity().getApplication());
         loginViewModel = ViewModelProviders.of(this, loginViewModelFactory).get(LoginViewModel.class);
         binding.loginHeading.setText(getResources().getString(R.string.welcome_text, loginViewModel.getUsername()));
+        binding.fingerprintCta.setVisibility(
+                (loginViewModel.isFingerPrintIsEnabled() && FingerprintUtils.isFingerprintSupported(LoginFragment.this.requireContext()))
+                        ? View.VISIBLE : View.GONE
+        );
 
         binding.closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 requireActivity().finish();
+            }
+        });
+
+        binding.fingerprintCta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FingerprintUtils.launchFingerprintPrompt(LoginFragment.this, mOnFingerprintAuthenticatedListener);
             }
         });
 
@@ -64,6 +79,18 @@ public class LoginFragment extends Fragment implements TextWatcher {
                 }
             }
         });
+
+        mOnFingerprintAuthenticatedListener = new OnFingerprintAuthenticatedListener() {
+            @Override
+            public void onSuccess() {
+                Snackbar.make(binding.loginButton, "Fingerprint Successful", Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(String error) {
+                Snackbar.make(binding.loginButton, "Error Occurred: " + error, Snackbar.LENGTH_LONG).show();
+            }
+        };
 
     }
 
