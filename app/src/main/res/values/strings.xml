@@ -23,4 +23,5 @@
   <string name="welcome_text">Welcome back, %s</string>
   <string name="welcome_text_placeholder">Welcome back, Soliudeen</string>
   <string name="pin_should_be_4_characters_long_text">PIN should be 4-characters long</string>
+  <string name="use_fingerprint_text">Use Fingerprint</string>
 </resources>

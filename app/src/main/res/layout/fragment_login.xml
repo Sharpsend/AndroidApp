@@ -78,6 +78,18 @@
 	  android:textAllCaps="false"
 	  style="@style/ColoredButton"/>
 
+<!--	this image would show if the user has enabled fingerprint-->
+	<ImageView
+	  android:layout_width="96dp"
+	  android:layout_height="96dp"
+	  app:layout_constraintStart_toStartOf="parent"
+	  app:layout_constraintEnd_toEndOf="parent"
+	  android:contentDescription="@string/use_fingerprint_text"
+	  app:layout_constraintBottom_toBottomOf="parent"
+	  android:layout_marginBottom="20dp"
+	  android:visibility="gone"
+	  android:src="@drawable/fingerprint"/>
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <data>
