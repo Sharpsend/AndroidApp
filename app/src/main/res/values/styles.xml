@@ -24,5 +24,4 @@
 	<item name="android:backgroundTint" tools:targetApi="lollipop">@drawable/primary_button_background</item>
 	<item name="rippleColor">@android:color/transparent</item>
   </style>
-
 </resources>

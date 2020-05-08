@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 apply plugin: "androidx.navigation.safeargs"
 
 android {
@@ -21,6 +20,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    viewBinding {
+        enabled = true
     }
 
     dataBinding {
@@ -45,4 +52,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.2.0-alpha06'
     implementation 'androidx.biometric:biometric:1.0.1'
+
+    // DB
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-guava:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 }
