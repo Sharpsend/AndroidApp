@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.google.android.material.navigation.NavigationView;
 
 import dev.goteam.paydrift.R;
+import dev.goteam.paydrift.utils.Prefs;
 
 public class SplashScreenFragment extends Fragment {
 
@@ -50,7 +51,7 @@ public class SplashScreenFragment extends Fragment {
     }
 
     private boolean isFirstTime() {
-        return true;
+        return !Prefs.isAuthenticated(requireContext());
     }
 
 }

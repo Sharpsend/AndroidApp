@@ -15,8 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import dev.goteam.paydrift.R;
 import dev.goteam.paydrift.databinding.FragmentRegisterBinding;
+import dev.goteam.paydrift.utils.Prefs;
 
 public class RegisterFragment extends Fragment implements TextWatcher {
 
@@ -43,6 +46,18 @@ public class RegisterFragment extends Fragment implements TextWatcher {
                 NavHostFragment.findNavController(RegisterFragment.this).navigateUp();
             }
         });
+
+        binding.signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String PIN = binding.pinField.getEditText().getText().toString();
+                String username = binding.usernameTextField.getEditText().getText().toString();
+
+                Prefs.saveUser(RegisterFragment.this.getContext(), username, PIN);
+                Snackbar.make(view, "User Registered", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     @Override
