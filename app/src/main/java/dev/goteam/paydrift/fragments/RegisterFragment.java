@@ -66,7 +66,7 @@ public class RegisterFragment extends Fragment implements TextWatcher {
                 String pin = binding.pinField.getEditText().getText().toString();
                 String confirmPin = binding.confirmPinField.getEditText().getText().toString();
 
-                binding.signUpButton.setEnabled(pin.equals(confirmPin));
+                binding.signUpButton.setEnabled(pin.equals(confirmPin) && (pin.length() == 4));
             }
         } catch (NullPointerException ex) {
             ex.printStackTrace();

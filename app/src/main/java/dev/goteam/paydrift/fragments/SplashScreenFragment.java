@@ -41,6 +41,9 @@ public class SplashScreenFragment extends Fragment {
                     );
                 } else {
                     // add logic to navigate to the login screen
+                    NavHostFragment.findNavController(
+                            SplashScreenFragment.this
+                    ).navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment());
                 }
             }
         }, 2500);

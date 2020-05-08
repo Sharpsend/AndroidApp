@@ -19,4 +19,8 @@
   <string name="pin_label">PIN</string>
   <string name="confirm_pin_label">Confirm PIN</string>
   <string name="sign_up_text">Sign Up</string>
+  <string name="login_text">Log In</string>
+  <string name="welcome_text">Welcome back, %s</string>
+  <string name="welcome_text_placeholder">Welcome back, Soliudeen</string>
+  <string name="pin_should_be_4_characters_long_text">PIN should be 4-characters long</string>
 </resources>
