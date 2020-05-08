@@ -7,9 +7,12 @@
     tools:context=".ui.HomeFragment">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
         android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="-2dp"
         android:clipToPadding="false"
         app:cardUseCompatPadding="true">
 
@@ -17,6 +20,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/fragment_vertical_margin"
             android:textColor="@color/colorPrimary"
@@ -41,8 +45,10 @@
             android:text="@string/quick_actions" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_home_rv"/>
 
 

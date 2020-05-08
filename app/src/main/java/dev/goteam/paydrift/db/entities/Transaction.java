@@ -7,19 +7,24 @@ import androidx.room.PrimaryKey;
 public class Transaction {
 
     @PrimaryKey(autoGenerate = true)
+    private int txID;
+
     private String txType;
     private Double amount;
     //private String recipient;
     private String state;
     private String timeStamp;
-    private String date;
-    private String time;
 
-    public Transaction(String txType, Double amount, String state, String timeStamp) {
+    public Transaction(int txID, String txType, Double amount, String state, String timeStamp) {
+        this.txID = txID;
         this.txType = txType;
         this.amount = amount;
         this.state = state;
         this.timeStamp = timeStamp;
+    }
+
+    public int getTxID() {
+        return txID;
     }
 
     public String getTxType() {
@@ -39,10 +44,10 @@ public class Transaction {
     }
 
     public String getDate() {
-        return date;
+        return timeStamp;
     }
 
     public String getTime() {
-        return time;
+        return timeStamp;
     }
 }
