@@ -1,5 +1,6 @@
 package dev.goteam.paydrift.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import dev.goteam.paydrift.R;
 import dev.goteam.paydrift.databinding.FragmentLoginBinding;
 import dev.goteam.paydrift.listeners.OnFingerprintAuthenticatedListener;
+import dev.goteam.paydrift.ui.MainActivity;
 import dev.goteam.paydrift.utils.FingerprintUtils;
 import dev.goteam.paydrift.viewmodels.LoginViewModel;
 import dev.goteam.paydrift.viewmodels.LoginViewModelFactory;
@@ -74,6 +76,8 @@ public class LoginFragment extends Fragment implements TextWatcher {
                 String enteredPIN = binding.pinField.getEditText().getText().toString();
                 if (enteredPIN.equals(loginViewModel.getPin())) {
                     Snackbar.make(view, "Login Successful", Snackbar.LENGTH_LONG).show();
+                    startActivity(new Intent(requireActivity(), MainActivity.class));
+                    requireActivity().finish();
                 } else {
                     Snackbar.make(view, "Wrong PIN", Snackbar.LENGTH_LONG).show();
                 }
