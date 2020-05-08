@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#A6B1E1</color>
+    <color name="colorPrimaryLight">#DCD6F7</color>
+    <color name="colorPrimaryDark">#424874</color>
+    <color name="colorAccent">#F4EEFF</color>
+
+    <color name="colorGrey">#1F000000</color>
+    <color name="colorGreyDark">#787676</color>
+
+    <color name="transactionItemBlack">#DE000000</color>
+
+    <color name="ts_SuccessfulColor">#219653</color>
+    <color name="ts_FailedColor">#EB5757</color>
+    <color name="ts_PendingColor">#F2994A</color>
 </resources>
