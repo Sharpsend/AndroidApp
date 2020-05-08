@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui.transactions;
+package dev.goteam.paydrift.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,18 +13,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import dev.goteam.paydrift.R;
+import dev.goteam.paydrift.viewmodel.SettingsViewModel;
 
-public class TransactionsFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
-    private TransactionsViewModel transactionsViewModel;
+    private SettingsViewModel settingsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        transactionsViewModel =
-                ViewModelProviders.of(this).get(TransactionsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_transactions, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        transactionsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        settingsViewModel =
+                ViewModelProviders.of(this).get(SettingsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_settings, container, false);
+        final TextView textView = root.findViewById(R.id.text_notifications);
+        settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

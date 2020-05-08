@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingStart="@dimen/fragment_vertical_margin"
     android:paddingEnd="@dimen/fragment_vertical_margin"
-    tools:context=".ui.transactions.TransactionsFragment" >
+    tools:context=".ui.TransactionsFragment" >
 
     <FrameLayout
         android:id="@+id/header"

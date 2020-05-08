@@ -1,10 +1,9 @@
-package dev.goteam.paydrift.ui.home;
+package dev.goteam.paydrift.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import dev.goteam.paydrift.R;
+import dev.goteam.paydrift.viewmodel.HomeViewModel;
 
 public class HomeFragment extends Fragment {
 
