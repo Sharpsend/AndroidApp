@@ -1,6 +1,29 @@
 <resources>
-    <string name="app_name">Paydrift</string>
-    <string name="title_home">Home</string>
+  <string name="app_name">Sharpsend</string>
+  <string name="title_home">Home</string>
+  <string name="title_dashboard">Dashboard</string>
+  <string name="title_notifications">Notifications</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="welcome_to_sharpsend_app">Welcome To Sharpsend App</string>
+  <string name="transfer_funds_text">Transfer Funds</string>
+  <string name="transfer_funds_details">Send money to any bank <br /> account in Nigeria</string>
+  <string name="buy_airtime_text">Buy Airtime</string>
+  <string name="buy_airtime_details">Get instant call credit on any phone with zero stress</string>
+  <string name="check_airtime_text">Check Airtime</string>
+  <string name="check_airtime_details">Easily check your airtime account balance with one-click</string>
+  <string name="get_started_text">Get Started</string>
+  <string name="username_label">Username</string>
+  <string name="create_an_account_text">Create an account</string>
+  <string name="pin_label">PIN</string>
+  <string name="confirm_pin_label">Confirm PIN</string>
+  <string name="sign_up_text">Sign Up</string>
+  <string name="login_text">Log In</string>
+  <string name="welcome_text">Welcome back, %s</string>
+  <string name="welcome_text_placeholder">Welcome back, Soliudeen</string>
+  <string name="pin_should_be_4_characters_long_text">PIN should be 4-characters long</string>
+  <string name="use_fingerprint_text">Use Fingerprint</string>
     <string name="title_settings">Settings</string>
     <string name="title_transactions">Transactions</string>
     <string name="quick_actions">QUICK ACTIONS</string>

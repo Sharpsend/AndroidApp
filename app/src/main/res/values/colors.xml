@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#A6B1E1</color>
-    <color name="colorPrimaryLight">#DCD6F7</color>
     <color name="colorPrimaryDark">#424874</color>
+    <color name="colorSecondary">#f4EEff</color>
+    <color name="colorSplashScreenBackground">#E5E5E5</color>
+  <color name="colorTextGray">#787676</color>
+    <color name="colorPrimaryLight">#DCD6F7</color>
     <color name="colorAccent">#F4EEFF</color>
 
     <color name="colorGrey">#1F000000</color>

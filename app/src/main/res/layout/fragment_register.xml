@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@android:color/white"
+	tools:context=".fragments.RegisterFragment">
+
+	<ImageView
+	  android:id="@+id/close_button"
+	  android:layout_width="40dp"
+	  android:layout_height="40dp"
+	  android:layout_marginTop="20dp"
+	  android:background="@android:color/white"
+	  android:src="@drawable/ic_close"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+	  android:layout_width="0dp"
+	  android:layout_height="wrap_content"
+	  android:text="@string/create_an_account_text"
+	  android:textColor="@color/colorPrimary"
+	  android:textSize="30sp"
+	  android:id="@+id/create_an_account_heading"
+	  android:textStyle="bold"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toBottomOf="@id/close_button" />
+
+	<androidx.constraintlayout.widget.Guideline
+	  android:id="@+id/left_guideline"
+	  android:layout_width="wrap_content"
+	  android:layout_height="match_parent"
+	  android:orientation="vertical"
+	  app:layout_constraintGuide_percent=".1" />
+
+	<androidx.constraintlayout.widget.Guideline
+	  android:id="@+id/right_guideline"
+	  android:layout_width="wrap_content"
+	  android:layout_height="match_parent"
+	  android:orientation="vertical"
+	  app:layout_constraintGuide_percent=".9" />
+
+	<com.google.android.material.textfield.TextInputLayout
+	  android:id="@+id/usernameTextField"
+	  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+	  android:layout_width="0dp"
+	  android:layout_height="wrap_content"
+	  android:layout_marginTop="20dp"
+	  android:hint="@string/username_label"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toBottomOf="@id/create_an_account_heading">
+
+	  <com.google.android.material.textfield.TextInputEditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.textfield.TextInputLayout
+	  android:id="@+id/pinField"
+	  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+	  android:layout_width="0dp"
+	  android:layout_height="wrap_content"
+	  app:endIconMode="password_toggle"
+	  android:layout_marginTop="20dp"
+	  android:hint="@string/pin_label"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toBottomOf="@id/usernameTextField">
+
+	  <com.google.android.material.textfield.TextInputEditText
+		android:layout_width="match_parent"
+		android:inputType="numberPassword"
+		android:layout_height="wrap_content" />
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.textfield.TextInputLayout
+	  android:id="@+id/confirmPinField"
+	  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+	  android:layout_width="0dp"
+	  app:endIconMode="password_toggle"
+	  android:layout_height="wrap_content"
+	  android:layout_marginTop="20dp"
+	  android:hint="@string/confirm_pin_label"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toBottomOf="@id/pinField">
+
+	  <com.google.android.material.textfield.TextInputEditText
+		android:layout_width="match_parent"
+		android:inputType="numberPassword"
+		android:layout_height="wrap_content" />
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<TextView
+	  android:layout_width="0dp"
+	  android:padding="8dp"
+	  android:layout_height="wrap_content"
+	  android:textColor="@color/colorTextGray"
+	  app:layout_constraintTop_toBottomOf="@id/confirmPinField"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  android:textSize="12sp"
+	  android:id="@+id/password_disclaimer_text"
+	  android:contentDescription="@string/pin_should_be_4_characters_long_text"
+	  android:text="@string/pin_should_be_4_characters_long_text"/>
+
+	<Button
+	  android:id="@+id/sign_up_button"
+	  android:layout_width="0dp"
+	  android:layout_height="wrap_content"
+	  android:text="@string/sign_up_text"
+	  android:enabled="false"
+	  android:textColor="@android:color/white"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  app:layout_constraintTop_toBottomOf="@id/password_disclaimer_text"
+	  android:layout_marginTop="20dp"
+	  android:textAllCaps="false"
+	  style="@style/ColoredButton"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <data>
+
+  </data>
+</layout>

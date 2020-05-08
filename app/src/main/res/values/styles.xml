@@ -1,23 +1,27 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+	<!-- Customize your theme here. -->
+	<item name="colorPrimary">@color/colorPrimary</item>
+	<item name="colorPrimaryDark">@color/colorPrimary</item>
+	<item name="colorAccent">@color/colorAccent</item>
+	<item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+  </style>
 
-        <!--<item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>-->
-    </style>
+  <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+	<item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+  </style>
 
-    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
-    </style>
+  <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+	<item name="colorPrimary">@color/colorPrimaryDark</item>
+	<item name="colorOnPrimary">@color/colorPrimaryDark</item>
+  </style>
 
-    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorOnPrimary">@color/colorPrimaryDark</item>
-    </style>
-
+  <style name="ColoredButton" parent="Widget.MaterialComponents.Button">
+	<item name="android:padding">20dp</item>
+	<item name="android:layout_marginTop">10dp</item>
+	<item name="android:backgroundTint" tools:targetApi="lollipop">@drawable/primary_button_background</item>
+	<item name="rippleColor">@android:color/transparent</item>
+  </style>
 </resources>
