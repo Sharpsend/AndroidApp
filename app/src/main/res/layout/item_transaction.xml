@@ -7,7 +7,7 @@
     android:paddingTop="14dp">
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/txDateLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
@@ -23,7 +23,7 @@
         android:paddingBottom="8dp">
 
         <TextView
-            android:id="@+id/label_type"
+            android:id="@+id/txTypeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -33,35 +33,35 @@
             android:textColor="@color/transactionItemBlack" />
 
         <TextView
-            android:id="@+id/value_amount"
+            android:id="@+id/txAmountLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/label_type"
+            android:layout_alignTop="@+id/txTypeLabel"
             android:textSize="12sp"
             tools:text="#1,500"
             android:textColor="@color/transactionItemBlack" />
 
         <TextView
-            android:id="@+id/label_time"
+            android:id="@+id/txTimeLabel"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@id/label_type"
+            android:layout_below="@id/txTypeLabel"
             android:textSize="14sp"
             tools:text="03:50PM"
             android:textColor="@color/colorGreyDark" />
 
         <TextView
-            android:id="@+id/label_song_name"
+            android:id="@+id/txStateLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/label_time"
+            android:layout_alignTop="@+id/txTimeLabel"
             android:textSize="12sp"
             tools:text="Successful"
-            android:textColor="@color/ts_SuccessfulColor" />
+            android:textColor="@color/tx_SuccessfulColor" />
     </RelativeLayout>
 
     <View
