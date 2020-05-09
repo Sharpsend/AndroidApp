@@ -35,4 +35,5 @@
   <string name="send_text">Send</string>
   <string name="proceed_text">Proceed</string>
   <string name="cancel_text">Cancel</string>
+  <string name="recipient_placeholder">Access Bank PLC</string>
 </resources>

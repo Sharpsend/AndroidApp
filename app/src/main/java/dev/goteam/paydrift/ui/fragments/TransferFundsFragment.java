@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import dev.goteam.paydrift.R;
@@ -77,11 +78,15 @@ public class TransferFundsFragment extends Fragment implements OnBankSelectedLis
     }
 
     private void launchBankSelection(boolean isRecipient) {
-        SelectBankBottomSheetFragment mSelectBankBottomSheetFragment = new SelectBankBottomSheetFragment(this);
-
+        RoundedBottomSheetFragment mSelectBankBottomSheetFragment;
         Bundle arguments = new Bundle();
         arguments.putInt("selectedBankIndex", isRecipient ? selectedRecipientBank : selectedSenderBank);
-        arguments.putBoolean("isRecipient", isRecipient);
+
+        if (isRecipient) {
+            mSelectBankBottomSheetFragment = new SelectRecipientBankBottomSheetFragment(this);
+        } else {
+            mSelectBankBottomSheetFragment = new SelectBankBottomSheetFragment(this);
+        }
 
         mSelectBankBottomSheetFragment.setArguments(arguments);
         mSelectBankBottomSheetFragment.show(getParentFragmentManager(), "selectBankModal");
@@ -99,7 +104,7 @@ public class TransferFundsFragment extends Fragment implements OnBankSelectedLis
     @Override
     public void onRecipientBankSelected(int newBankIndex) {
         if (newBankIndex != -2 && newBankIndex != -1) {
-            Bank bank = DataSource.getBanks(newBankIndex).get(newBankIndex);
+            Bank bank = DataSource.getRecipientBanks(newBankIndex).get(newBankIndex);
             binding.selectRecipientBankField.getEditText().setText(bank.getBankName());
             selectedRecipientBank = newBankIndex;
         }

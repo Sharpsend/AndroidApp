@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<androidx.constraintlayout.widget.Guideline
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:orientation="vertical"
+	  android:id="@+id/left_guideline"
+	  app:layout_constraintGuide_percent=".05" />
+
+	<androidx.constraintlayout.widget.Guideline
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:orientation="vertical"
+	  android:id="@+id/right_guideline"
+	  app:layout_constraintGuide_percent=".95" />
+
+	<TextView
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:textColor="@android:color/black"
+	  android:textSize="20sp"
+	  android:id="@+id/select_rec_bank_heading"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toTopOf="parent"
+	  android:paddingTop="8dp"
+	  android:text="@string/select_recipient_bank_text" />
+
+	<TextView
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:textColor="@android:color/black"
+	  android:textSize="16sp"
+	  android:paddingTop="8dp"
+	  android:id="@+id/cancel_text"
+	  app:layout_constraintBaseline_toBaselineOf="@id/select_rec_bank_heading"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  app:layout_constraintTop_toTopOf="parent"
+	  android:text="@string/cancel_text" />
+
+	<EditText
+	  android:layout_width="0dp"
+	  app:layout_constraintStart_toStartOf="@id/left_guideline"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  android:layout_marginTop="10dp"
+	  android:id="@+id/bank_name_input"
+	  android:drawableLeft="@drawable/ic_search_black_24dp"
+	  android:layout_height="wrap_content"
+	  app:layout_constraintTop_toBottomOf="@id/select_rec_bank_heading" />
+
+	<androidx.recyclerview.widget.RecyclerView
+	  android:layout_width="0dp"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toBottomOf="@id/bank_name_input"
+	  android:id="@+id/recipient_bank_list"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  android:layout_marginTop="8dp"
+	  tools:listitem="@layout/item_recipient_bank"
+	  android:layout_height="wrap_content" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
