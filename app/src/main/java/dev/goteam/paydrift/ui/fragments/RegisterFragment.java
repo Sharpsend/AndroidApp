@@ -17,8 +17,10 @@ import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import dev.goteam.paydrift.PaydriftApp;
 import dev.goteam.paydrift.R;
 import dev.goteam.paydrift.databinding.FragmentRegisterBinding;
+import dev.goteam.paydrift.db.entities.User;
 import dev.goteam.paydrift.ui.activities.MainActivity;
 import dev.goteam.paydrift.utils.Prefs;
 
@@ -56,6 +58,8 @@ public class RegisterFragment extends Fragment implements TextWatcher {
 
                 Prefs.saveUser(RegisterFragment.this.getContext(), username, PIN);
                 Snackbar.make(view, "User Registered", Snackbar.LENGTH_LONG).show();
+
+                ((PaydriftApp) requireActivity().getApplication()).getRepository().saveUser(new User(username));
 
                 startActivity(new Intent(requireActivity(), MainActivity.class));
                 requireActivity().finish();

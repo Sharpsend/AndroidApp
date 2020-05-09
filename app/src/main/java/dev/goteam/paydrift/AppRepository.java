@@ -39,4 +39,8 @@ public class AppRepository {
     public LiveData<User> getUser() {
         return mDatabase.userDao().getUser();
     }
+
+    public void saveUser(User user) {
+        AppDatabase.executors.diskIO().execute(() -> mDatabase.userDao().insert(user));
+    }
 }

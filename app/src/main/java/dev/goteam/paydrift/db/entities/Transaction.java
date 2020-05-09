@@ -15,12 +15,15 @@ public class Transaction {
     private String state;
     private String timeStamp;
 
-    public Transaction(int txID, String txType, Double amount, String state, String timeStamp) {
-        this.txID = txID;
+    public Transaction(String txType, Double amount, String state, String timeStamp) {
         this.txType = txType;
         this.amount = amount;
         this.state = state;
         this.timeStamp = timeStamp;
+    }
+
+    public void setTxID(int txID) {
+        this.txID = txID;
     }
 
     public int getTxID() {

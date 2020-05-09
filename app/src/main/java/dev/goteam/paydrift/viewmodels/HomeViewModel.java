@@ -8,16 +8,23 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import dev.goteam.paydrift.AppRepository;
+import dev.goteam.paydrift.PaydriftApp;
+import dev.goteam.paydrift.db.entities.User;
+
 public class HomeViewModel extends AndroidViewModel {
 
-    private MutableLiveData<String> mText;
+    private final AppRepository mRepository;
+    private final LiveData<User> user;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
+
+        mRepository = ((PaydriftApp) application).getRepository();
+        user = mRepository.getUser();
     }
 
-
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<User> getUser() {
+        return user;
     }
 }

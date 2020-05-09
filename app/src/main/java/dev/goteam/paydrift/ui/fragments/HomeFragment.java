@@ -28,6 +28,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         binding = FragmentHomeBinding.inflate(inflater);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
+        homeViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            if (user != null) {
+                binding.salutationLabel.setText(String.format("Hi, %s", user.getUserName()));
+            }
+        });
+
         List<HomeItem> homeItems = new ArrayList<>();
         homeItems.add(new HomeItem("Transfer Funds", "Send money to any bank account in Nigeria", R.drawable.ic_transfer, "stegege"));
         homeItems.add(new HomeItem("Buy Airtime", "Get instant call credit on any phone with zero stress", R.drawable.ic_buy_airtime, "stegege"));

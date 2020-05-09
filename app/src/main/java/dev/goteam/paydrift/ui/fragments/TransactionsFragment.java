@@ -1,6 +1,7 @@
 package dev.goteam.paydrift.ui.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import dev.goteam.paydrift.databinding.FragmentTransactionsBinding;
 import dev.goteam.paydrift.viewmodels.TransactionsViewModel;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class TransactionsFragment extends Fragment {
 
@@ -25,10 +28,11 @@ public class TransactionsFragment extends Fragment {
         transactionsViewModel.getTransactions().observe(getViewLifecycleOwner(), transactionList -> {
             if (transactionList != null) {
 
-                binding.emptyTransactionLayout.setVisibility(View.VISIBLE);
-                binding.transactionsRV.setVisibility(View.GONE);
+                binding.emptyTransactionLayout.setVisibility(View.GONE);
+                binding.transactionsRV.setVisibility(View.VISIBLE);
 
                 // Load
+                Log.i(TAG, "onCreateView: " + transactionList.size());
 
             } else {
                 binding.emptyTransactionLayout.setVisibility(View.VISIBLE);

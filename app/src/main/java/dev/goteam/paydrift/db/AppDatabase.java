@@ -1,6 +1,7 @@
 package dev.goteam.paydrift.db;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -12,6 +13,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 import dev.goteam.paydrift.AppExecutors;
 import dev.goteam.paydrift.db.dao.TransactionDao;
@@ -19,8 +21,10 @@ import dev.goteam.paydrift.db.dao.UserDao;
 import dev.goteam.paydrift.db.entities.Transaction;
 import dev.goteam.paydrift.db.entities.User;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 @Database(entities = {User.class, Transaction.class},
-        version = 1)
+        version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase sInstance;
 
@@ -30,12 +34,14 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract TransactionDao transactionDao();
 
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
+    public static AppExecutors executors;
 
-    public static AppDatabase getInstance(final Context context, final AppExecutors executors) {
+    public static AppDatabase getInstance(final Context context, final AppExecutors mExecutors) {
+        executors = mExecutors;
         if (sInstance == null) {
             synchronized (AppDatabase.class) {
                 if (sInstance == null) {
-                    sInstance = buildDatabase(context.getApplicationContext(), executors);
+                    sInstance = buildDatabase(context.getApplicationContext());
                     sInstance.updateDatabaseCreated(context.getApplicationContext());
                 }
             }
@@ -43,20 +49,23 @@ public abstract class AppDatabase extends RoomDatabase {
         return sInstance;
     }
 
-    private static AppDatabase buildDatabase(final Context appContext,
-                                             final AppExecutors executors) {
+    private static AppDatabase buildDatabase(final Context appContext) {
+        Log.i(TAG, "onCreate: START");
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
                 .addCallback(new Callback() {
                     @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                        super.onCreate(db);
+                    public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                        super.onOpen(db);
                         executors.diskIO().execute(() -> {
 
                             // Generate the data for pre-population
                             AppDatabase database = AppDatabase.getInstance(appContext, executors);
-                            //List<Tra> products = DataGenerator.generateActions();
 
-                            //insertData(database, products, comments);
+                            for (int i = 0; i < 5; i++) {
+                                database.transactionDao().insert(new Transaction("Tranfer", (double) 2000,
+                                        "Successfull", "1234432"));
+                            }
+                            Log.i(TAG, "onCreate: DONE");
                             // notify that the database was created and it's ready to be used
                             database.setDatabaseCreated();
                         });
@@ -78,14 +87,6 @@ public abstract class AppDatabase extends RoomDatabase {
     private void setDatabaseCreated(){
         mIsDatabaseCreated.postValue(true);
     }
-
-    /*private static void insertData(final AppDatabase database, final List<ProductEntity> products,
-                                   final List<CommentEntity> comments) {
-        database.runInTransaction(() -> {
-            database.userDao().insertAll(products);
-            database.commentDao().insertAll(comments);
-        });
-    }*/
 
     public LiveData<Boolean> getDatabaseCreated() {
         return mIsDatabaseCreated;

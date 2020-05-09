@@ -10,9 +10,12 @@ public class User {
     private int userID;
     private String userName;
 
-    public User(int userID, String userName) {
-        this.userID = userID;
+    public User(String userName) {
         this.userName = userName;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public int getUserID() {
