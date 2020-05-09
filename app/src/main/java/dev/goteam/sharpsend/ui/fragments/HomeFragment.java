@@ -1,5 +1,6 @@
 package dev.goteam.sharpsend.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,9 @@ import dev.goteam.sharpsend.databinding.FragmentHomeBinding;
 import dev.goteam.sharpsend.db.entities.HomeItem;
 import dev.goteam.sharpsend.ui.adapters.HomeRVAdapter;
 import dev.goteam.sharpsend.viewmodels.HomeViewModel;
+import dev.goteam.paydrift.ui.activities.OperationsActivity;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSelectedListener {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -45,7 +47,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
-
+    public void onItemSelected(int position) {
+        Intent operationsIntent = new Intent(requireActivity(), OperationsActivity.class);
+        operationsIntent.putExtra("operation_id", position);
+        startActivity(operationsIntent);
     }
 }
