@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui.listeners;
+package dev.goteam.sharpsend.ui.listeners;
 
 public interface OnBankItemSelectedOnAdapterListener {
 

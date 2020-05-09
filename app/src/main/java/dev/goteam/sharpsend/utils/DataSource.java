@@ -1,9 +1,9 @@
-package dev.goteam.paydrift.utils;
+package dev.goteam.sharpsend.utils;
 
 import java.util.ArrayList;
 
-import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.db.entities.Bank;
+import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.db.entities.Bank;
 
 public class DataSource {
 

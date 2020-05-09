@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import dev.goteam.paydrift.R;
+import dev.goteam.sharpsend.R;
 
 public class RoundedBottomSheetFragment extends BottomSheetDialogFragment {
 

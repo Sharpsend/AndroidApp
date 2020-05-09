@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments;
 
 import android.os.Bundle;
 
@@ -19,12 +19,12 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 
-import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.databinding.FragmentTransferFundsBinding;
-import dev.goteam.paydrift.db.entities.Bank;
-import dev.goteam.paydrift.ui.listeners.OnBankSelectedListener;
-import dev.goteam.paydrift.utils.Constants;
-import dev.goteam.paydrift.utils.DataSource;
+import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.databinding.FragmentTransferFundsBinding;
+import dev.goteam.sharpsend.db.entities.Bank;
+import dev.goteam.sharpsend.ui.listeners.OnBankSelectedListener;
+import dev.goteam.sharpsend.utils.Constants;
+import dev.goteam.sharpsend.utils.DataSource;
 
 public class TransferFundsFragment extends Fragment implements OnBankSelectedListener, TextWatcher {
 

@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui.adapters;
+package dev.goteam.sharpsend.ui.adapters;
 
 import android.content.Context;
 import android.text.Layout;
@@ -18,11 +18,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.databinding.ItemBankBinding;
-import dev.goteam.paydrift.db.entities.Bank;
-import dev.goteam.paydrift.ui.listeners.OnBankItemSelectedOnAdapterListener;
-import dev.goteam.paydrift.utils.DataSource;
+import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.databinding.ItemBankBinding;
+import dev.goteam.sharpsend.db.entities.Bank;
+import dev.goteam.sharpsend.ui.listeners.OnBankItemSelectedOnAdapterListener;
+import dev.goteam.sharpsend.utils.DataSource;
 
 public class BanksAdapter extends RecyclerView.Adapter<BanksAdapter.BankViewHolder>
     implements Filterable {

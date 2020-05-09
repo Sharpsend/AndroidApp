@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui.activities;
+package dev.goteam.sharpsend.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,9 +7,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
-import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.ui.fragments.TransferFundsFragment;
-import dev.goteam.paydrift.utils.Constants;
+import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.ui.fragments.TransferFundsFragment;
+import dev.goteam.sharpsend.utils.Constants;
 
 public class OperationsActivity extends AppCompatActivity {
 

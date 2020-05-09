@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.db.entities;
+package dev.goteam.sharpsend.db.entities;
 
 import androidx.annotation.DrawableRes;
 

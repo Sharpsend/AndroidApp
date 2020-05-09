@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.utils;
+package dev.goteam.sharpsend.utils;
 
 public class Constants {
 

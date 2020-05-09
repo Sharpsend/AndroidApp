@@ -18,7 +18,7 @@ import dev.goteam.sharpsend.databinding.FragmentHomeBinding;
 import dev.goteam.sharpsend.db.entities.HomeItem;
 import dev.goteam.sharpsend.ui.adapters.HomeRVAdapter;
 import dev.goteam.sharpsend.viewmodels.HomeViewModel;
-import dev.goteam.paydrift.ui.activities.OperationsActivity;
+import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 
 public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSelectedListener {
 

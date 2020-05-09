@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
 
-import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.databinding.FragmentSelectBankBinding;
-import dev.goteam.paydrift.db.entities.Bank;
-import dev.goteam.paydrift.ui.adapters.BanksAdapter;
-import dev.goteam.paydrift.ui.listeners.OnBankItemSelectedOnAdapterListener;
-import dev.goteam.paydrift.ui.listeners.OnBankSelectedListener;
-import dev.goteam.paydrift.utils.DataSource;
+import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.databinding.FragmentSelectBankBinding;
+import dev.goteam.sharpsend.db.entities.Bank;
+import dev.goteam.sharpsend.ui.adapters.BanksAdapter;
+import dev.goteam.sharpsend.ui.listeners.OnBankItemSelectedOnAdapterListener;
+import dev.goteam.sharpsend.ui.listeners.OnBankSelectedListener;
+import dev.goteam.sharpsend.utils.DataSource;
 
 public class SelectBankBottomSheetFragment extends RoundedBottomSheetFragment implements OnBankItemSelectedOnAdapterListener {
 
