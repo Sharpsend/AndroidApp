@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui;
+package dev.goteam.paydrift.ui.activities;
 
 import android.os.Bundle;
 

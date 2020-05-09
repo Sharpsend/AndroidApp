@@ -13,7 +13,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@android:color/white"
-	tools:context=".fragments.OnboardingFragment">
+	tools:context=".ui.fragments.OnboardingFragment">
 
 	<androidx.constraintlayout.widget.Guideline
 	  android:id="@+id/mid_guideline"

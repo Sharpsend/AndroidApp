@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.viewmodel;
+package dev.goteam.paydrift.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

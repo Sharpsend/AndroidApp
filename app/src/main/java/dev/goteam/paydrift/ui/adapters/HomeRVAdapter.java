@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui;
+package dev.goteam.paydrift.ui.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,13 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import dev.goteam.paydrift.R;
+import dev.goteam.paydrift.db.entities.HomeItem;
 
 public class HomeRVAdapter extends RecyclerView.Adapter<HomeRVAdapter.HomeRVAdapterViewHolder> {
     private View.OnClickListener onClickListener;

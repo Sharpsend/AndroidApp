@@ -1,6 +1,4 @@
-package dev.goteam.paydrift.listeners;
-
-import androidx.biometric.BiometricPrompt;
+package dev.goteam.paydrift.ui.listeners;
 
 public interface OnFingerprintAuthenticatedListener {
 

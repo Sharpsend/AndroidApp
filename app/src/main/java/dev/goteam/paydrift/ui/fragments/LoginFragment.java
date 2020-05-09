@@ -1,10 +1,9 @@
-package dev.goteam.paydrift.fragments;
+package dev.goteam.paydrift.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,13 @@ import androidx.biometric.BiometricManager;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import dev.goteam.paydrift.R;
 import dev.goteam.paydrift.databinding.FragmentLoginBinding;
-import dev.goteam.paydrift.listeners.OnFingerprintAuthenticatedListener;
-import dev.goteam.paydrift.ui.MainActivity;
+import dev.goteam.paydrift.ui.listeners.OnFingerprintAuthenticatedListener;
+import dev.goteam.paydrift.ui.activities.MainActivity;
 import dev.goteam.paydrift.utils.FingerprintUtils;
 import dev.goteam.paydrift.viewmodels.LoginViewModel;
 import dev.goteam.paydrift.viewmodels.LoginViewModelFactory;

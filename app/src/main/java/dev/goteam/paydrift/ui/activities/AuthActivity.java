@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.activities;
+package dev.goteam.paydrift.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

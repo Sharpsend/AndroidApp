@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.fragments;
+package dev.goteam.paydrift.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import dev.goteam.paydrift.R;
 import dev.goteam.paydrift.databinding.FragmentRegisterBinding;
-import dev.goteam.paydrift.ui.MainActivity;
+import dev.goteam.paydrift.ui.activities.MainActivity;
 import dev.goteam.paydrift.utils.Prefs;
 
 public class RegisterFragment extends Fragment implements TextWatcher {

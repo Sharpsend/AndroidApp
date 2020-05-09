@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui;
+package dev.goteam.paydrift.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,19 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dev.goteam.paydrift.R;
 import dev.goteam.paydrift.databinding.FragmentHomeBinding;
-import dev.goteam.paydrift.viewmodel.HomeViewModel;
+import dev.goteam.paydrift.db.entities.HomeItem;
+import dev.goteam.paydrift.ui.adapters.HomeRVAdapter;
+import dev.goteam.paydrift.viewmodels.HomeViewModel;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 

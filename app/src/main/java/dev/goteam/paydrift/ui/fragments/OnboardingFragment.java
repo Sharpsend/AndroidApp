@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.fragments;
+package dev.goteam.paydrift.ui.fragments;
 
 import android.os.Bundle;
 
@@ -6,19 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import java.util.Objects;
 
 import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.adapters.OnboardingAdapter;
+import dev.goteam.paydrift.ui.adapters.OnboardingAdapter;
 import dev.goteam.paydrift.databinding.FragmentOnboardingBinding;
 
 public class OnboardingFragment extends Fragment {

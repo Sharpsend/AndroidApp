@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui;
+package dev.goteam.paydrift.db.entities;
 
 public class HomeItem {
     private String title;

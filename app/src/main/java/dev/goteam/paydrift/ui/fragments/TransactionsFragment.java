@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui;
+package dev.goteam.paydrift.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,15 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.databinding.FragmentHomeBinding;
 import dev.goteam.paydrift.databinding.FragmentTransactionsBinding;
-import dev.goteam.paydrift.viewmodel.HomeViewModel;
-import dev.goteam.paydrift.viewmodel.TransactionsViewModel;
+import dev.goteam.paydrift.viewmodels.TransactionsViewModel;
 
 public class TransactionsFragment extends Fragment {
 

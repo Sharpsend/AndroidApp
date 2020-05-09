@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.concurrent.Executor;
 
-import dev.goteam.paydrift.listeners.OnFingerprintAuthenticatedListener;
+import dev.goteam.paydrift.ui.listeners.OnFingerprintAuthenticatedListener;
 
 public class FingerprintUtils {
 

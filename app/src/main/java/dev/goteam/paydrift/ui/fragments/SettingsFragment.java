@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui;
+package dev.goteam.paydrift.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import dev.goteam.paydrift.databinding.FragmentSettingsBinding;
-import dev.goteam.paydrift.viewmodel.SettingsViewModel;
+import dev.goteam.paydrift.viewmodels.SettingsViewModel;
 
 public class SettingsFragment extends Fragment {
 
