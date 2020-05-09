@@ -6,6 +6,9 @@ import dev.goteam.paydrift.db.AppDatabase;
 
 public class PaydriftApp extends Application {
 
+    public static final String SUCCESSFUL_TX = "Successful";
+    public static final String FAILED_TX = "Failed";
+    public static final String PENDING_TX = "Pending";
     private AppExecutors mAppExecutors;
 
     @Override

@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import dev.goteam.paydrift.databinding.FragmentTransactionsBinding;
+import dev.goteam.paydrift.db.entities.Transaction;
+import dev.goteam.paydrift.ui.adapters.TransactionsRVAdapter;
 import dev.goteam.paydrift.viewmodels.TransactionsViewModel;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class TransactionsFragment extends Fragment {
+public class TransactionsFragment extends Fragment implements View.OnClickListener {
 
     private TransactionsViewModel transactionsViewModel;
     private FragmentTransactionsBinding binding;
@@ -31,8 +33,12 @@ public class TransactionsFragment extends Fragment {
                 binding.emptyTransactionLayout.setVisibility(View.GONE);
                 binding.transactionsRV.setVisibility(View.VISIBLE);
 
-                // Load
+                // Load Transactions
                 Log.i(TAG, "onCreateView: " + transactionList.size());
+
+                TransactionsRVAdapter transactionsRVAdapter = new TransactionsRVAdapter(requireContext(),
+                        this, transactionList);
+                binding.transactionsRV.setAdapter(transactionsRVAdapter);
 
             } else {
                 binding.emptyTransactionLayout.setVisibility(View.VISIBLE);
@@ -40,5 +46,11 @@ public class TransactionsFragment extends Fragment {
             }
         });
         return binding.getRoot();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+
     }
 }
