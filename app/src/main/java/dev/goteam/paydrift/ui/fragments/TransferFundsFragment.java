@@ -67,7 +67,7 @@ public class TransferFundsFragment extends Fragment implements OnBankSelectedLis
             @Override
             public void onClick(View view) {
                 String text = "send money from bank: " + DataSource.getBanks(selectedSenderBank).get(selectedSenderBank).getBankName() + " to: "
-                         + DataSource.getBanks(selectedRecipientBank).get(selectedRecipientBank).getBankName() + " with an account number of"
+                         + DataSource.getRecipientBanks(selectedRecipientBank).get(selectedRecipientBank).getBankName() + " with an account number of"
                          + binding.accountNumberField.getEditText().getText().toString() + " an amount of: " +
                         binding.amountField.getEditText().getText().toString();
 
