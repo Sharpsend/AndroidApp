@@ -1,5 +1,6 @@
 package dev.goteam.paydrift.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,12 @@ import java.util.List;
 import dev.goteam.paydrift.R;
 import dev.goteam.paydrift.databinding.FragmentHomeBinding;
 import dev.goteam.paydrift.db.entities.HomeItem;
+import dev.goteam.paydrift.ui.activities.OperationsActivity;
 import dev.goteam.paydrift.ui.adapters.HomeRVAdapter;
+import dev.goteam.paydrift.utils.Constants;
 import dev.goteam.paydrift.viewmodels.HomeViewModel;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSelectedListener {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -45,7 +48,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
-
+    public void onItemSelected(int position) {
+        Intent operationsIntent = new Intent(requireActivity(), OperationsActivity.class);
+        operationsIntent.putExtra("operation_id", position);
+        startActivity(operationsIntent);
     }
 }

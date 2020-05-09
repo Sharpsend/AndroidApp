@@ -15,19 +15,18 @@ import dev.goteam.paydrift.R;
 import dev.goteam.paydrift.db.entities.HomeItem;
 
 public class HomeRVAdapter extends RecyclerView.Adapter<HomeRVAdapter.HomeRVAdapterViewHolder> {
-    private View.OnClickListener onClickListener;
+    private HomeRVAdapter.OnHomeItemSelectedListener onHomeItemSelectedListener;
     private List<HomeItem> homeItems;
 
-    public HomeRVAdapter(View.OnClickListener onClickListener, List<HomeItem> homeItems) {
+    public HomeRVAdapter(HomeRVAdapter.OnHomeItemSelectedListener onHomeItemSelectedListener, List<HomeItem> homeItems) {
         this.homeItems = homeItems;
-        this.onClickListener = onClickListener;
+        this.onHomeItemSelectedListener = onHomeItemSelectedListener;
     }
 
     @NonNull
     @Override
     public HomeRVAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_rv, parent, false);
-        itemView.setOnClickListener(onClickListener);
         return new HomeRVAdapterViewHolder(itemView);
     }
 
@@ -50,7 +49,7 @@ public class HomeRVAdapter extends RecyclerView.Adapter<HomeRVAdapter.HomeRVAdap
             return 0;
     }
 
-    public class HomeRVAdapterViewHolder extends RecyclerView.ViewHolder {
+    public class HomeRVAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, description;
         ImageView icon;
 
@@ -59,6 +58,17 @@ public class HomeRVAdapter extends RecyclerView.Adapter<HomeRVAdapter.HomeRVAdap
             title = itemView.findViewById(R.id.title);
             description = itemView.findViewById(R.id.description);
             icon = itemView.findViewById(R.id.icon);
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onHomeItemSelectedListener.onItemSelected(getAdapterPosition());
+        }
+    }
+
+    public interface OnHomeItemSelectedListener {
+        void onItemSelected(int position);
     }
 }

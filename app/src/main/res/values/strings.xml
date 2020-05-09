@@ -24,7 +24,15 @@
   <string name="welcome_text_placeholder">Welcome back, Soliudeen</string>
   <string name="pin_should_be_4_characters_long_text">PIN should be 4-characters long</string>
   <string name="use_fingerprint_text">Use Fingerprint</string>
-    <string name="title_settings">Settings</string>
-    <string name="title_transactions">Transactions</string>
-    <string name="quick_actions">QUICK ACTIONS</string>
+  <string name="title_settings">Settings</string>
+  <string name="title_transactions">Transactions</string>
+  <string name="quick_actions">QUICK ACTIONS</string>
+  <string name="account_number_text">Account Number</string>
+  <string name="recipient_account_number_text">Recipient Account Number</string>
+  <string name="select_bank_text">Select Bank</string>
+  <string name="select_recipient_bank_text">Select Recipient Bank</string>
+  <string name="amount_text">Amount (&#8358;)</string>
+  <string name="send_text">Send</string>
+  <string name="proceed_text">Proceed</string>
+  <string name="cancel_text">Cancel</string>
 </resources>

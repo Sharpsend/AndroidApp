@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="16dp">
+
+	<TextView
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/select_bank_text"
+	  android:id="@+id/select_bank_heading"
+	  app:layout_constraintTop_toTopOf="parent"
+	  app:layout_constraintBaseline_toBaselineOf="@id/cancel_button"
+	  app:layout_constraintLeft_toLeftOf="parent"
+	  android:textColor="@android:color/black"
+	  android:textSize="24sp"/>
+
+	<Button
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  app:layout_constraintTop_toTopOf="parent"
+	  android:id="@+id/cancel_button"
+	  app:layout_constraintEnd_toEndOf="parent"
+	  android:text="@string/cancel_text"
+	  style="@style/Widget.MaterialComponents.Button.TextButton"
+	  app:layout_constraintBottom_toTopOf="@id/banksList"
+	  android:textColor="@android:color/black"
+	  />
+
+	<androidx.recyclerview.widget.RecyclerView
+	  android:id="@+id/banksList"
+	  android:layout_width="0dp"
+	  app:layout_constraintStart_toStartOf="parent"
+	  app:layout_constraintEnd_toEndOf="parent"
+	  android:layout_height="wrap_content"
+	  tools:listitem="@layout/item_bank"
+	  android:layout_marginTop="10dp"
+	  app:layout_constraintTop_toBottomOf="@id/select_bank_heading" />
+
+	<Button
+	  android:id="@+id/proceed_button"
+	  style="@style/ColoredButton"
+	  android:layout_width="match_parent"
+	  android:layout_height="wrap_content"
+	  android:text="@string/proceed_text"
+	  app:layout_constraintTop_toBottomOf="@id/banksList" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <data>
+	<variable
+	  name="selectedBankIndex"
+	  type="Integer" />
+  </data>
+</layout>
