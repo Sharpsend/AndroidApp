@@ -1,5 +1,6 @@
 package dev.goteam.sharpsend.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.hover.sdk.api.HoverParameters;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentTransferFundsBinding;
@@ -26,11 +28,9 @@ import dev.goteam.sharpsend.utils.DataSource;
 
 public class TransferFundsFragment extends Fragment implements OnBankSelection, OnRecipientBankSelection, TextWatcher {
 
-    private FragmentTransferFundsBinding binding;
-    BankItem.Bank senderBank;
-    private int selectedSenderBank = Constants.NO_BANK_SELECTED;
-    private int selectedRecipientBank = Constants.NO_BANK_SELECTED;
+    private BankItem.Bank senderBank;
     private BankItem.TransferBank recipientBank;
+    private FragmentTransferFundsBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +65,15 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
         binding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // TODO Validate inputs
+                Intent i = new HoverParameters.Builder(requireActivity())
+                        .request(recipientBank.getActionID()) // Add your action ID here
+                        .extra("Amount", binding.amountField.getEditText().getText().toString())
+                        .extra("Nuban", binding.accountNumberField.getEditText().getText().toString())
+                        .buildIntent();
+                startActivityForResult(i, 0);
+
                 String text = "send money from bank: " + senderBank.getName() + " to: "
                          + recipientBank.getName() + " with an account number of"
                          + binding.accountNumberField.getEditText().getText().toString() + " an amount of: " +
@@ -112,9 +121,7 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
         binding.senderBankField.getEditText().setText(null);
     }
 
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
+    @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
     @Override
     public void afterTextChanged(Editable editable) {
@@ -131,9 +138,5 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
         }
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
-
-
+    @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 }
