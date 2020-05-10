@@ -36,4 +36,8 @@
   <string name="proceed_text">Proceed</string>
   <string name="cancel_text">Cancel</string>
   <string name="recipient_placeholder">Access Bank PLC</string>
+  <string name="select_mobile_number_text">Select mobile number</string>
+  <string name="phone_number_text">Phone number</string>
+  <string name="phone_account_number_text">Recipient phone number</string>
+  <string name="mobile_number_text">Mobile number</string>
 </resources>
