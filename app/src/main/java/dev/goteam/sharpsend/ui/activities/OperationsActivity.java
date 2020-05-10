@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.ui.fragments.BuyAirtimeFragment;
 import dev.goteam.sharpsend.ui.fragments.TransferFundsFragment;
 import dev.goteam.sharpsend.utils.Constants;
 
@@ -34,15 +35,19 @@ public class OperationsActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Fragment fragment;
 
-//        switch (operation_id) {
-//            case Constants.OPERATION_FUNDS_TRANSFER:
-                fragment = new TransferFundsFragment();                                            // operation_id
-                fragmentTransaction.replace(R.id.operations_fragment_container, fragment, String.valueOf(1));
+        switch (operation_id) {
+            case Constants.OPERATION_FUNDS_TRANSFER:
+                fragment = new TransferFundsFragment();
+                fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "transferFundsFragment");
                 fragmentTransaction.commit();
-//            break;
-//            default:
-//                break;
-//        }
+            break;
+            case Constants.OPERATION_BUY_AIRTIME:
+                fragment = new BuyAirtimeFragment();
+                fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "buyAirtimeFragment");
+                fragmentTransaction.commit();
+            default:
+                break;
+        }
 
     }
 
