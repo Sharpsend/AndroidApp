@@ -9,21 +9,16 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentTransferFundsBinding;
-import dev.goteam.sharpsend.db.entities.Bank;
 import dev.goteam.sharpsend.db.entities.BankItem;
-import dev.goteam.sharpsend.ui.listeners.OnBankSelectedListener;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 import dev.goteam.sharpsend.utils.Constants;
@@ -70,8 +65,8 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
         binding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text = "send money from bank: " + DataSource.getBanks(selectedSenderBank).get(selectedSenderBank).getBankName() + " to: "
-                         + DataSource.getRecipientBanks(selectedRecipientBank).get(selectedRecipientBank).getBankName() + " with an account number of"
+                String text = "send money from bank: " + senderBank.getName() + " to: "
+                         + recipientBank.getName() + " with an account number of"
                          + binding.accountNumberField.getEditText().getText().toString() + " an amount of: " +
                         binding.amountField.getEditText().getText().toString();
 

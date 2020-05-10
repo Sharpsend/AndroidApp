@@ -1,29 +1,21 @@
 package dev.goteam.sharpsend.ui.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.ArrayList;
-
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentSelectBankBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
-import dev.goteam.sharpsend.ui.adapters.BanksAdapter;
 import dev.goteam.sharpsend.ui.adapters.BanksRVAdapter;
 import dev.goteam.sharpsend.ui.listeners.OnBankItemSelected;
-import dev.goteam.sharpsend.ui.listeners.OnBankItemSelectedOnAdapterListener;
-import dev.goteam.sharpsend.ui.listeners.OnBankSelectedListener;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
-import dev.goteam.sharpsend.utils.DataSource;
 
 public class SelectBankBottomSheetFragment extends RoundedBottomSheetFragment implements OnBankItemSelected {
 

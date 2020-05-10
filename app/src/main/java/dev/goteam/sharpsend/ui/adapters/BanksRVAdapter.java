@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
-import dev.goteam.sharpsend.db.entities.Bank;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.ui.listeners.OnBankItemSelected;
 

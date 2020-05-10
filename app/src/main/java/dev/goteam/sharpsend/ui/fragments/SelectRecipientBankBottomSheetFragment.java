@@ -17,10 +17,7 @@ import java.util.List;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentSelectRecipientBankBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
-import dev.goteam.sharpsend.ui.adapters.BanksAdapter;
 import dev.goteam.sharpsend.ui.adapters.RecipientBanksRVAdapter;
-import dev.goteam.sharpsend.ui.listeners.OnBankItemSelected;
-import dev.goteam.sharpsend.ui.listeners.OnBankSelectedListener;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankItemSelected;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 

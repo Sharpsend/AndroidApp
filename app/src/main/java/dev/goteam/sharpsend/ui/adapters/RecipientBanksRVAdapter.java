@@ -16,7 +16,6 @@ import java.util.List;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.db.entities.BankItem;
-import dev.goteam.sharpsend.ui.listeners.OnBankItemSelectedOnAdapterListener;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankItemSelected;
 
 public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanksRVAdapter.BankViewHolder>
