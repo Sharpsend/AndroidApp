@@ -1,13 +1,11 @@
 package dev.goteam.sharpsend.ui.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,84 +15,51 @@ import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.db.entities.Bank;
-import dev.goteam.sharpsend.ui.listeners.OnBankItemSelectedOnAdapterListener;
-import dev.goteam.sharpsend.utils.DataSource;
+import dev.goteam.sharpsend.db.entities.BankItem;
+import dev.goteam.sharpsend.ui.listeners.OnBankItemSelected;
 
-public class BanksRVAdapter extends RecyclerView.Adapter<BanksRVAdapter.BankViewHolder>
-    implements Filterable {
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
-    private final boolean isRecipient;
-    private int selectedIndex = -1;
+public class BanksRVAdapter extends RecyclerView.Adapter<BanksRVAdapter.BankRVViewHolder> {
+
     private Context context;
-    private ArrayList<Bank> banks;
-    private OnBankItemSelectedOnAdapterListener mOnBankItemSelectedOnAdapterListener;
-
-    private Filter banksFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            ArrayList<Bank> filteredBanks = new ArrayList<>();
-
-            if (charSequence == null || charSequence == "") {
-                filteredBanks.addAll(DataSource.getRecipientBanks(0));
-            } else {
-                String text = charSequence.toString().trim();
-                for (Bank bank: banks) {
-                    if (bank.getBankName().trim().contains(text)) {
-                        filteredBanks.add(bank);
-                    }
-                }
-            }
-
-            FilterResults res = new FilterResults();
-            res.values = filteredBanks;
-            return res;
-
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            ArrayList<Bank> result = (ArrayList<Bank>) filterResults.values;
-            banks = result;
-            notifyDataSetChanged();
-        }
-    };
+    private ArrayList<BankItem.Bank> banks;
+    private OnBankItemSelected mOnBankItemSelected;
 
     public BanksRVAdapter(Context context,
-                          ArrayList<Bank> banks,
-                          OnBankItemSelectedOnAdapterListener selectedOnAdapterListener,
-                          boolean isRecipient) {
+                          ArrayList<BankItem.Bank> banks,
+                          OnBankItemSelected selectedOnAdapterListener) {
         this.context = context;
         this.banks = banks;
-        this.mOnBankItemSelectedOnAdapterListener = selectedOnAdapterListener;
-        this.isRecipient = isRecipient;
-    }
-
-    @Override
-    public Filter getFilter() {
-        return banksFilter;
+        this.mOnBankItemSelected = selectedOnAdapterListener;
     }
 
     @NonNull
     @Override
-    public BanksRVAdapter.BankViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                isRecipient ? R.layout.item_recipient_bank : R.layout.item_bank, parent, false
-        );
+    public BanksRVAdapter.BankRVViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        return new BankViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate( R.layout.item_bank, parent, false );
+
+        return new BankRVViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BanksRVAdapter.BankViewHolder holder, int position) {
-        Bank bank = banks.get(position);
-        if (selectedIndex == -1) {
-            selectedIndex = bank.isSelected() ? position : -1;
-        }
+    public void onBindViewHolder(@NonNull BanksRVAdapter.BankRVViewHolder holder, int position) {
+        BankItem.Bank bank = banks.get(position);
         holder.bind(bank);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bankSelected(position);
+                Log.i(TAG, "onClick: " + position);
+                mOnBankItemSelected.onBankItemSelected(banks.get(position));
+            }
+        });
     }
 
     public void bankSelected(int position) {
-        for (Bank bank: banks) {
+        for (BankItem.Bank bank: banks) {
             bank.setSelected(false);
         }
         banks.get(position).setSelected(true);
@@ -106,57 +71,22 @@ public class BanksRVAdapter extends RecyclerView.Adapter<BanksRVAdapter.BankView
         return banks.size();
     }
 
-    class BankViewHolder extends RecyclerView.ViewHolder {
-
+    class BankRVViewHolder extends RecyclerView.ViewHolder {
         TextView bankName;
-        ImageView bankIsSelected;
-        RadioButton recipientBankIsSelected;
+        ImageView selectorImage;
 
-        public BankViewHolder(View itemView) {
+        public BankRVViewHolder(View itemView) {
             super(itemView);
 
-            if (isRecipient) {
-                bankName = itemView.findViewById(R.id.recipient_bank_name);
-                recipientBankIsSelected = itemView.findViewById(R.id.recipient_radio_button);
-            } else {
                 bankName = itemView.findViewById(R.id.bank_name);
-                bankIsSelected = itemView.findViewById(R.id.bank_is_selected);
-            }
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Bank bank = banks.get(getAdapterPosition());
-
-                    if (isRecipient) {
-                        int realPosition = 0;
-                        ArrayList<Bank> source = DataSource.getRecipientBanks(0);
-                        for (int i = 0; i < source.size(); i++) {
-                            Bank b = source.get(i);
-                            if (b.getBankName() == bank.getBankName()) {
-                                realPosition = i;
-                            }
-                        }
-                        mOnBankItemSelectedOnAdapterListener.onBankItemSelected(realPosition);
-                        return;
-                    }
-
-                    mOnBankItemSelectedOnAdapterListener.onBankItemSelected(getAdapterPosition());
-                }
-            });
+                selectorImage = itemView.findViewById(R.id.selectorImage);
         }
 
-        public void bind(Bank bank) {
-            bankName.setText(bank.getBankName());
+        public void bind(BankItem.Bank bank) {
+            bankName.setText(bank.getName());
+            selectorImage.setVisibility(bank.isSelected() ? View.VISIBLE : View.GONE);
 
-            if (!isRecipient) {
-                bankIsSelected.setVisibility(bank.isSelected() ? View.VISIBLE : View.GONE);
-                itemView.setBackgroundResource(bank.isSelected() ? R.drawable.bank_selected_bg : R.drawable.bank_unselected_bg);
-            } else {
-                recipientBankIsSelected.setChecked(bank.isSelected());
-            }
-
+            itemView.setBackgroundResource(bank.isSelected() ? R.drawable.bank_selected_bg : R.drawable.bank_unselected_bg);
         }
-
     }
 }

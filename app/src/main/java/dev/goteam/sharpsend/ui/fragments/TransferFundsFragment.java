@@ -22,13 +22,16 @@ import com.google.android.material.snackbar.Snackbar;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentTransferFundsBinding;
 import dev.goteam.sharpsend.db.entities.Bank;
+import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelectedListener;
+import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.utils.DataSource;
 
-public class TransferFundsFragment extends Fragment implements OnBankSelectedListener, TextWatcher {
+public class TransferFundsFragment extends Fragment implements OnBankSelection, OnBankSelectedListener, TextWatcher {
 
     private FragmentTransferFundsBinding binding;
+    BankItem.Bank senderBank;
     private int selectedSenderBank = Constants.NO_BANK_SELECTED;
     private int selectedRecipientBank = Constants.NO_BANK_SELECTED;
 
@@ -39,7 +42,6 @@ public class TransferFundsFragment extends Fragment implements OnBankSelectedLis
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_transfer_funds, container, false);
 
         return binding.getRoot();
-
     }
 
     @Override
@@ -49,14 +51,14 @@ public class TransferFundsFragment extends Fragment implements OnBankSelectedLis
         binding.senderBankField.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchBankSelection(false);
+                launchBankSelection();
             }
         });
 
         binding.selectRecipientBankField.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchBankSelection(true);
+                launchRecipientBankSelection();
             }
         });
 
@@ -77,28 +79,39 @@ public class TransferFundsFragment extends Fragment implements OnBankSelectedLis
 
     }
 
-    private void launchBankSelection(boolean isRecipient) {
+    private void launchBankSelection() {
+
         RoundedBottomSheetFragment mSelectBankBottomSheetFragment;
-        Bundle arguments = new Bundle();
-        arguments.putInt("selectedBankIndex", isRecipient ? selectedRecipientBank : selectedSenderBank);
-
-        if (isRecipient) {
-            mSelectBankBottomSheetFragment = new SelectRecipientBankBottomSheetFragment(this);
-        } else {
-            mSelectBankBottomSheetFragment = new SelectBankBottomSheetFragment(this);
-        }
-
-        mSelectBankBottomSheetFragment.setArguments(arguments);
+        mSelectBankBottomSheetFragment = new SelectBankBottomSheetFragment(this);
         mSelectBankBottomSheetFragment.show(getParentFragmentManager(), "selectBankModal");
+    }
+
+    private void launchRecipientBankSelection() {
+
+        if (senderBank != null) {
+            RoundedBottomSheetFragment mSelectBankBottomSheetFragment;
+            mSelectBankBottomSheetFragment = new SelectRecipientBankBottomSheetFragment(this);
+            mSelectBankBottomSheetFragment.show(getParentFragmentManager(), "selectRecipientBankModal");
+        } else {
+            Toast.makeText(requireActivity(), "Input your bank account first", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onBankSelected(BankItem.Bank bank) {
+        senderBank = bank;
+        binding.senderBankField.getEditText().setText(bank.getName());
+    }
+
+    @Override
+    public void onSelectionCanceled() {
+        senderBank = null;
+        binding.senderBankField.getEditText().setText(null);
     }
 
     @Override
     public void onSenderBankSelected(int newBankIndex) {
-        if (newBankIndex != -2 && newBankIndex != -1) {
-            Bank bank = DataSource.getBanks(newBankIndex).get(newBankIndex);
-            binding.senderBankField.getEditText().setText(bank.getBankName());
-            selectedSenderBank = newBankIndex;
-        }
+
     }
 
     @Override
@@ -131,4 +144,6 @@ public class TransferFundsFragment extends Fragment implements OnBankSelectedLis
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
     }
+
+
 }

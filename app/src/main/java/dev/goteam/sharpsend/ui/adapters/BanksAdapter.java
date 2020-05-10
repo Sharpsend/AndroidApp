@@ -1,7 +1,6 @@
 package dev.goteam.sharpsend.ui.adapters;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import dev.goteam.sharpsend.R;
-import dev.goteam.sharpsend.databinding.ItemBankBinding;
 import dev.goteam.sharpsend.db.entities.Bank;
 import dev.goteam.sharpsend.ui.listeners.OnBankItemSelectedOnAdapterListener;
 import dev.goteam.sharpsend.utils.DataSource;
@@ -124,7 +120,7 @@ public class BanksAdapter extends RecyclerView.Adapter<BanksAdapter.BankViewHold
                 recipientBankIsSelected = itemView.findViewById(R.id.recipient_radio_button);
             } else {
                 bankName = itemView.findViewById(R.id.bank_name);
-                bankIsSelected = itemView.findViewById(R.id.bank_is_selected);
+                bankIsSelected = itemView.findViewById(R.id.selectorImage);
             }
 
             itemView.setOnClickListener(new View.OnClickListener() {

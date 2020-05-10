@@ -23,9 +23,7 @@ import dev.goteam.sharpsend.utils.DataSource;
 public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFragment implements OnBankItemSelectedOnAdapterListener {
 
     private FragmentSelectRecipientBankBinding binding;
-    private int selectedBankIndex;
     private OnBankSelectedListener mOnBankSelectedListener;
-
     private BanksAdapter adapter;
 
     public SelectRecipientBankBottomSheetFragment(OnBankSelectedListener mOnBankSelectedListener) {
@@ -43,11 +41,7 @@ public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Bundle arguments = getArguments();
 
-        selectedBankIndex = arguments.getInt("selectedBankIndex", -1);
-
-        adapter = new BanksAdapter(requireContext(), DataSource.getRecipientBanks(selectedBankIndex), this, true);
         binding.recipientBankList.setLayoutManager(new LinearLayoutManager(requireActivity()));
         binding.recipientBankList.setAdapter(adapter);
 
