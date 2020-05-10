@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +17,13 @@ import com.hover.sdk.permissions.PermissionActivity;
 import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
 import dev.goteam.sharpsend.ui.fragments.BuyAirtimeFragment;
 import dev.goteam.sharpsend.SharpsendApp;
 import dev.goteam.sharpsend.ui.fragments.TransferFundsFragment;
 import dev.goteam.sharpsend.utils.Constants;
+
+import static com.android.volley.VolleyLog.TAG;
 
 public class OperationsActivity extends AppCompatActivity implements Hover.DownloadListener {
     private final String TAG = "OperationsActivity";
@@ -81,5 +85,31 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
     public void onSuccess(ArrayList<HoverAction> arrayList) {
         Toast.makeText(this, "Successfully downloaded " + arrayList.size() + " actions", Toast.LENGTH_LONG).show();
         Log.d(TAG, "Successfully downloaded " + arrayList.size() + " actions");
+    }
+
+    public void launchIntent(Intent i, int code) {
+        startActivityForResult(i, code);
+    }
+
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+
+        Log.i(TAG, "onActivityResult: ");
+
+        if (requestCode == Constants.OPERATIONS_CODE && resultCode == Activity.RESULT_OK) {
+            String[] sessionTextArr = data.getStringArrayExtra("session_messages");
+            String uuid = data.getStringExtra("uuid");
+
+            assert sessionTextArr != null;
+            String lastMessage = sessionTextArr[sessionTextArr.length - 1];
+
+            TransactionSuccessDialog newFragment = new TransactionSuccessDialog(lastMessage);
+            newFragment.show(getSupportFragmentManager(), "transactionSuccessDialog");
+
+        } else if (requestCode == 0 && resultCode == Activity.RESULT_CANCELED) {
+            Toast.makeText(this, "Error: " + data.getStringExtra("error"), Toast.LENGTH_LONG).show();
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

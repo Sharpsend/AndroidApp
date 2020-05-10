@@ -25,22 +25,23 @@
 	  android:id="@+id/right_guideline"
 	  app:layout_constraintGuide_percent=".95" />
 
-	<TextView
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:textColor="@android:color/black"
-	  android:textSize="20sp"
-	  android:id="@+id/select_rec_bank_heading"
-	  app:layout_constraintStart_toEndOf="@id/left_guideline"
-	  app:layout_constraintTop_toTopOf="parent"
-	  android:paddingTop="8dp"
-	  android:text="@string/select_recipient_bank_text" />
+	  <TextView
+		  android:id="@+id/select_rec_bank_heading"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:fontFamily="@font/sf_pro_display_medium"
+		  android:paddingTop="8dp"
+		  android:text="@string/select_recipient_bank_text"
+		  android:textColor="@android:color/black"
+		  android:textSize="18sp"
+		  app:layout_constraintStart_toEndOf="@id/left_guideline"
+		  app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
 	  android:textColor="@android:color/black"
-	  android:textSize="16sp"
+	  android:textSize="18sp"
 	  android:paddingTop="8dp"
 	  android:id="@+id/cancel_text"
 	  app:layout_constraintBaseline_toBaselineOf="@id/select_rec_bank_heading"

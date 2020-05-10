@@ -10,8 +10,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.databinding.DialogTransactionSuccessfulBinding;
 
 public class TransactionSuccessDialog extends DialogFragment {
+
+    String message;
+    private DialogTransactionSuccessfulBinding binding;
+
+    public TransactionSuccessDialog(String message) {
+        this.message = message;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,7 +30,12 @@ public class TransactionSuccessDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_transaction_successful, container, false);
+        binding = DialogTransactionSuccessfulBinding.inflate(inflater, container, false);
+        binding.transactionResponseText.setText(message);
+        binding.closeBtn.setOnClickListener(view -> {
+            dismiss();
+        });
+        return binding.getRoot();
     }
 
     public void onStart() {

@@ -7,6 +7,7 @@
 	<item name="colorPrimaryDark">@color/colorPrimary</item>
 	<item name="colorAccent">@color/colorAccent</item>
 	<item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+	  <item name="android:textViewStyle">@style/TextStyle</item>
   </style>
 
   <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
@@ -61,4 +62,8 @@
   </style>
 
   <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
+
+	<style name="TextStyle" parent="AppTheme">
+		<item name="fontFamily">@font/sf_pro_display_regular</item>
+	</style>
 </resources>

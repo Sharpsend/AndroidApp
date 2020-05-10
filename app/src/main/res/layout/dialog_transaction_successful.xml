@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@android:color/white"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:background="@android:color/white"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <TextView
 	android:layout_width="wrap_content"
@@ -33,7 +34,8 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:textColor="@android:color/black"
-	android:textSize="18sp"
+	android:textSize="13sp"
+	  android:fontFamily="@font/sf_pro_display_regular"
 	android:background="@drawable/transaction_text_wrapper"
 	android:lineSpacingMultiplier="1.1"
 	app:layout_constraintTop_toTopOf="parent"
@@ -42,9 +44,10 @@
 	app:layout_constraintVertical_bias=".6"
 	android:layout_marginLeft="30dp"
 	android:layout_marginRight="30dp"
-	android:text="@string/placeholder_text"/>
+	tools:text="@string/placeholder_text"/>
 
   <Button
+	  android:id="@+id/close_btn"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	style="@style/Widget.MaterialComponents.Button"

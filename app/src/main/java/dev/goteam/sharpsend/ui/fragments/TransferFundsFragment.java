@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.hover.sdk.api.HoverParameters;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentTransferFundsBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
+import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 import dev.goteam.sharpsend.utils.Constants;
@@ -72,14 +74,14 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
                         .extra("Amount", binding.amountField.getEditText().getText().toString())
                         .extra("Nuban", binding.accountNumberField.getEditText().getText().toString())
                         .buildIntent();
-                startActivityForResult(i, 0);
+                ((OperationsActivity) requireActivity()).launchIntent(i, Constants.OPERATIONS_CODE);
 
-                String text = "send money from bank: " + senderBank.getName() + " to: "
+               /* String text = "send money from bank: " + senderBank.getName() + " to: "
                          + recipientBank.getName() + " with an account number of"
                          + binding.accountNumberField.getEditText().getText().toString() + " an amount of: " +
                         binding.amountField.getEditText().getText().toString();
 
-                Snackbar.make(view, text, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, text, Snackbar.LENGTH_LONG).show();*/
             }
         });
 
