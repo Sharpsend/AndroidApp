@@ -58,7 +58,6 @@ public class HomeRVAdapter extends RecyclerView.Adapter<HomeRVAdapter.HomeRVAdap
             title = itemView.findViewById(R.id.title);
             description = itemView.findViewById(R.id.description);
             icon = itemView.findViewById(R.id.icon);
-
             itemView.setOnClickListener(this);
         }
 

@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="dev.goteam.sharpsend">
+    package="dev.goteam.sharpsend">
 
-  <application
-	  android:name="dev.goteam.sharpsend.SharpsendApp"
-	android:allowBackup="true"
-	android:hardwareAccelerated="true"
-	android:icon="@mipmap/ic_launcher"
-	android:label="@string/app_name"
-	android:roundIcon="@mipmap/ic_launcher_round"
-	android:supportsRtl="true"
-	android:theme="@style/AppTheme">
-	<activity android:name=".ui.activities.OperationsActivity">
-		<intent-filter>
-			<action android:name="android.intent.action.MAIN" />
+    <application
+        android:name="dev.goteam.sharpsend.SharpsendApp"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.activities.OperationsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-			<category android:name="android.intent.category.LAUNCHER" />
-		</intent-filter>
-	</activity>
-	<activity android:name=".ui.activities.AuthActivity">
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activities.AuthActivity">
 
-	</activity>
-	<activity
-	  android:name="dev.goteam.sharpsend.ui.activities.MainActivity"
-	  android:label="@string/app_name">
-	</activity>
+        </activity>
+        <activity
+            android:name="dev.goteam.sharpsend.ui.activities.MainActivity"
+            android:label="@string/app_name"></activity>
 
-	  <meta-data
-		  android:name="preloaded_fonts"
-		  android:resource="@array/preloaded_fonts" />
-  </application>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <!-- Use Hover -->
+        <meta-data
+            android:name="com.hover.ApiKey"
+            android:value="932d3417179a3ada754b4103fe64cee3" />
+    </application>
 
 </manifest>

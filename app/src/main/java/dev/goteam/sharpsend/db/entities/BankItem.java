@@ -233,11 +233,6 @@ public class BankItem {
         boolean isSelected();
         void setSelected(boolean selected);
         List<TransferBank> getTransferBankList();
-
-    }
-
-    public interface TrnsferBank {
-
     }
 
     public class TransferBank {

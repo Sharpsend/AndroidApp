@@ -58,4 +58,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-guava:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // Use hover
+    implementation 'com.hover:android-sdk:1.5.1'
 }
