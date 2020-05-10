@@ -17,13 +17,14 @@ import java.util.List;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.ui.listeners.OnBankItemSelectedOnAdapterListener;
+import dev.goteam.sharpsend.ui.listeners.OnRecipientBankItemSelected;
 
 public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanksRVAdapter.BankViewHolder>
         implements Filterable {
 
+    private final OnRecipientBankItemSelected onRecipientBankItemSelected;
     private List<BankItem.TransferBank> transferBanks;
     private List<BankItem.TransferBank> finalTransferBanks;
-    private OnBankItemSelectedOnAdapterListener mOnBankItemSelectedOnAdapterListener;
 
     private Filter banksFilter = new Filter() {
         @Override
@@ -56,10 +57,10 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
     };
 
     public RecipientBanksRVAdapter(List<BankItem.TransferBank> transferBanks,
-                                   OnBankItemSelectedOnAdapterListener selectedOnAdapterListener) {
+                                   OnRecipientBankItemSelected onRecipientBankItemSelected) {
         this.transferBanks = transferBanks;
         this.finalTransferBanks = transferBanks;
-        this.mOnBankItemSelectedOnAdapterListener = selectedOnAdapterListener;
+        this.onRecipientBankItemSelected = onRecipientBankItemSelected;
     }
 
     @Override
@@ -84,10 +85,8 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BankItem.TransferBank bank = transferBanks.get(position);
                 bankSelected(position);
-
-                mOnBankItemSelectedOnAdapterListener.onBankItemSelected(position);
+                onRecipientBankItemSelected.onBankItemSelected(transferBanks.get(position));
                 return;
             }
         });
