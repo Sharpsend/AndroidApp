@@ -1,4 +1,4 @@
-package dev.goteam.sharpsend.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments.operations;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentSelectMobileNumberBinding;
@@ -32,8 +31,7 @@ public class SelectMobileNumberBottomSheetFragment extends RoundedBottomSheetFra
 
     public SelectMobileNumberBottomSheetFragment(
             OnMobileSelection mobileSelection,
-            ArrayList<MobileItem.Mobile> mobiles
-    ) {
+            ArrayList<MobileItem.Mobile> mobiles ) {
         this.mobileSelection = mobileSelection;
         this.mobiles = mobiles;
     }

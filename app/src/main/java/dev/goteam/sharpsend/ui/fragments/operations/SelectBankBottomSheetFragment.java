@@ -1,4 +1,4 @@
-package dev.goteam.sharpsend.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments.operations;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

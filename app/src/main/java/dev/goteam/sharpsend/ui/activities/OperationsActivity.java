@@ -20,9 +20,7 @@ import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
 import dev.goteam.sharpsend.ui.fragments.BuyAirtimeFragment;
 import dev.goteam.sharpsend.SharpsendApp;
-import dev.goteam.sharpsend.ui.fragments.BuyAirtimeFragment;
-import dev.goteam.sharpsend.ui.fragments.TransferFundsFragment;
-import dev.goteam.sharpsend.utils.Constants;
+import dev.goteam.sharpsend.ui.fragments.operations.BuyAirtimeFragment;
 
 public class OperationsActivity extends AppCompatActivity implements Hover.DownloadListener {
     private final String TAG = "OperationsActivity";
@@ -58,7 +56,11 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Fragment fragment;
 
-        switch (operation_id) {
+        fragment = new BuyAirtimeFragment();
+        fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "buyAirtimeFragment");
+        fragmentTransaction.commit();
+
+        /*switch (operation_id) {
             case Constants.OPERATION_FUNDS_TRANSFER:
                 fragment = new TransferFundsFragment();
                 fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "transferFundsFragment");
@@ -70,7 +72,7 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
                 fragmentTransaction.commit();
             default:
                 break;
-        }
+        }*/
 
     }
 

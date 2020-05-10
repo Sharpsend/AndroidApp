@@ -84,7 +84,6 @@ public class MobileItem {
         void setSelected(boolean selected);
         String getName();
         String getId();
-
     }
 
 }

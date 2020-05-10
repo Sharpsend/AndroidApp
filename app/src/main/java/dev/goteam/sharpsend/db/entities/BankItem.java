@@ -3,33 +3,45 @@ package dev.goteam.sharpsend.db.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.goteam.sharpsend.utils.Constants;
+
 public class BankItem {
 
     public class GT implements Bank {
 
-        private List<TransferBank> transferBankList;
+        private List<TransferBankAction> transferBankActionList;
         private boolean selected;
 
         public GT() {
-            transferBankList = new ArrayList<>();
+            transferBankActionList = new ArrayList<>();
             selected = false;
 
             // Transfer Data
-            transferBankList.add(new TransferBank("eba56884", "ACB", "Access Bank Plc"));
-            transferBankList.add(new TransferBank("7a0865ca", "ACDB", "Access (Diamond) Bank Plc"));
-            transferBankList.add(new TransferBank("daff7261", "KSB", "Keystone Bank Limited"));
-            transferBankList.add(new TransferBank("5cf626e7", "WMB", "Wema Bank Plc"));
-            transferBankList.add(new TransferBank("d89fd979", "UBN", "Union Bank of Nigeria"));
-            transferBankList.add(new TransferBank("682b23b7", "STB", "Sterling Bank Plc"));
-            transferBankList.add(new TransferBank("af262330", "STIB", "Stanbic IBTC Bank Plc"));
-            transferBankList.add(new TransferBank("86bd25bd", "FIB", "Fidelity Bank Plc"));
-            transferBankList.add(new TransferBank("d8bc6ab6", "FCMB", "First City Monument Bank Plc"));
-            transferBankList.add(new TransferBank("fde4df50", "POB", "Polaris Bank Limited"));
-            transferBankList.add(new TransferBank("14d0e844", "ECB", "Ecobank"));
-            transferBankList.add(new TransferBank("d0152ced", "UBA", "United Bank for Africa Plc"));
-            transferBankList.add(new TransferBank("864c9715", "ZEB", "Zenith Bank Plc"));
-            transferBankList.add(new TransferBank("71924468", "FBN", "First Bank of Nigeria Limited"));
-            transferBankList.add(new TransferBank("5da366f2", "GTB", "Guaranty Trust Bank plc"));
+            transferBankActionList.add(new TransferBankAction("eba56884", "ACB", "Access Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("7a0865ca", "ACDB", "Access (Diamond) Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("daff7261", "KSB", "Keystone Bank Limited"));
+            transferBankActionList.add(new TransferBankAction("5cf626e7", "WMB", "Wema Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("d89fd979", "UBN", "Union Bank of Nigeria"));
+            transferBankActionList.add(new TransferBankAction("682b23b7", "STB", "Sterling Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("af262330", "STIB", "Stanbic IBTC Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("86bd25bd", "FIB", "Fidelity Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("d8bc6ab6", "FCMB", "First City Monument Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("fde4df50", "POB", "Polaris Bank Limited"));
+            transferBankActionList.add(new TransferBankAction("14d0e844", "ECB", "Ecobank"));
+            transferBankActionList.add(new TransferBankAction("d0152ced", "UBA", "United Bank for Africa Plc"));
+            transferBankActionList.add(new TransferBankAction("864c9715", "ZEB", "Zenith Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("71924468", "FBN", "First Bank of Nigeria Limited"));
+            transferBankActionList.add(new TransferBankAction("5da366f2", "GTB", "Guaranty Trust Bank plc"));
+        }
+
+        @Override
+        public RechargeAction getSelfRechargeAction() {
+            return new RechargeAction("4e0c3328", "SELF", Constants.MOBILE_NUMBER_SELF);
+        }
+
+        @Override
+        public RechargeAction getOthersRechargeAction() {
+            return new RechargeAction("60e06f98", "OTHERS", Constants.MOBILE_NUMBER_THIRD_PARTY);
         }
 
         @Override
@@ -43,8 +55,8 @@ public class BankItem {
         }
 
         @Override
-        public List<TransferBank> getTransferBankList() {
-            return transferBankList;
+        public List<TransferBankAction> getTransferBankActionList() {
+            return transferBankActionList;
         }
 
         @Override
@@ -60,29 +72,39 @@ public class BankItem {
 
     public class ST implements Bank {
 
-        private List<TransferBank> transferBankList;
+        private List<TransferBankAction> transferBankActionList;
         private boolean selected;
 
         public ST() {
-            transferBankList = new ArrayList<>();
+            transferBankActionList = new ArrayList<>();
             selected = false;
 
             // Transfer Data
-            transferBankList.add(new TransferBank("eba56884", "ACB", "Access Bank Plc"));
-            transferBankList.add(new TransferBank("7a0865ca", "ACDB", "Access (Diamond) Bank Plc"));
-            transferBankList.add(new TransferBank("daff7261", "KSB", "Keystone Bank Limited"));
-            transferBankList.add(new TransferBank("5cf626e7", "WMB", "Wema Bank Plc"));
-            transferBankList.add(new TransferBank("d89fd979", "UBN", "Union Bank of Nigeria"));
-            transferBankList.add(new TransferBank("682b23b7", "STB", "Sterling Bank Plc"));
-            transferBankList.add(new TransferBank("af262330", "STIB", "Stanbic IBTC Bank Plc"));
-            transferBankList.add(new TransferBank("86bd25bd", "FIB", "Fidelity Bank Plc"));
-            transferBankList.add(new TransferBank("d8bc6ab6", "FCMB", "First City Monument Bank Plc"));
-            transferBankList.add(new TransferBank("fde4df50", "POB", "Polaris Bank Limited"));
-            transferBankList.add(new TransferBank("14d0e844", "ECB", "Ecobank"));
-            transferBankList.add(new TransferBank("d0152ced", "UBA", "United Bank for Africa Plc"));
-            transferBankList.add(new TransferBank("864c9715", "ZEB", "Zenith Bank Plc"));
-            transferBankList.add(new TransferBank("71924468", "FBN", "First Bank of Nigeria Limited"));
-            transferBankList.add(new TransferBank("5da366f2", "GTB", "Guaranty Trust Bank plc"));
+            transferBankActionList.add(new TransferBankAction("eba56884", "ACB", "Access Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("7a0865ca", "ACDB", "Access (Diamond) Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("daff7261", "KSB", "Keystone Bank Limited"));
+            transferBankActionList.add(new TransferBankAction("5cf626e7", "WMB", "Wema Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("d89fd979", "UBN", "Union Bank of Nigeria"));
+            transferBankActionList.add(new TransferBankAction("682b23b7", "STB", "Sterling Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("af262330", "STIB", "Stanbic IBTC Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("86bd25bd", "FIB", "Fidelity Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("d8bc6ab6", "FCMB", "First City Monument Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("fde4df50", "POB", "Polaris Bank Limited"));
+            transferBankActionList.add(new TransferBankAction("14d0e844", "ECB", "Ecobank"));
+            transferBankActionList.add(new TransferBankAction("d0152ced", "UBA", "United Bank for Africa Plc"));
+            transferBankActionList.add(new TransferBankAction("864c9715", "ZEB", "Zenith Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("71924468", "FBN", "First Bank of Nigeria Limited"));
+            transferBankActionList.add(new TransferBankAction("5da366f2", "GTB", "Guaranty Trust Bank plc"));
+        }
+
+        @Override
+        public RechargeAction getSelfRechargeAction() {
+            return new RechargeAction("4e0c3328", "SELF", Constants.MOBILE_NUMBER_SELF);
+        }
+
+        @Override
+        public RechargeAction getOthersRechargeAction() {
+            return new RechargeAction("60e06f98", "OTHERS", Constants.MOBILE_NUMBER_THIRD_PARTY);
         }
 
         @Override
@@ -96,8 +118,8 @@ public class BankItem {
         }
 
         @Override
-        public List<TransferBank> getTransferBankList() {
-            return transferBankList;
+        public List<TransferBankAction> getTransferBankActionList() {
+            return transferBankActionList;
         }
 
         @Override
@@ -113,29 +135,39 @@ public class BankItem {
 
     public class KT implements Bank {
 
-        private List<TransferBank> transferBankList;
+        private List<TransferBankAction> transferBankActionList;
         private boolean selected;
 
         public KT() {
-            transferBankList = new ArrayList<>();
+            transferBankActionList = new ArrayList<>();
             selected = false;
 
             // Transfer Data
-            transferBankList.add(new TransferBank("eba56884", "ACB", "Access Bank Plc"));
-            transferBankList.add(new TransferBank("7a0865ca", "ACDB", "Access (Diamond) Bank Plc"));
-            transferBankList.add(new TransferBank("daff7261", "KSB", "Keystone Bank Limited"));
-            transferBankList.add(new TransferBank("5cf626e7", "WMB", "Wema Bank Plc"));
-            transferBankList.add(new TransferBank("d89fd979", "UBN", "Union Bank of Nigeria"));
-            transferBankList.add(new TransferBank("682b23b7", "STB", "Sterling Bank Plc"));
-            transferBankList.add(new TransferBank("af262330", "STIB", "Stanbic IBTC Bank Plc"));
-            transferBankList.add(new TransferBank("86bd25bd", "FIB", "Fidelity Bank Plc"));
-            transferBankList.add(new TransferBank("d8bc6ab6", "FCMB", "First City Monument Bank Plc"));
-            transferBankList.add(new TransferBank("fde4df50", "POB", "Polaris Bank Limited"));
-            transferBankList.add(new TransferBank("14d0e844", "ECB", "Ecobank"));
-            transferBankList.add(new TransferBank("d0152ced", "UBA", "United Bank for Africa Plc"));
-            transferBankList.add(new TransferBank("864c9715", "ZEB", "Zenith Bank Plc"));
-            transferBankList.add(new TransferBank("71924468", "FBN", "First Bank of Nigeria Limited"));
-            transferBankList.add(new TransferBank("5da366f2", "GTB", "Guaranty Trust Bank plc"));
+            transferBankActionList.add(new TransferBankAction("eba56884", "ACB", "Access Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("7a0865ca", "ACDB", "Access (Diamond) Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("daff7261", "KSB", "Keystone Bank Limited"));
+            transferBankActionList.add(new TransferBankAction("5cf626e7", "WMB", "Wema Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("d89fd979", "UBN", "Union Bank of Nigeria"));
+            transferBankActionList.add(new TransferBankAction("682b23b7", "STB", "Sterling Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("af262330", "STIB", "Stanbic IBTC Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("86bd25bd", "FIB", "Fidelity Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("d8bc6ab6", "FCMB", "First City Monument Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("fde4df50", "POB", "Polaris Bank Limited"));
+            transferBankActionList.add(new TransferBankAction("14d0e844", "ECB", "Ecobank"));
+            transferBankActionList.add(new TransferBankAction("d0152ced", "UBA", "United Bank for Africa Plc"));
+            transferBankActionList.add(new TransferBankAction("864c9715", "ZEB", "Zenith Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("71924468", "FBN", "First Bank of Nigeria Limited"));
+            transferBankActionList.add(new TransferBankAction("5da366f2", "GTB", "Guaranty Trust Bank plc"));
+        }
+
+        @Override
+        public RechargeAction getSelfRechargeAction() {
+            return new RechargeAction("4e0c3328", "SELF", Constants.MOBILE_NUMBER_SELF);
+        }
+
+        @Override
+        public RechargeAction getOthersRechargeAction() {
+            return new RechargeAction("60e06f98", "OTHERS", Constants.MOBILE_NUMBER_THIRD_PARTY);
         }
 
         @Override
@@ -149,8 +181,8 @@ public class BankItem {
         }
 
         @Override
-        public List<TransferBank> getTransferBankList() {
-            return transferBankList;
+        public List<TransferBankAction> getTransferBankActionList() {
+            return transferBankActionList;
         }
 
         @Override
@@ -166,29 +198,39 @@ public class BankItem {
 
     public class PT implements Bank {
 
-        private List<TransferBank> transferBankList;
+        private List<TransferBankAction> transferBankActionList;
         private boolean selected;
 
         public PT() {
-            transferBankList = new ArrayList<>();
+            transferBankActionList = new ArrayList<>();
             selected = false;
 
             // Transfer Data
-            transferBankList.add(new TransferBank("eba56884", "ACB", "Access Bank Plc"));
-            transferBankList.add(new TransferBank("7a0865ca", "ACDB", "Access (Diamond) Bank Plc"));
-            transferBankList.add(new TransferBank("daff7261", "KSB", "Keystone Bank Limited"));
-            transferBankList.add(new TransferBank("5cf626e7", "WMB", "Wema Bank Plc"));
-            transferBankList.add(new TransferBank("d89fd979", "UBN", "Union Bank of Nigeria"));
-            transferBankList.add(new TransferBank("682b23b7", "STB", "Sterling Bank Plc"));
-            transferBankList.add(new TransferBank("af262330", "STIB", "Stanbic IBTC Bank Plc"));
-            transferBankList.add(new TransferBank("86bd25bd", "FIB", "Fidelity Bank Plc"));
-            transferBankList.add(new TransferBank("d8bc6ab6", "FCMB", "First City Monument Bank Plc"));
-            transferBankList.add(new TransferBank("fde4df50", "POB", "Polaris Bank Limited"));
-            transferBankList.add(new TransferBank("14d0e844", "ECB", "Ecobank"));
-            transferBankList.add(new TransferBank("d0152ced", "UBA", "United Bank for Africa Plc"));
-            transferBankList.add(new TransferBank("864c9715", "ZEB", "Zenith Bank Plc"));
-            transferBankList.add(new TransferBank("71924468", "FBN", "First Bank of Nigeria Limited"));
-            transferBankList.add(new TransferBank("5da366f2", "GTB", "Guaranty Trust Bank plc"));
+            transferBankActionList.add(new TransferBankAction("eba56884", "ACB", "Access Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("7a0865ca", "ACDB", "Access (Diamond) Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("daff7261", "KSB", "Keystone Bank Limited"));
+            transferBankActionList.add(new TransferBankAction("5cf626e7", "WMB", "Wema Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("d89fd979", "UBN", "Union Bank of Nigeria"));
+            transferBankActionList.add(new TransferBankAction("682b23b7", "STB", "Sterling Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("af262330", "STIB", "Stanbic IBTC Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("86bd25bd", "FIB", "Fidelity Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("d8bc6ab6", "FCMB", "First City Monument Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("fde4df50", "POB", "Polaris Bank Limited"));
+            transferBankActionList.add(new TransferBankAction("14d0e844", "ECB", "Ecobank"));
+            transferBankActionList.add(new TransferBankAction("d0152ced", "UBA", "United Bank for Africa Plc"));
+            transferBankActionList.add(new TransferBankAction("864c9715", "ZEB", "Zenith Bank Plc"));
+            transferBankActionList.add(new TransferBankAction("71924468", "FBN", "First Bank of Nigeria Limited"));
+            transferBankActionList.add(new TransferBankAction("5da366f2", "GTB", "Guaranty Trust Bank plc"));
+        }
+
+        @Override
+        public RechargeAction getSelfRechargeAction() {
+            return new RechargeAction("4e0c3328", "SELF", Constants.MOBILE_NUMBER_SELF);
+        }
+
+        @Override
+        public RechargeAction getOthersRechargeAction() {
+            return new RechargeAction("60e06f98", "OTHERS", Constants.MOBILE_NUMBER_THIRD_PARTY);
         }
 
         @Override
@@ -202,8 +244,8 @@ public class BankItem {
         }
 
         @Override
-        public List<TransferBank> getTransferBankList() {
-            return transferBankList;
+        public List<TransferBankAction> getTransferBankActionList() {
+            return transferBankActionList;
         }
 
         @Override
@@ -232,16 +274,19 @@ public class BankItem {
         int getImageRes();
         boolean isSelected();
         void setSelected(boolean selected);
-        List<TransferBank> getTransferBankList();
+        RechargeAction getSelfRechargeAction();
+        RechargeAction getOthersRechargeAction();
+        List<TransferBankAction> getTransferBankActionList();
+
     }
 
-    public class TransferBank {
+    public class TransferBankAction {
 
         private String actionID;
         private String name;
         private String code;
         private boolean isSelected;
-        private TransferBank(String actionID, String code, String name) {
+        private TransferBankAction(String actionID, String code, String name) {
             isSelected = false;
             this.actionID = actionID;
             this.name = name;
@@ -266,6 +311,30 @@ public class BankItem {
 
         public void setSelected(boolean selected) {
             isSelected = selected;
+        }
+    }
+
+    public class RechargeAction {
+
+        private String actionID;
+        private String name;
+        private String code;
+        private RechargeAction(String actionID, String code, String name) {
+            this.actionID = actionID;
+            this.name = name;
+            this.code = code;
+        }
+
+        public String getActionID() {
+            return actionID;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getCode() {
+            return code;
         }
     }
 }

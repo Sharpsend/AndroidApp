@@ -4,5 +4,5 @@ import dev.goteam.sharpsend.db.entities.BankItem;
 
 public interface OnRecipientBankItemSelected {
 
-    void onBankItemSelected(BankItem.TransferBank transferBank);
+    void onBankItemSelected(BankItem.TransferBankAction transferBankAction);
 }
