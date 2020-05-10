@@ -8,28 +8,29 @@
 	android:layout_height="match_parent"
 	android:padding="16dp">
 
-	<TextView
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:text="@string/select_bank_text"
-	  android:id="@+id/select_bank_heading"
-	  app:layout_constraintTop_toTopOf="parent"
-	  app:layout_constraintBaseline_toBaselineOf="@id/cancel_button"
-	  app:layout_constraintLeft_toLeftOf="parent"
-	  android:textColor="@android:color/black"
-	  android:textSize="24sp"/>
+	  <TextView
+		  android:id="@+id/select_bank_heading"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:fontFamily="@font/sf_pro_display_medium"
+		  android:text="@string/select_bank_text"
+		  android:textColor="@android:color/black"
+		  android:textSize="18sp"
+		  app:layout_constraintBaseline_toBaselineOf="@id/cancel_button"
+		  app:layout_constraintLeft_toLeftOf="parent"
+		  app:layout_constraintTop_toTopOf="parent" />
 
-	<Button
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  app:layout_constraintTop_toTopOf="parent"
-	  android:id="@+id/cancel_button"
-	  app:layout_constraintEnd_toEndOf="parent"
-	  android:text="@string/cancel_text"
-	  style="@style/Widget.MaterialComponents.Button.TextButton"
-	  app:layout_constraintBottom_toTopOf="@id/banksList"
-	  android:textColor="@android:color/black"
-	  />
+	  <Button
+		  android:id="@+id/cancel_button"
+		  style="@style/Widget.MaterialComponents.Button.TextButton"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:text="@string/cancel_text"
+		  android:textColor="@color/colorGreyDark"
+		  android:textSize="18sp"
+		  app:layout_constraintBottom_toTopOf="@id/banksList"
+		  app:layout_constraintEnd_toEndOf="parent"
+		  app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.recyclerview.widget.RecyclerView
 	  android:id="@+id/banksList"

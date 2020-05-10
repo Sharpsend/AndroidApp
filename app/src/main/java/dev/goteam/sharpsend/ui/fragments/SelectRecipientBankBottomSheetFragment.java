@@ -1,4 +1,4 @@
-package dev.goteam.paydrift.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,24 +12,25 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.databinding.FragmentSelectBankBinding;
-import dev.goteam.paydrift.databinding.FragmentSelectRecipientBankBinding;
-import dev.goteam.paydrift.ui.adapters.BanksAdapter;
-import dev.goteam.paydrift.ui.listeners.OnBankItemSelectedOnAdapterListener;
-import dev.goteam.paydrift.ui.listeners.OnBankSelectedListener;
-import dev.goteam.paydrift.utils.DataSource;
+import java.util.List;
 
-public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFragment implements OnBankItemSelectedOnAdapterListener {
+import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.databinding.FragmentSelectRecipientBankBinding;
+import dev.goteam.sharpsend.db.entities.BankItem;
+import dev.goteam.sharpsend.ui.adapters.RecipientBanksRVAdapter;
+import dev.goteam.sharpsend.ui.listeners.OnRecipientBankItemSelected;
+import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 
+public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFragment implements OnRecipientBankItemSelected {
+
+    private final List<BankItem.TransferBank> transferBanks;
     private FragmentSelectRecipientBankBinding binding;
-    private int selectedBankIndex;
-    private OnBankSelectedListener mOnBankSelectedListener;
+    private OnRecipientBankSelection onRecipientBankSelectionListener;
+    private RecipientBanksRVAdapter adapter;
 
-    private BanksAdapter adapter;
-
-    public SelectRecipientBankBottomSheetFragment(OnBankSelectedListener mOnBankSelectedListener) {
-        this.mOnBankSelectedListener = mOnBankSelectedListener;
+    public SelectRecipientBankBottomSheetFragment(OnRecipientBankSelection onRecipientBankSelectionListener, List<BankItem.TransferBank> transferBanks) {
+        this.onRecipientBankSelectionListener = onRecipientBankSelectionListener;
+        this.transferBanks = transferBanks;
     }
 
     @Nullable
@@ -43,18 +44,15 @@ public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Bundle arguments = getArguments();
 
-        selectedBankIndex = arguments.getInt("selectedBankIndex", -1);
-
-        adapter = new BanksAdapter(requireContext(), DataSource.getRecipientBanks(selectedBankIndex), this, true);
+        adapter = new RecipientBanksRVAdapter(transferBanks, this);
         binding.recipientBankList.setLayoutManager(new LinearLayoutManager(requireActivity()));
         binding.recipientBankList.setAdapter(adapter);
 
         binding.cancelText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnBankSelectedListener.onRecipientBankSelected(-2);
+                onRecipientBankSelectionListener.onSelectionCanceled();
                 dismiss();
             }
         });
@@ -74,15 +72,11 @@ public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFr
                 adapter.getFilter().filter(text);
             }
         });
-
     }
 
     @Override
-    public void onBankItemSelected(int position) {
-        selectedBankIndex = position;
-        adapter.bankSelected(position);
-
-        mOnBankSelectedListener.onRecipientBankSelected(selectedBankIndex);
+    public void onBankItemSelected(BankItem.TransferBank transferBank) {
+        onRecipientBankSelectionListener.onRecipientBankSelected(transferBank);
         dismiss();
     }
 }

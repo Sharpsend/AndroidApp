@@ -1,13 +1,12 @@
-package dev.goteam.paydrift.utils;
+package dev.goteam.sharpsend.utils;
 
 import java.util.ArrayList;
 
-import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.db.entities.Bank;
+import dev.goteam.sharpsend.R;
 
 public class DataSource {
 
-    public static ArrayList<Bank> getBanks(int selectedBankIndex) {
+    /*public static ArrayList<Bank> getBanks(int selectedBankIndex) {
         ArrayList<Bank> banks = new ArrayList<>();
         banks.add(new Bank(R.drawable.gtbank, "GT Bank", selectedBankIndex == banks.size()));
         banks.add(new Bank(R.drawable.ibtc, "Stanbic IBTC Bank", selectedBankIndex == banks.size()));
@@ -26,5 +25,5 @@ public class DataSource {
 
         return banks;
     }
-
+*/
 }

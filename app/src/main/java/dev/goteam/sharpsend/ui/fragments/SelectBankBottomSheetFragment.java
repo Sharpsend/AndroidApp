@@ -1,7 +1,6 @@
-package dev.goteam.paydrift.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,26 +10,23 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.ArrayList;
+import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.databinding.FragmentSelectBankBinding;
+import dev.goteam.sharpsend.db.entities.BankItem;
+import dev.goteam.sharpsend.ui.adapters.BanksRVAdapter;
+import dev.goteam.sharpsend.ui.listeners.OnBankItemSelected;
+import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 
-import dev.goteam.paydrift.R;
-import dev.goteam.paydrift.databinding.FragmentSelectBankBinding;
-import dev.goteam.paydrift.db.entities.Bank;
-import dev.goteam.paydrift.ui.adapters.BanksAdapter;
-import dev.goteam.paydrift.ui.listeners.OnBankItemSelectedOnAdapterListener;
-import dev.goteam.paydrift.ui.listeners.OnBankSelectedListener;
-import dev.goteam.paydrift.utils.DataSource;
-
-public class SelectBankBottomSheetFragment extends RoundedBottomSheetFragment implements OnBankItemSelectedOnAdapterListener {
+public class SelectBankBottomSheetFragment extends RoundedBottomSheetFragment implements OnBankItemSelected {
 
     private FragmentSelectBankBinding binding;
-    private int selectedBankIndex;
-    private OnBankSelectedListener mOnBankSelectedListener;
+    private BankItem.Bank bankSelection;
+    private OnBankSelection onBankSelectionListener;
 
-    private BanksAdapter adapter;
+    private BanksRVAdapter adapter;
 
-    public SelectBankBottomSheetFragment(OnBankSelectedListener mOnBankSelectedListener) {
-        this.mOnBankSelectedListener = mOnBankSelectedListener;
+    public SelectBankBottomSheetFragment(OnBankSelection onBankSelectionListener) {
+        this.onBankSelectionListener = onBankSelectionListener;
     }
 
     @Nullable
@@ -44,18 +40,15 @@ public class SelectBankBottomSheetFragment extends RoundedBottomSheetFragment im
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Bundle arguments = getArguments();
 
-        selectedBankIndex = arguments.getInt("selectedBankIndex", -1);
-
-        adapter = new BanksAdapter(requireContext(), DataSource.getBanks(selectedBankIndex), this, false);
+        adapter = new BanksRVAdapter(requireContext(), new BankItem().getSupportedBanks(), this);
         binding.banksList.setLayoutManager(new LinearLayoutManager(requireActivity()));
         binding.banksList.setAdapter(adapter);
 
         binding.proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnBankSelectedListener.onSenderBankSelected(selectedBankIndex);
+                onBankSelectionListener.onBankSelected(bankSelection);
                 dismiss();
             }
         });
@@ -63,16 +56,14 @@ public class SelectBankBottomSheetFragment extends RoundedBottomSheetFragment im
         binding.cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnBankSelectedListener.onSenderBankSelected(-2);
+                onBankSelectionListener.onSelectionCanceled();
                 dismiss();
             }
         });
-
     }
 
     @Override
-    public void onBankItemSelected(int position) {
-        selectedBankIndex = position;
-        adapter.bankSelected(position);
+    public void onBankItemSelected(BankItem.Bank bank) {
+        bankSelection = bank;
     }
 }
