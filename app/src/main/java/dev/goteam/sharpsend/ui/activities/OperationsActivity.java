@@ -34,15 +34,15 @@ public class OperationsActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Fragment fragment;
 
-        switch (operation_id) {
-            case Constants.OPERATION_FUNDS_TRANSFER:
-                fragment = new TransferFundsFragment();
-                fragmentTransaction.replace(R.id.operations_fragment_container, fragment, String.valueOf(operation_id));
+//        switch (operation_id) {
+//            case Constants.OPERATION_FUNDS_TRANSFER:
+                fragment = new TransferFundsFragment();                                            // operation_id
+                fragmentTransaction.replace(R.id.operations_fragment_container, fragment, String.valueOf(1));
                 fragmentTransaction.commit();
-            break;
-            default:
-                break;
-        }
+//            break;
+//            default:
+//                break;
+//        }
 
     }
 

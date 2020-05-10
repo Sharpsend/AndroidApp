@@ -1,7 +1,6 @@
 package dev.goteam.sharpsend.ui.adapters;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +13,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import dev.goteam.sharpsend.R;
-import dev.goteam.sharpsend.databinding.ItemBankBinding;
 import dev.goteam.sharpsend.db.entities.Bank;
 import dev.goteam.sharpsend.ui.listeners.OnBankItemSelectedOnAdapterListener;
 import dev.goteam.sharpsend.utils.DataSource;
 
-public class BanksAdapter extends RecyclerView.Adapter<BanksAdapter.BankViewHolder>
+public class RecipentBanksRVAdapter extends RecyclerView.Adapter<RecipentBanksRVAdapter.BankViewHolder>
     implements Filterable {
 
     private final boolean isRecipient;
@@ -63,10 +59,10 @@ public class BanksAdapter extends RecyclerView.Adapter<BanksAdapter.BankViewHold
         }
     };
 
-    public BanksAdapter(Context context,
-                        ArrayList<Bank> banks,
-                        OnBankItemSelectedOnAdapterListener selectedOnAdapterListener,
-                        boolean isRecipient) {
+    public RecipentBanksRVAdapter(Context context,
+                                  ArrayList<Bank> banks,
+                                  OnBankItemSelectedOnAdapterListener selectedOnAdapterListener,
+                                  boolean isRecipient) {
         this.context = context;
         this.banks = banks;
         this.mOnBankItemSelectedOnAdapterListener = selectedOnAdapterListener;
@@ -80,7 +76,7 @@ public class BanksAdapter extends RecyclerView.Adapter<BanksAdapter.BankViewHold
 
     @NonNull
     @Override
-    public BanksAdapter.BankViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecipentBanksRVAdapter.BankViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 isRecipient ? R.layout.item_recipient_bank : R.layout.item_bank, parent, false
         );
@@ -89,7 +85,7 @@ public class BanksAdapter extends RecyclerView.Adapter<BanksAdapter.BankViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BanksAdapter.BankViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecipentBanksRVAdapter.BankViewHolder holder, int position) {
         Bank bank = banks.get(position);
         if (selectedIndex == -1) {
             selectedIndex = bank.isSelected() ? position : -1;
