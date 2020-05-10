@@ -10,6 +10,8 @@ public class Constants {
 //    bank constants
     public static final int NO_BANK_SELECTED = -1;
 
+    public static final int OPERATIONS_CODE = 12;
+
 //    mobile number constants
     public static final String MOBILE_NUMBER_SELF = "self";
     public static final String MOBILE_NUMBER_THIRD_PARTY = "third_party";

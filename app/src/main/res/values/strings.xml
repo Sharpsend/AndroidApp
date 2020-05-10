@@ -40,4 +40,7 @@
   <string name="phone_number_text">Phone number</string>
   <string name="phone_account_number_text">Recipient phone number</string>
   <string name="mobile_number_text">Mobile number</string>
+  <string name="transaction_successful_text">Transaction Successful</string>
+  <string name="placeholder_text">Transfer of NGN 100 to OLUWASEYIFUNMI SULAIMON IPAYE is successful. Dial *737*73# to sell N10,000 airtime /data and get N1000 airtime reward.</string>
+  <string name="close_text">Close</string>
 </resources>
