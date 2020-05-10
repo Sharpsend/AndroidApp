@@ -16,4 +16,5 @@
     <color name="tx_SuccessfulColor">#219653</color>
     <color name="tx_FailedColor">#EB5757</color>
     <color name="tx_PendingColor">#F2994A</color>
+  <color name="colorScreenOnboarding">#FFFAFA</color>
 </resources>

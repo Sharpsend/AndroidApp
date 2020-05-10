@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+  android:background="@color/colorScreenOnboarding"
     android:paddingStart="@dimen/fragment_vertical_margin"
     android:paddingEnd="@dimen/fragment_vertical_margin"
     tools:context="dev.goteam.sharpsend.ui.fragments.TransactionsFragment" >
