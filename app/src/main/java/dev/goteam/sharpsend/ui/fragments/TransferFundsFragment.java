@@ -122,7 +122,8 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
                 !binding.amountField.getEditText().getText().toString().isEmpty() &&
                         !binding.accountNumberField.getEditText().getText().toString().isEmpty() &&
                         binding.accountNumberField.getEditText().getText().toString().length() == 10 &&
-                        selectedRecipientBank != -1 && selectedSenderBank != -1
+                        !binding.senderBankField.getEditText().getText().toString().isEmpty() &&
+                        !binding.selectRecipientBankField.getEditText().getText().toString().isEmpty()
         ) {
             binding.sendButton.setEnabled(true);
         } else {
