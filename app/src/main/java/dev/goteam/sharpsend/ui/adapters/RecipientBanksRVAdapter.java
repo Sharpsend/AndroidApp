@@ -22,21 +22,21 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
         implements Filterable {
 
     private final OnRecipientBankItemSelected onRecipientBankItemSelected;
-    private List<BankItem.TransferBank> transferBanks;
-    private List<BankItem.TransferBank> finalTransferBanks;
+    private List<BankItem.TransferBankAction> transferBankActions;
+    private List<BankItem.TransferBankAction> finalTransferBankActions;
 
     private Filter banksFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-            List<BankItem.TransferBank> filteredBanks = new ArrayList<>();
+            List<BankItem.TransferBankAction> filteredBanks = new ArrayList<>();
 
             if (charSequence == null || charSequence == "") {
-                filteredBanks.addAll(finalTransferBanks);
+                filteredBanks.addAll(finalTransferBankActions);
             } else {
                 String text = charSequence.toString().trim();
-                for (BankItem.TransferBank transferBank : transferBanks) {
-                    if (transferBank.getName().trim().contains(text)) {
-                        filteredBanks.add(transferBank);
+                for (BankItem.TransferBankAction transferBankAction : transferBankActions) {
+                    if (transferBankAction.getName().trim().contains(text)) {
+                        filteredBanks.add(transferBankAction);
                     }
                 }
             }
@@ -49,16 +49,16 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            List<BankItem.TransferBank> result = (List<BankItem.TransferBank>) filterResults.values;
-            transferBanks = result;
+            List<BankItem.TransferBankAction> result = (List<BankItem.TransferBankAction>) filterResults.values;
+            transferBankActions = result;
             notifyDataSetChanged();
         }
     };
 
-    public RecipientBanksRVAdapter(List<BankItem.TransferBank> transferBanks,
+    public RecipientBanksRVAdapter(List<BankItem.TransferBankAction> transferBankActions,
                                    OnRecipientBankItemSelected onRecipientBankItemSelected) {
-        this.transferBanks = transferBanks;
-        this.finalTransferBanks = transferBanks;
+        this.transferBankActions = transferBankActions;
+        this.finalTransferBankActions = transferBankActions;
         this.onRecipientBankItemSelected = onRecipientBankItemSelected;
     }
 
@@ -78,30 +78,30 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
 
     @Override
     public void onBindViewHolder(@NonNull RecipientBanksRVAdapter.BankViewHolder holder, int position) {
-        BankItem.TransferBank bank = transferBanks.get(position);
+        BankItem.TransferBankAction bank = transferBankActions.get(position);
         holder.bind(bank);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bankSelected(position);
-                onRecipientBankItemSelected.onBankItemSelected(transferBanks.get(position));
+                onRecipientBankItemSelected.onBankItemSelected(transferBankActions.get(position));
                 return;
             }
         });
     }
 
     public void bankSelected(int position) {
-        for (BankItem.TransferBank bank : transferBanks) {
+        for (BankItem.TransferBankAction bank : transferBankActions) {
             bank.setSelected(false);
         }
-        transferBanks.get(position).setSelected(true);
+        transferBankActions.get(position).setSelected(true);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return transferBanks.size();
+        return transferBankActions.size();
     }
 
     class BankViewHolder extends RecyclerView.ViewHolder {
@@ -116,7 +116,7 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
             radioButton = itemView.findViewById(R.id.recipient_radio_button);
         }
 
-        public void bind(BankItem.TransferBank bank) {
+        public void bind(BankItem.TransferBankAction bank) {
             bankName.setText(bank.getName());
             radioButton.setChecked(bank.isSelected());
         }

@@ -1,4 +1,4 @@
-package dev.goteam.sharpsend.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments.operations;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,14 +23,14 @@ import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 
 public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFragment implements OnRecipientBankItemSelected {
 
-    private final List<BankItem.TransferBank> transferBanks;
+    private final List<BankItem.TransferBankAction> transferBankActions;
     private FragmentSelectRecipientBankBinding binding;
     private OnRecipientBankSelection onRecipientBankSelectionListener;
     private RecipientBanksRVAdapter adapter;
 
-    public SelectRecipientBankBottomSheetFragment(OnRecipientBankSelection onRecipientBankSelectionListener, List<BankItem.TransferBank> transferBanks) {
+    public SelectRecipientBankBottomSheetFragment(OnRecipientBankSelection onRecipientBankSelectionListener, List<BankItem.TransferBankAction> transferBankActions) {
         this.onRecipientBankSelectionListener = onRecipientBankSelectionListener;
-        this.transferBanks = transferBanks;
+        this.transferBankActions = transferBankActions;
     }
 
     @Nullable
@@ -45,7 +45,7 @@ public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFr
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new RecipientBanksRVAdapter(transferBanks, this);
+        adapter = new RecipientBanksRVAdapter(transferBankActions, this);
         binding.recipientBankList.setLayoutManager(new LinearLayoutManager(requireActivity()));
         binding.recipientBankList.setAdapter(adapter);
 
@@ -75,8 +75,8 @@ public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFr
     }
 
     @Override
-    public void onBankItemSelected(BankItem.TransferBank transferBank) {
-        onRecipientBankSelectionListener.onRecipientBankSelected(transferBank);
+    public void onBankItemSelected(BankItem.TransferBankAction transferBankAction) {
+        onRecipientBankSelectionListener.onRecipientBankSelected(transferBankAction);
         dismiss();
     }
 }

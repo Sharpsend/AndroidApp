@@ -21,15 +21,16 @@ import com.hover.sdk.api.HoverParameters;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentTransferFundsBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
+import dev.goteam.sharpsend.ui.fragments.operations.RoundedBottomSheetFragment;
+import dev.goteam.sharpsend.ui.fragments.operations.SelectBankBottomSheetFragment;
+import dev.goteam.sharpsend.ui.fragments.operations.SelectRecipientBankBottomSheetFragment;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
-import dev.goteam.sharpsend.utils.Constants;
-import dev.goteam.sharpsend.utils.DataSource;
 
 public class TransferFundsFragment extends Fragment implements OnBankSelection, OnRecipientBankSelection, TextWatcher {
 
     private BankItem.Bank senderBank;
-    private BankItem.TransferBank recipientBank;
+    private BankItem.TransferBankAction recipientBank;
     private FragmentTransferFundsBinding binding;
 
     @Override
@@ -96,7 +97,7 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
 
         if (senderBank != null) {
             RoundedBottomSheetFragment mSelectBankBottomSheetFragment;
-            mSelectBankBottomSheetFragment = new SelectRecipientBankBottomSheetFragment(this, senderBank.getTransferBankList());
+            mSelectBankBottomSheetFragment = new SelectRecipientBankBottomSheetFragment(this, senderBank.getTransferBankActionList());
             mSelectBankBottomSheetFragment.show(getParentFragmentManager(), "selectRecipientBankModal");
         } else {
             Toast.makeText(requireActivity(), "Input your bank account first", Toast.LENGTH_SHORT).show();
@@ -110,15 +111,19 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
     }
 
     @Override
-    public void onRecipientBankSelected(BankItem.TransferBank transferBank) {
-        this.recipientBank = transferBank;
-        binding.selectRecipientBankField.getEditText().setText(transferBank.getName());
+    public void onRecipientBankSelected(BankItem.TransferBankAction transferBankAction) {
+        this.recipientBank = transferBankAction;
+        binding.selectRecipientBankField.getEditText().setText(transferBankAction.getName());
     }
 
     @Override
     public void onSelectionCanceled() {
-        senderBank = null;
-        binding.senderBankField.getEditText().setText(null);
+        if (senderBank != null) {
+            recipientBank = null;
+            binding.selectRecipientBankField.getEditText().setText(null);
+        } else {
+            binding.senderBankField.getEditText().setText(null);
+        }
     }
 
     @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}

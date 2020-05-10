@@ -1,5 +1,6 @@
-package dev.goteam.sharpsend.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments.operations;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import dev.goteam.sharpsend.R;
+import com.hover.sdk.api.HoverParameters;
+
 import dev.goteam.sharpsend.databinding.FragmentBuyAirtimeBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.db.entities.MobileItem;
@@ -58,10 +60,31 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         binding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // add send logic here.
+
+                // TODO Validate Input
+                if (senderBank != null && recipientMobile != null) {
+                    switch (recipientMobile.getId()) {
+                        case Constants.MOBILE_NUMBER_SELF:
+
+                            Intent i = new HoverParameters.Builder(requireActivity())
+                                    .request(senderBank.getSelfRechargeAction().getActionID()) // Add your action ID here
+                                    .extra("Amount", binding.amountField.getEditText().getText().toString())
+                                    .buildIntent();
+                            startActivityForResult(i, 0);
+                            break;
+                        case Constants.MOBILE_NUMBER_THIRD_PARTY:
+
+                            Intent j = new HoverParameters.Builder(requireActivity())
+                                    .request(senderBank.getSelfRechargeAction().getActionID()) // Add your action ID here
+                                    .extra("Amount", binding.amountField.getEditText().getText().toString())
+                                    .extra("PhoneNumber", binding.phoneNumberField.getEditText().getText().toString())
+                                    .buildIntent();
+                            startActivityForResult(j, 0);
+                            break;
+                    }
+                }
             }
         });
-
     }
 
     private void launchBankSelection() {
@@ -91,7 +114,6 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     public void onMobileSelected(MobileItem.Mobile mobile) {
         this.recipientMobile = mobile;
         binding.selectMobileNumberField.getEditText().setText(this.recipientMobile.getName());
-
         setUpPhone(false);
     }
 
@@ -118,16 +140,13 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         }
     }
 
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
+    @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
     @Override
     public void afterTextChanged(Editable editable) {
         if (
                 this.recipientMobile != null && this.senderBank != null
-                        && !binding.amountField.getEditText().getText().toString().isEmpty()
-        ) {
+                        && !binding.amountField.getEditText().getText().toString().isEmpty()) {
 
             if (this.recipientMobile.getId().equals(Constants.MOBILE_NUMBER_THIRD_PARTY) &&
                     binding.phoneNumberField.getEditText().getText().toString().length() == 11) {
@@ -141,8 +160,5 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
             binding.sendButton.setEnabled(false);
         }
     }
-
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
+    @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 }
