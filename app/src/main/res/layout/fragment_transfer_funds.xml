@@ -106,6 +106,7 @@
 		  android:id="@+id/account_number_helper_text"
 		  android:layout_width="0dp"
 		  android:layout_height="wrap_content"
+		  android:contentDescription="@null"
 		  android:focusable="false"
 		  android:fontFamily="@font/sf_pro_display_regular"
 		  android:paddingStart="12dp"
