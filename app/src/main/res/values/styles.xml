@@ -25,6 +25,31 @@
 	<item name="rippleColor">@android:color/transparent</item>
   </style>
 
+  <style name="MyButtonTheme" parent="Widget.MaterialComponents.Button.OutlinedButton">
+	<item name="materialThemeOverlay">@style/ButtonStyleTextColor</item>
+  </style>
+
+  <style name="ButtonStyleTextColor">
+	<item name="colorOnPrimary">@color/colorPrimaryDark</item>
+	<item name="colorOnSecondary">@color/colorPrimaryDark</item>
+	<item name="colorOnSurface">@color/colorPrimaryDark</item>
+  </style>
+
+  <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
+	<item name="android:windowNoTitle">true</item>
+	<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+	<item name="colorPrimary">@color/colorPrimary</item>
+
+	<!-- Set this to true if you want Full Screen without status bar -->
+	<item name="android:windowFullscreen">true</item>
+
+	<item name="android:windowIsFloating">false</item>
+
+	<!-- This is important! Don't forget to set window background -->
+	<item name="android:windowBackground">@null</item>
+
+  </style>
+
   <!-- set the rounded drawable as background to your bottom sheet -->
   <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
 	<item name="android:background">@drawable/bottom_sheet_background</item>
