@@ -3,6 +3,7 @@ package dev.goteam.sharpsend.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MutableLiveData;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import com.hover.sdk.permissions.PermissionActivity;
 import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.db.entities.StartActivityModel;
 import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
 import dev.goteam.sharpsend.SharpsendApp;
 import dev.goteam.sharpsend.ui.fragments.TransferFundsFragment;
@@ -25,6 +27,8 @@ import dev.goteam.sharpsend.utils.Constants;
 
 public class OperationsActivity extends AppCompatActivity implements Hover.DownloadListener {
     private final String TAG = "OperationsActivity";
+    private MutableLiveData<StartActivityModel> startActivityModel = new MutableLiveData<>();
+
     int operation_id = -1;
 
     @Override
@@ -51,6 +55,11 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
             Hover.initialize(getApplicationContext(), OperationsActivity.this);
         });
 
+        startActivityModel.observe(this, startActivityModel1 -> {
+            if (startActivityModel1 != null) {
+                startActivityForResult(startActivityModel1.getIntent(), startActivityModel1.getRequestCode());
+            }
+        });
     }
 
     private void setUpOperatingFragment() {
@@ -76,7 +85,10 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
             default:
                 break;
         }
+    }
 
+    public MutableLiveData<StartActivityModel> getStartActivityModel() {
+        return startActivityModel;
     }
 
     @Override
@@ -107,8 +119,11 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
             assert sessionTextArr != null;
             String lastMessage = sessionTextArr[sessionTextArr.length - 1];
 
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             TransactionSuccessDialog newFragment = new TransactionSuccessDialog(lastMessage);
-            newFragment.show(getSupportFragmentManager(), "transactionSuccessDialog");
+
+            fragmentTransaction.replace(R.id.operations_fragment_container, newFragment, "transactionSuccessDialog");
+            fragmentTransaction.commitAllowingStateLoss();
 
         } else if (requestCode == 0 && resultCode == Activity.RESULT_CANCELED) {
             Toast.makeText(this, "Error: " + data.getStringExtra("error"), Toast.LENGTH_LONG).show();

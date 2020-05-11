@@ -22,6 +22,7 @@ import com.hover.sdk.api.HoverParameters;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentTransferFundsBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
+import dev.goteam.sharpsend.db.entities.StartActivityModel;
 import dev.goteam.sharpsend.ui.fragments.operations.RoundedBottomSheetFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.SelectBankBottomSheetFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.SelectRecipientBankBottomSheetFragment;
@@ -30,6 +31,8 @@ import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.utils.DataSource;
+
+import static io.sentry.android.AndroidSentryClientFactory.TAG;
 
 public class TransferFundsFragment extends Fragment implements OnBankSelection, OnRecipientBankSelection, TextWatcher {
 
@@ -77,17 +80,19 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
                         .setEnvironment(HoverParameters.TEST_ENV)
                         .extra("Amount", binding.amountField.getEditText().getText().toString())
                         .extra("Nuban", binding.accountNumberField.getEditText().getText().toString())
+                        .finalMsgDisplayTime(0)
                         .buildIntent();
-                ((OperationsActivity) requireActivity()).launchIntent(i, Constants.OPERATIONS_CODE);
-
-               /* String text = "send money from bank: " + senderBank.getName() + " to: "
-                         + recipientBank.getName() + " with an account number of"
-                         + binding.accountNumberField.getEditText().getText().toString() + " an amount of: " +
-                        binding.amountField.getEditText().getText().toString();
-
-                Snackbar.make(view, text, Snackbar.LENGTH_LONG).show();*/
+                ((OperationsActivity) requireActivity()).getStartActivityModel()
+                        .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
             }
         });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "onActivityResultFrag: " + requestCode + "." + resultCode + "." + data);
 
     }
 

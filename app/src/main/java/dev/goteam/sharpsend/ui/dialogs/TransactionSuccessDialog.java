@@ -33,7 +33,7 @@ public class TransactionSuccessDialog extends DialogFragment {
         binding = DialogTransactionSuccessfulBinding.inflate(inflater, container, false);
         binding.transactionResponseText.setText(message);
         binding.closeBtn.setOnClickListener(view -> {
-            dismiss();
+            requireActivity().finish();
         });
         return binding.getRoot();
     }

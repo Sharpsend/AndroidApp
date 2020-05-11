@@ -18,6 +18,8 @@ import com.hover.sdk.api.HoverParameters;
 import dev.goteam.sharpsend.databinding.FragmentBuyAirtimeBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.db.entities.MobileItem;
+import dev.goteam.sharpsend.db.entities.StartActivityModel;
+import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
 import dev.goteam.sharpsend.utils.Constants;
@@ -69,8 +71,10 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                             Intent i = new HoverParameters.Builder(requireActivity())
                                     .request(senderBank.getSelfRechargeAction().getActionID()) // Add your action ID here
                                     .extra("Amount", binding.amountField.getEditText().getText().toString())
+                                    .finalMsgDisplayTime(0)
                                     .buildIntent();
-                            startActivityForResult(i, 0);
+                            ((OperationsActivity) requireActivity()).getStartActivityModel()
+                                    .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
                             break;
                         case Constants.MOBILE_NUMBER_THIRD_PARTY:
 
@@ -78,8 +82,10 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                                     .request(senderBank.getOthersRechargeAction().getActionID()) // Add your action ID here
                                     .extra("Amount", binding.amountField.getEditText().getText().toString())
                                     .extra("PhoneNumber", binding.phoneNumberField.getEditText().getText().toString())
+                                    .finalMsgDisplayTime(0)
                                     .buildIntent();
-                            startActivityForResult(j, 0);
+                            ((OperationsActivity) requireActivity()).getStartActivityModel()
+                                    .postValue(new StartActivityModel(j, Constants.OPERATIONS_CODE));
                             break;
                     }
                 }
