@@ -82,6 +82,19 @@
 		  app:layout_constraintStart_toEndOf="@id/left_guideline"
 		  app:layout_constraintTop_toBottomOf="@id/pinField" />
 
+	<TextView
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/forgot_pin_text"
+	  android:contentDescription="@string/forgot_pin_text"
+	  app:layout_constraintStart_toStartOf="parent"
+	  app:layout_constraintEnd_toEndOf="parent"
+	  android:id="@+id/forgot_pin_text"
+	  android:fontFamily="@font/sf_pro_display_regular"
+	  android:textSize="17sp"
+	  app:layout_constraintTop_toBottomOf="@id/login_button"
+	  android:layout_marginTop="10dp"/>
+
 <!--	this image would show if the user has enabled fingerprint-->
 	<ImageView
 	  android:layout_width="96dp"

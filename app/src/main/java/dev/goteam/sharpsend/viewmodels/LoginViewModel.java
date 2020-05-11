@@ -9,7 +9,6 @@ import dev.goteam.sharpsend.utils.Prefs;
 public class LoginViewModel extends AndroidViewModel {
 
     private String[] userData;
-    private boolean fingerPrintIsEnabled = true;
 
     public LoginViewModel(Application application) {
         super(application);
@@ -21,7 +20,7 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public boolean isFingerPrintIsEnabled() {
-        return fingerPrintIsEnabled;
+        return Prefs.isFingerprintEnabled(getApplication().getBaseContext());
     }
 
     public String getPin() {
