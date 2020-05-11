@@ -17,6 +17,7 @@ import com.hover.sdk.permissions.PermissionActivity;
 
 import java.util.ArrayList;
 
+import dev.goteam.sharpsend.AccessibilityTipsFragment;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.db.entities.StartActivityModel;
 import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
@@ -78,6 +79,11 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
                 fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "transferFundsFragment");
                 fragmentTransaction.commit();
             break;
+            case Constants.OPERATION_ACCESSIBILITY_TIPS:
+                fragment = new AccessibilityTipsFragment();
+                fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "AccessibilityTipsFragment");
+                fragmentTransaction.commit();
+                break;
             case Constants.OPERATION_BUY_AIRTIME:
                 fragment = new BuyAirtimeFragment();
                 fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "buyAirtimeFragment");
@@ -99,7 +105,7 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
 
     @Override
     public void onSuccess(ArrayList<HoverAction> arrayList) {
-        Toast.makeText(this, "Successfully downloaded " + arrayList.size() + " actions", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Successfully downloaded " + arrayList.size() + " actions", Toast.LENGTH_LONG).show();
         Log.d(TAG, "Successfully downloaded " + arrayList.size() + " actions");
     }
 

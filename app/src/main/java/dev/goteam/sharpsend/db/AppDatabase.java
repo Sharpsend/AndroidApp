@@ -52,7 +52,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     @Override
                     public void onOpen(@NonNull SupportSQLiteDatabase db) {
                         super.onOpen(db);
-                        executors.diskIO().execute(() -> {
+                        /*executors.diskIO().execute(() -> {
 
                             // Generate the data for pre-population
                             AppDatabase database = AppDatabase.getInstance(appContext, executors);
@@ -64,7 +64,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             Log.i(TAG, "onCreate: DONE");
                             // notify that the database was created and it's ready to be used
                             database.setDatabaseCreated();
-                        });
+                        });*/
                     }
                 })
                 .fallbackToDestructiveMigration()

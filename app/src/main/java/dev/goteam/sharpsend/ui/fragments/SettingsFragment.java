@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import dev.goteam.sharpsend.databinding.FragmentSettingsBinding;
 import dev.goteam.sharpsend.ui.activities.ChangePinActivity;
+import dev.goteam.sharpsend.ui.activities.OperationsActivity;
+import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.utils.FingerprintUtils;
 import dev.goteam.sharpsend.utils.Prefs;
 import dev.goteam.sharpsend.viewmodels.SettingsViewModel;
@@ -54,5 +56,13 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        binding.accessibilityTips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent operationsIntent = new Intent(requireActivity(), OperationsActivity.class);
+                operationsIntent.putExtra("operation_id", Constants.OPERATION_ACCESSIBILITY_TIPS);
+                startActivity(operationsIntent);
+            }
+        });
     }
 }

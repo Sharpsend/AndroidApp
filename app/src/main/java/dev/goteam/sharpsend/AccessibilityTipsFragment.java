@@ -3,10 +3,15 @@ package dev.goteam.sharpsend;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import dev.goteam.sharpsend.databinding.FragmentAccessibilityTipsBinding;
+import dev.goteam.sharpsend.databinding.FragmentSettingsBinding;
+import dev.goteam.sharpsend.viewmodels.SettingsViewModel;
 
 
 /**
@@ -23,6 +28,7 @@ public class AccessibilityTipsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FragmentAccessibilityTipsBinding binding;
 
     public AccessibilityTipsFragment() {
         // Required empty public constructor
@@ -59,6 +65,11 @@ public class AccessibilityTipsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_accessibility_tips, container, false);
+        binding = FragmentAccessibilityTipsBinding.inflate(inflater, container, false);
+
+        binding.backButton.setOnClickListener(view -> {
+            requireActivity().finish();
+        });
+        return binding.getRoot();
     }
 }
