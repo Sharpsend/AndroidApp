@@ -43,4 +43,10 @@
   <string name="transaction_successful_text">Transaction Successful</string>
   <string name="placeholder_text">Transfer of NGN 100 to OLUWASEYIFUNMI SULAIMON IPAYE is successful. Dial *737*73# to sell N10,000 airtime /data and get N1000 airtime reward.</string>
   <string name="close_text">Close</string>
+  <string name="change_pin_text">Change PIN</string>
+  <string name="current_pin_text">Current PIN</string>
+  <string name="new_pin_text">New PIN</string>
+  <string name="change_text">Change</string>
+  <string name="forgot_pin_text">Forgot PIN</string>
+  <string name="confirm_neW_pin_text">Confirm New Pin</string>
 </resources>
