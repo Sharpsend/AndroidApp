@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentLoginBinding;
+import dev.goteam.sharpsend.ui.activities.ForgotPinActivity;
 import dev.goteam.sharpsend.ui.listeners.OnFingerprintAuthenticatedListener;
 import dev.goteam.sharpsend.ui.activities.MainActivity;
 import dev.goteam.sharpsend.utils.FingerprintUtils;
@@ -59,6 +60,13 @@ public class LoginFragment extends Fragment implements TextWatcher {
             }
         });
 
+        binding.forgotPinText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireActivity(), ForgotPinActivity.class));
+            }
+        });
+
         binding.fingerprintCta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +93,8 @@ public class LoginFragment extends Fragment implements TextWatcher {
             @Override
             public void onSuccess() {
                 Snackbar.make(binding.loginButton, "Fingerprint Successful", Snackbar.LENGTH_LONG).show();
+                startActivity(new Intent(requireActivity(), MainActivity.class));
+                requireActivity().finish();
             }
 
             @Override
