@@ -4,10 +4,11 @@
   <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
 	<!-- Customize your theme here. -->
 	<item name="colorPrimary">@color/colorPrimary</item>
-	<item name="colorPrimaryDark">@color/colorPrimary</item>
+	<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 	<item name="colorAccent">@color/colorAccent</item>
 	<item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
 	  <item name="android:textViewStyle">@style/TextStyle</item>
+	  <item name="android:editTextStyle">@style/TextStyle</item>
   </style>
 
   <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">

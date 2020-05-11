@@ -15,12 +15,12 @@
 	android:background="@color/colorScreenOnboarding"
 	tools:context="dev.goteam.sharpsend.ui.fragments.OnboardingFragment">
 
-	<androidx.constraintlayout.widget.Guideline
-	  android:id="@+id/mid_guideline"
-	  android:layout_width="match_parent"
-	  android:layout_height="wrap_content"
-	  android:orientation="horizontal"
-	  app:layout_constraintGuide_percent=".6" />
+	  <androidx.constraintlayout.widget.Guideline
+		  android:id="@+id/mid_guideline"
+		  android:layout_width="match_parent"
+		  android:layout_height="wrap_content"
+		  android:orientation="horizontal"
+		  app:layout_constraintGuide_percent=".65" />
 
 	<androidx.constraintlayout.widget.Guideline
 	  android:id="@+id/left_guideline"
@@ -82,15 +82,16 @@
 		tools:background="@drawable/indicator_active" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
-	<Button
-	  android:layout_width="0dp"
-	  android:layout_height="wrap_content"
-	  android:text="@string/get_started_text"
-	  app:layout_constraintStart_toEndOf="@id/left_guideline"
-	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-	  android:id="@+id/get_started_button"
-	  style="@style/ColoredButton"
-	  app:layout_constraintTop_toBottomOf="@+id/dots_indicators" />
+	  <Button
+		  android:id="@+id/get_started_button"
+		  style="@style/ColoredButton"
+		  android:layout_width="0dp"
+		  android:layout_height="wrap_content"
+		  android:fontFamily="@font/sf_pro_display_medium"
+		  android:text="@string/get_started_text"
+		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+		  app:layout_constraintStart_toEndOf="@id/left_guideline"
+		  app:layout_constraintTop_toBottomOf="@+id/dots_indicators" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

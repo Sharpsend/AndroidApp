@@ -74,6 +74,7 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
                 // TODO Validate inputs
                 Intent i = new HoverParameters.Builder(requireActivity())
                         .request(recipientBank.getActionID()) // Add your action ID here
+                        .setEnvironment(HoverParameters.TEST_ENV)
                         .extra("Amount", binding.amountField.getEditText().getText().toString())
                         .extra("Nuban", binding.accountNumberField.getEditText().getText().toString())
                         .buildIntent();

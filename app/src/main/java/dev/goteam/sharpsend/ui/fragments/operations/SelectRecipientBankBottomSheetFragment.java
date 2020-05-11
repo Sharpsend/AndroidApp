@@ -49,7 +49,7 @@ public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFr
         binding.recipientBankList.setLayoutManager(new LinearLayoutManager(requireActivity()));
         binding.recipientBankList.setAdapter(adapter);
 
-        binding.cancelText.setOnClickListener(new View.OnClickListener() {
+        binding.cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onRecipientBankSelectionListener.onSelectionCanceled();

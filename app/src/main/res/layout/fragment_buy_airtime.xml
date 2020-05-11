@@ -27,18 +27,19 @@
 	  android:orientation="vertical"
 	  android:layout_height="match_parent"/>
 
-	<TextView
-	  android:layout_width="0dp"
-	  android:layout_height="wrap_content"
-	  android:text="@string/buy_airtime_text"
-	  android:textColor="@color/colorPrimary"
-	  android:textSize="30sp"
-	  android:id="@+id/buy_airtime_heading"
-	  android:textStyle="bold"
-	  app:layout_constraintTop_toTopOf="parent"
-	  android:layout_marginTop="20dp"
-	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-	  app:layout_constraintStart_toEndOf="@id/left_guideline" />
+	  <TextView
+		  android:id="@+id/buy_airtime_heading"
+		  android:layout_width="0dp"
+		  android:layout_height="wrap_content"
+		  android:layout_marginTop="20dp"
+		  android:fontFamily="@font/sf_pro_display_regular"
+		  android:text="@string/buy_airtime_text"
+		  android:textColor="@color/colorPrimary"
+		  android:textSize="24sp"
+		  android:textStyle="bold"
+		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+		  app:layout_constraintStart_toEndOf="@id/left_guideline"
+		  app:layout_constraintTop_toTopOf="parent" />
 
 	<com.google.android.material.textfield.TextInputLayout
 	  android:layout_width="0dp"
@@ -52,11 +53,12 @@
 	  android:layout_marginTop="20dp"
 	  android:layout_height="wrap_content">
 
-	  <com.google.android.material.textfield.MaterialAutoCompleteTextView
-		android:layout_width="match_parent"
-		android:focusable="false"
-		android:clickable="true"
-		android:layout_height="match_parent"/>
+		<com.google.android.material.textfield.MaterialAutoCompleteTextView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clickable="true"
+			android:focusable="false"
+			android:fontFamily="@font/sf_pro_display_regular" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 
@@ -72,11 +74,12 @@
 	  android:layout_marginTop="20dp"
 	  android:layout_height="wrap_content">
 
-	  <com.google.android.material.textfield.MaterialAutoCompleteTextView
-		android:layout_width="match_parent"
-		android:focusable="false"
-		android:clickable="true"
-		android:layout_height="match_parent"/>
+		<com.google.android.material.textfield.MaterialAutoCompleteTextView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clickable="true"
+			android:focusable="false"
+			android:fontFamily="@font/sf_pro_display_regular" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 
@@ -120,26 +123,28 @@
 	  android:id="@+id/amount_field"
 	  android:layout_height="wrap_content">
 
-	  <com.google.android.material.textfield.TextInputEditText
-		android:layout_width="match_parent"
-		android:inputType="number"
-		android:layout_height="match_parent"/>
+		<com.google.android.material.textfield.TextInputEditText
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fontFamily="@font/sf_pro_display_regular"
+			android:inputType="number" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 
-	<Button
-	  android:layout_width="0dp"
-	  android:layout_height="wrap_content"
-	  app:layout_constraintStart_toEndOf="@id/left_guideline"
-	  android:text="@string/send_text"
-	  style="@style/ColoredButton"
-	  android:id="@+id/send_button"
-	  android:textAllCaps="false"
-	  app:layout_constraintTop_toBottomOf="@id/amount_field"
-	  android:layout_marginTop="20dp"
-	  android:enabled="false"
-	  android:textColor="@android:color/white"
-	  app:layout_constraintEnd_toStartOf="@id/right_guideline"/>
+	  <Button
+		  android:id="@+id/send_button"
+		  style="@style/ColoredButton"
+		  android:layout_width="0dp"
+		  android:layout_height="wrap_content"
+		  android:layout_marginTop="20dp"
+		  android:enabled="false"
+		  android:fontFamily="@font/sf_pro_display_medium"
+		  android:text="@string/send_text"
+		  android:textAllCaps="false"
+		  android:textColor="@android:color/white"
+		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+		  app:layout_constraintStart_toEndOf="@id/left_guideline"
+		  app:layout_constraintTop_toBottomOf="@id/amount_field" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -20,6 +20,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_regular"
             android:text="@string/title_transactions"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
@@ -55,28 +56,39 @@
                 android:id="@+id/imageView"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
-                android:src="@drawable/ic_buy_airtime" />
+                android:src="@drawable/ic_empty" />
 
-            <TextView
-                android:id="@+id/textView3"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Your transaction history is currently empty!"
-                android:textColor="@color/transactionItemBlack"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:maxWidth="267dp"
-                android:text="Once start transactions, the history will start showing here."
-                android:textColor="@color/colorGreyDark"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/sf_pro_display_medium"
+                    android:text="Your transaction history is currently empty!"
+                    android:textColor="@color/transactionItemBlack"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/sf_pro_display_medium"
+                    android:gravity="center"
+                    android:lineSpacingExtra="0.15dp"
+                    android:maxWidth="267dp"
+                    android:text="Once start transactions, the history will start showing here."
+                    android:textColor="@color/colorGreyDark"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </FrameLayout>

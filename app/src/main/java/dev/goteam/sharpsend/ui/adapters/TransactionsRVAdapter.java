@@ -47,6 +47,7 @@ public class TransactionsRVAdapter extends RecyclerView.Adapter<TransactionsRVAd
             holder.txTypeLabel.setText(current.getTxType());
             holder.txAmountLabel.setText("₦" + numberFormat.format(current.getAmount()));
             holder.txTimeLabel.setText(current.getTime());
+            holder.txDateLabel.setText(current.getDate());
             holder.txStateLabel.setText(current.getState());
             switch (current.getState()) {
                 case SharpsendApp.SUCCESSFUL_TX:

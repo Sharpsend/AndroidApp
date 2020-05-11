@@ -18,9 +18,10 @@ import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
-import dev.goteam.sharpsend.ui.fragments.BuyAirtimeFragment;
 import dev.goteam.sharpsend.SharpsendApp;
+import dev.goteam.sharpsend.ui.fragments.TransferFundsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.BuyAirtimeFragment;
+import dev.goteam.sharpsend.utils.Constants;
 
 public class OperationsActivity extends AppCompatActivity implements Hover.DownloadListener {
     private final String TAG = "OperationsActivity";
@@ -55,12 +56,14 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
     private void setUpOperatingFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Fragment fragment;
+/*
 
         fragment = new BuyAirtimeFragment();
         fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "buyAirtimeFragment");
         fragmentTransaction.commit();
+*/
 
-        /*switch (operation_id) {
+        switch (operation_id) {
             case Constants.OPERATION_FUNDS_TRANSFER:
                 fragment = new TransferFundsFragment();
                 fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "transferFundsFragment");
@@ -72,7 +75,7 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
                 fragmentTransaction.commit();
             default:
                 break;
-        }*/
+        }
 
     }
 
@@ -95,7 +98,7 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
 
-        Log.i(TAG, "onActivityResult: ");
+        Log.i(TAG, "onActivityResult: " + requestCode + "." + resultCode + "." + data);
 
         if (requestCode == Constants.OPERATIONS_CODE && resultCode == Activity.RESULT_OK) {
             String[] sessionTextArr = data.getStringArrayExtra("session_messages");

@@ -75,7 +75,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                         case Constants.MOBILE_NUMBER_THIRD_PARTY:
 
                             Intent j = new HoverParameters.Builder(requireActivity())
-                                    .request(senderBank.getSelfRechargeAction().getActionID()) // Add your action ID here
+                                    .request(senderBank.getOthersRechargeAction().getActionID()) // Add your action ID here
                                     .extra("Amount", binding.amountField.getEditText().getText().toString())
                                     .extra("PhoneNumber", binding.phoneNumberField.getEditText().getText().toString())
                                     .buildIntent();
