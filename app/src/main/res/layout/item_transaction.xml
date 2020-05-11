@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="14dp">
+
+    <TextView
+        android:id="@+id/txDateLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="10sp"
+        tools:text="03-04-2020" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/txTypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textSize="16sp"
+            tools:text="Airtime"
+            android:textColor="@color/transactionItemBlack" />
+
+        <TextView
+            android:id="@+id/txAmountLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/txTypeLabel"
+            android:textSize="12sp"
+            tools:text="#1,500"
+            android:textColor="@color/transactionItemBlack" />
+
+        <TextView
+            android:id="@+id/txTimeLabel"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/txTypeLabel"
+            android:textSize="14sp"
+            tools:text="03:50PM"
+            android:textColor="@color/colorGreyDark" />
+
+        <TextView
+            android:id="@+id/txStateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/txTimeLabel"
+            android:textSize="12sp"
+            tools:text="Successful"
+            android:textColor="@color/tx_SuccessfulColor" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+</LinearLayout>

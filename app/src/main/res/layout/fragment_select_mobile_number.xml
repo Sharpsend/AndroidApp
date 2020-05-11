@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="16dp"
+	  android:layout_marginStart="16dp"
+	  android:layout_marginEnd="16dp">
+
+	  <TextView
+		  android:id="@+id/select_mobile_number_heading"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:fontFamily="@font/sf_pro_display_medium"
+		  android:text="@string/mobile_number_text"
+		  android:textColor="@android:color/black"
+		  android:textSize="18sp"
+		  app:layout_constraintBaseline_toBaselineOf="@id/cancel_button"
+		  app:layout_constraintLeft_toLeftOf="parent"
+		  app:layout_constraintTop_toTopOf="parent" />
+
+	  <Button
+		  android:id="@+id/cancel_button"
+		  style="@style/Widget.MaterialComponents.Button.TextButton"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:text="@string/cancel_text"
+		  android:textColor="@color/colorGreyDark"
+		  android:textSize="18sp"
+		  app:layout_constraintBottom_toTopOf="@id/mobileList"
+		  app:layout_constraintEnd_toEndOf="parent"
+		  app:layout_constraintTop_toTopOf="parent" />
+
+	<androidx.recyclerview.widget.RecyclerView
+	  android:id="@+id/mobileList"
+	  android:layout_width="0dp"
+	  app:layout_constraintStart_toStartOf="parent"
+	  app:layout_constraintEnd_toEndOf="parent"
+	  android:layout_height="wrap_content"
+	  tools:listitem="@layout/item_bank"
+	  android:layout_marginTop="10dp"
+	  app:layout_constraintTop_toBottomOf="@id/select_mobile_number_heading" />
+
+	<Button
+	  android:id="@+id/proceed_button"
+	  style="@style/ColoredButton"
+	  android:layout_width="match_parent"
+	  android:layout_height="wrap_content"
+	  android:text="@string/proceed_text"
+	  app:layout_constraintTop_toBottomOf="@id/mobileList" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <data>
+	<variable
+	  name="selectedMobileIndex"
+	  type="Integer" />
+  </data>
+</layout>

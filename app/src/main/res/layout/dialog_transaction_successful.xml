@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:background="@android:color/white"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Transaction finished"
+	android:textSize="30sp"
+	app:layout_constraintStart_toStartOf="parent"
+	android:layout_marginTop="10dp"
+	android:id="@+id/transaction_successful_heading"
+	app:layout_constraintEnd_toEndOf="parent"
+	app:layout_constraintTop_toTopOf="parent"
+	android:fontFamily="@font/sf_pro_display_medium"
+	android:textColor="@color/colorPrimary"
+	android:textStyle="bold"/>
+
+  <ImageView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:id="@+id/transaction_success_check"
+	app:layout_constraintTop_toBottomOf="@id/transaction_successful_heading"
+	android:layout_marginTop="30dp"
+	app:layout_constraintStart_toStartOf="parent"
+	app:layout_constraintEnd_toEndOf="parent"
+	android:src="@drawable/success_purple"/>
+
+	<TextView
+		android:id="@+id/transaction_response_text"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="@dimen/fragment_vertical_margin"
+		android:layout_marginEnd="@dimen/fragment_vertical_margin"
+		android:background="@drawable/transaction_text_wrapper"
+		android:fontFamily="@font/sf_pro_display_regular"
+		android:lineSpacingExtra="10sp"
+		android:padding="16dp"
+		android:textColor="@android:color/black"
+		android:textSize="14sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias=".6"
+		tools:text="@string/placeholder_text" />
+
+  <Button
+	  android:id="@+id/close_btn"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+	android:text="@string/close_text"
+	android:layout_marginTop="20dp"
+	app:layout_constraintTop_toBottomOf="@id/transaction_response_text"
+	app:layout_constraintStart_toStartOf="parent"
+	app:layout_constraintEnd_toEndOf="parent"
+	android:textColor="@color/colorPrimaryDark"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
