@@ -83,7 +83,7 @@
                     android:gravity="center"
                     android:lineSpacingExtra="0.15dp"
                     android:maxWidth="267dp"
-                    android:text="Once start transactions, the history will start showing here."
+                    android:text=" Once transaction occurs, the history will start showing here."
                     android:textColor="@color/colorGreyDark"
                     android:textSize="13sp" />
 

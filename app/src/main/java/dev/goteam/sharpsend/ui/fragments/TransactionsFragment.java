@@ -27,7 +27,7 @@ public class TransactionsFragment extends Fragment implements View.OnClickListen
         transactionsViewModel = new ViewModelProvider(this).get(TransactionsViewModel.class);
 
         transactionsViewModel.getTransactions().observe(getViewLifecycleOwner(), transactionList -> {
-            if (transactionList != null) {
+            if (transactionList != null && transactionList.size() != 0) {
 
                 binding.emptyTransactionLayout.setVisibility(View.GONE);
                 binding.transactionsRV.setVisibility(View.VISIBLE);

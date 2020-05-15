@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
+import com.hover.sdk.api.HoverConfigException;
 import com.hover.sdk.permissions.PermissionActivity;
 
 import java.util.ArrayList;
@@ -22,9 +23,11 @@ import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.db.entities.StartActivityModel;
 import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
 import dev.goteam.sharpsend.SharpsendApp;
-import dev.goteam.sharpsend.ui.fragments.TransferFundsFragment;
+import dev.goteam.sharpsend.ui.fragments.operations.TransferFundsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.BuyAirtimeFragment;
 import dev.goteam.sharpsend.utils.Constants;
+
+import static io.sentry.android.AndroidSentryClientFactory.TAG;
 
 public class OperationsActivity extends AppCompatActivity implements Hover.DownloadListener {
     private final String TAG = "OperationsActivity";
@@ -132,7 +135,14 @@ public class OperationsActivity extends AppCompatActivity implements Hover.Downl
             fragmentTransaction.commitAllowingStateLoss();
 
         } else if (requestCode == 0 && resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(this, "Error: " + data.getStringExtra("error"), Toast.LENGTH_LONG).show();
+            try {
+                Toast.makeText(this, "Error: " + data.getStringExtra("error"), Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                if (e instanceof HoverConfigException) {
+                    Toast.makeText(this, "A one time Internet connection is needed for proper usage,\nThanks 🙂", Toast.LENGTH_LONG).show();
+                }
+                e.printStackTrace();
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data);

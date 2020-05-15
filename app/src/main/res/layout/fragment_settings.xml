@@ -43,6 +43,7 @@
 	  android:background="?attr/selectableItemBackground"
 	  android:fontFamily="@font/sf_pro_display_regular"
 	  android:paddingBottom="12dp"
+		android:paddingTop="12dp"
 	  android:text="Enable Fingerprint"
 	  android:textSize="16sp"
 	  android:thumbTint="@color/colorPrimary"
@@ -54,7 +55,8 @@
 	  android:layout_height="wrap_content"
 	  android:background="?attr/selectableItemBackground"
 	  android:drawableEnd="@drawable/ic_chevron_right_24dp"
-	  android:paddingBottom="12dp"
+		android:paddingBottom="12dp"
+		android:paddingTop="12dp"
 	  android:text="Change PIN"
 	  android:textColor="@color/transactionItemBlack"
 	  android:textSize="16sp" />
@@ -66,6 +68,7 @@
 		  android:background="?attr/selectableItemBackground"
 		  android:drawableEnd="@drawable/ic_chevron_right_24dp"
 		  android:paddingBottom="12dp"
+		  android:paddingTop="12dp"
 		  android:text="Accessibility Tips"
 		  android:textColor="@color/transactionItemBlack"
 		  android:textSize="16sp" />

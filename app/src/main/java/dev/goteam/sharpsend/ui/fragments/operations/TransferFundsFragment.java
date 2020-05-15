@@ -1,4 +1,4 @@
-package dev.goteam.sharpsend.ui.fragments;
+package dev.goteam.sharpsend.ui.fragments.operations;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.hover.sdk.api.HoverConfigException;
 import com.hover.sdk.api.HoverParameters;
 
 import dev.goteam.sharpsend.R;
@@ -74,19 +75,25 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
             @Override
             public void onClick(View view) {
 
-                // TODO Validate inputs
-                Intent i = new HoverParameters.Builder(requireActivity())
-                        .request(recipientBank.getActionID()) // Add your action ID here
-                        .setEnvironment(HoverParameters.TEST_ENV)
-                        .extra("Amount", binding.amountField.getEditText().getText().toString())
-                        .extra("Nuban", binding.accountNumberField.getEditText().getText().toString())
-                        .finalMsgDisplayTime(0)
-                        .buildIntent();
-                ((OperationsActivity) requireActivity()).getStartActivityModel()
-                        .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
+                try {
+                    // TODO Validate inputs
+                    Intent i = new HoverParameters.Builder(requireActivity())
+                            .request(recipientBank.getActionID()) // Add your action ID here
+                            .extra("Amount", binding.amountField.getEditText().getText().toString())
+                            .extra("Nuban", binding.accountNumberField.getEditText().getText().toString())
+                            .finalMsgDisplayTime(0)
+                            .buildIntent();
+                    ((OperationsActivity) requireActivity()).getStartActivityModel()
+                            .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "onClick: ERROR");
+                    /*if (e instanceof HoverConfigException) {
+                        Toast.makeText(requireActivity(), "Internet ", Toast.LENGTH_SHORT).show();
+                    }*/
+                }
             }
         });
-
     }
 
     @Override
