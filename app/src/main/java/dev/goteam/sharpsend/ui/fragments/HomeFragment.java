@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,11 +17,14 @@ import java.util.List;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentHomeBinding;
 import dev.goteam.sharpsend.db.entities.HomeItem;
+import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.ui.adapters.HomeRVAdapter;
+import dev.goteam.sharpsend.ui.fragments.operations.SelectMobileNetworkBottomSheetFragment;
+import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.viewmodels.HomeViewModel;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 
-public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSelectedListener {
+public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSelectedListener, OnNetworkSelection {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -48,8 +52,31 @@ public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSe
 
     @Override
     public void onItemSelected(int position) {
-        Intent operationsIntent = new Intent(requireActivity(), OperationsActivity.class);
-        operationsIntent.putExtra("operation_id", position);
-        startActivity(operationsIntent);
+        if (position != 2) {
+            Intent operationsIntent = new Intent(requireActivity(), OperationsActivity.class);
+            operationsIntent.putExtra("operation_id", position);
+            startActivity(operationsIntent);
+        } else {
+            ArrayList<NetworkItem.Network> networks = new ArrayList<>();
+            networks.add(new NetworkItem.Network("MTN", "mtn", R.drawable.mtn));
+            networks.add(new NetworkItem.Network("GLO", "glo", R.drawable.glo));
+            networks.add(new NetworkItem.Network("AIRTEL", "airtel", R.drawable.airtel));
+            networks.add(new NetworkItem.Network("9MOBILE", "9mobile", R.drawable.mobile_9));
+            SelectMobileNetworkBottomSheetFragment selectMobileNetworkBottomSheetFragment
+                    = new SelectMobileNetworkBottomSheetFragment(
+                    this, networks
+            );
+            selectMobileNetworkBottomSheetFragment.show(getParentFragmentManager(), "networkSelection");
+        }
+    }
+
+    @Override
+    public void onNetworkSelected(NetworkItem.Network network) {
+        Toast.makeText(requireContext(), "Network selected: " + network.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNetworkSelectionCanceled() {
+        // add stub code...
     }
 }
