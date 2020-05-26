@@ -33,13 +33,12 @@ import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.utils.DataSource;
 
-import static io.sentry.android.AndroidSentryClientFactory.TAG;
-
 public class TransferFundsFragment extends Fragment implements OnBankSelection, OnRecipientBankSelection, TextWatcher {
 
     private BankItem.Bank senderBank;
     private BankItem.TransferBankAction recipientBank;
     private FragmentTransferFundsBinding binding;
+    private final String TAG = getClass().getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

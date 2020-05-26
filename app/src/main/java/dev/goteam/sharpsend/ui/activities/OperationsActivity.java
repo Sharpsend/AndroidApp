@@ -27,11 +27,10 @@ import dev.goteam.sharpsend.ui.fragments.operations.TransferFundsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.BuyAirtimeFragment;
 import dev.goteam.sharpsend.utils.Constants;
 
-import static io.sentry.android.AndroidSentryClientFactory.TAG;
-
 public class OperationsActivity extends AppCompatActivity implements Hover.DownloadListener {
-    private final String TAG = "OperationsActivity";
+    private final String TAG = getClass().getSimpleName();
     private MutableLiveData<StartActivityModel> startActivityModel = new MutableLiveData<>();
+
 
     int operation_id = -1;
 
