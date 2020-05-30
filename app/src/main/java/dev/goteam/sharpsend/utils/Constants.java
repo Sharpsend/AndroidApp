@@ -17,4 +17,18 @@ public class Constants {
     public static final String MOBILE_NUMBER_SELF = "self";
     public static final String MOBILE_NUMBER_THIRD_PARTY = "third_party";
 
+    // Home item Ids
+    public static final String TRANSFER_FUNDS = "transfer_funds";
+    public static final String BUY_AIRTIME = "buy_airtime";
+    public static final String CHECK_AIRTIME = "check_airtime";
+
+    public static final String ACCESSIBILITY_TIPS = "accessibility_tips";
+
+    // Networks
+    public static final String MTN = "mtn";
+    public static final String AIRTEL = "airtel";
+    public static final String GLO = "glo";
+    public static final String MOBILE_9 = "9mobile";
+
+
 }

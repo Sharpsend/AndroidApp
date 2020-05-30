@@ -60,5 +60,5 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // Use hover
-    implementation 'com.hover:android-sdk:1.5.1'
+    implementation 'com.hover:android-sdk:1.5.3'
 }

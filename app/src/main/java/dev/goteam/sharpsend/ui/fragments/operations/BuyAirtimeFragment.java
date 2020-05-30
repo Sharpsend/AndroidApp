@@ -104,9 +104,9 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     }
 
     private void launchMobileSelection() {
-        SelectMobileNumberBottomSheetFragment selectMobileNumberBottomSheetFragment =
-                new SelectMobileNumberBottomSheetFragment(this, new MobileItem().getMobiles());
-        selectMobileNumberBottomSheetFragment.show(getParentFragmentManager(), "buyAirtimeFragment");
+        SelectAirtimeRecipientBottomSheetFragment selectAirtimeRecipientBottomSheetFragment =
+                new SelectAirtimeRecipientBottomSheetFragment(this, new MobileItem().getMobiles());
+        selectAirtimeRecipientBottomSheetFragment.show(getParentFragmentManager(), "buyAirtimeFragment");
     }
 
     @Override

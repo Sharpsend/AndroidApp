@@ -10,6 +10,7 @@ public class NetworkItem {
 
     public static class Network implements NetworkImpl {
 
+        String operatorName;
         String name;
         String id;
         boolean selected;
@@ -23,6 +24,17 @@ public class NetworkItem {
             this.imageRes = imageRes;
         }
 
+        public Network(String name, String id, String operatorName) {
+            this.name = name;
+            this.id = id;
+            this.operatorName = operatorName;
+        }
+
+        @Override
+        public String getOperatorName() {
+            return operatorName;
+        }
+
         @Override
         public String getName() {
             return name;
@@ -31,6 +43,10 @@ public class NetworkItem {
         @Override
         public String getId() {
             return id;
+        }
+
+        public void setImageRes(int imageRes) {
+            this.imageRes = imageRes;
         }
 
         public int getImage() {
@@ -61,6 +77,7 @@ public class NetworkItem {
         String getName();
         String getId();
         int getImage();
+        String getOperatorName();
     }
 
 }

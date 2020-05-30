@@ -14,13 +14,8 @@ import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentSelectMobileNetworkBinding;
-import dev.goteam.sharpsend.databinding.FragmentSelectMobileNumberBinding;
-import dev.goteam.sharpsend.db.entities.MobileItem;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
-import dev.goteam.sharpsend.ui.adapters.MobileRVAdapter;
 import dev.goteam.sharpsend.ui.adapters.NetworkRVAdapter;
-import dev.goteam.sharpsend.ui.listeners.OnMobileItemSelection;
-import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
 import dev.goteam.sharpsend.ui.listeners.OnNetworkItemSelection;
 import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 
@@ -58,20 +53,14 @@ public class SelectMobileNetworkBottomSheetFragment extends RoundedBottomSheetFr
         networkRVAdapter = new NetworkRVAdapter(requireContext(), networks, this);
         binding.networkList.setAdapter(networkRVAdapter);
 
-        binding.proceedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onNetworkSelection.onNetworkSelected(selectedNetwork);
-                dismiss();
-            }
+        binding.proceedButton.setOnClickListener(view1 -> {
+            onNetworkSelection.onNetworkSelected(selectedNetwork);
+            dismiss();
         });
 
-        binding.cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onNetworkSelection.onNetworkSelectionCanceled();
-                dismiss();
-            }
+        binding.cancelButton.setOnClickListener(view1 -> {
+            onNetworkSelection.onNetworkSelectionCanceled();
+            dismiss();
         });
     }
 

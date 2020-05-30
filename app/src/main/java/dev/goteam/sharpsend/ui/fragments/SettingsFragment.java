@@ -60,7 +60,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent operationsIntent = new Intent(requireActivity(), OperationsActivity.class);
-                operationsIntent.putExtra("operation_id", Constants.OPERATION_ACCESSIBILITY_TIPS);
+                operationsIntent.putExtra("operation_id", Constants.ACCESSIBILITY_TIPS);
                 startActivity(operationsIntent);
             }
         });

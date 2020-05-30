@@ -37,7 +37,7 @@ public class NetworkRVAdapter extends RecyclerView.Adapter<NetworkRVAdapter.Netw
     @Override
     public NetworkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate( R.layout.item_bank, parent, false );
+        View view = LayoutInflater.from(parent.getContext()).inflate( R.layout.item_network, parent, false );
 
         return new NetworkViewHolder(view);
     }
@@ -47,13 +47,10 @@ public class NetworkRVAdapter extends RecyclerView.Adapter<NetworkRVAdapter.Netw
         NetworkItem.Network network = networks.get(position);
         holder.bind(network);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                networkSelected(position);
-                Log.i(TAG, "onClick: " + position);
-                onNetworkItemSelection.onNetworkSelected(networks.get(position));
-            }
+        holder.itemView.setOnClickListener(view -> {
+            networkSelected(position);
+            Log.i(TAG, "onClick: " + position);
+            onNetworkItemSelection.onNetworkSelected(networks.get(position));
         });
     }
 
@@ -86,7 +83,6 @@ public class NetworkRVAdapter extends RecyclerView.Adapter<NetworkRVAdapter.Netw
             mobileName.setText(network.getName());
             selectorImage.setVisibility(network.isSelected() ? View.VISIBLE : View.GONE);
             image.setImageResource(network.getImage());
-            image.setVisibility(View.VISIBLE);
 
             itemView.setBackgroundResource(network.isSelected() ? R.drawable.bank_selected_bg : R.drawable.bank_unselected_bg);
         }

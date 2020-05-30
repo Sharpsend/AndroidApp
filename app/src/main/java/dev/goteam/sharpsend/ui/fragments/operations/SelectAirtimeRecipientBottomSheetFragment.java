@@ -13,23 +13,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
-import dev.goteam.sharpsend.databinding.FragmentSelectMobileNumberBinding;
+import dev.goteam.sharpsend.databinding.FragmentSelectAirtimeRecipientBinding;
 import dev.goteam.sharpsend.db.entities.MobileItem;
 import dev.goteam.sharpsend.ui.adapters.MobileRVAdapter;
 import dev.goteam.sharpsend.ui.listeners.OnMobileItemSelection;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
 
-public class SelectMobileNumberBottomSheetFragment extends RoundedBottomSheetFragment
+public class SelectAirtimeRecipientBottomSheetFragment extends RoundedBottomSheetFragment
     implements OnMobileItemSelection {
 
     private OnMobileSelection mobileSelection;
     private ArrayList<MobileItem.Mobile> mobiles;
 
-    private FragmentSelectMobileNumberBinding binding;
+    private FragmentSelectAirtimeRecipientBinding binding;
     private MobileRVAdapter mobileRVAdapter;
     private MobileItem.Mobile selectedMobile;
 
-    public SelectMobileNumberBottomSheetFragment(
+    public SelectAirtimeRecipientBottomSheetFragment(
             OnMobileSelection mobileSelection,
             ArrayList<MobileItem.Mobile> mobiles ) {
         this.mobileSelection = mobileSelection;
@@ -39,7 +39,7 @@ public class SelectMobileNumberBottomSheetFragment extends RoundedBottomSheetFra
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_select_mobile_number, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_select_airtime_recipient, container, false);
 
         return binding.getRoot();
     }

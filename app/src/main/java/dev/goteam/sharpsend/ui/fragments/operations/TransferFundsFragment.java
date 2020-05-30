@@ -81,6 +81,7 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
                             .extra("Amount", binding.amountField.getEditText().getText().toString())
                             .extra("Nuban", binding.accountNumberField.getEditText().getText().toString())
                             .finalMsgDisplayTime(0)
+                            //.setEnvironment(HoverParameters.DEBUG_ENV)
                             .buildIntent();
                     ((OperationsActivity) requireActivity()).getStartActivityModel()
                             .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
