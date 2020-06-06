@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.hover.sdk.api.Hover;
@@ -69,7 +70,6 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
 
-
     private void setupSim() {
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -109,7 +109,7 @@ public class OperationsActivity extends AppCompatActivity {
                 fragment = new TransferFundsFragment();
                 fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "transferFundsFragment");
                 fragmentTransaction.commit();
-            break;
+                break;
             case Constants.ACCESSIBILITY_TIPS:
 
                 fragment = new AccessibilityTipsFragment();
@@ -124,8 +124,8 @@ public class OperationsActivity extends AppCompatActivity {
                 break;
             case Constants.CHECK_AIRTIME:
 
-                setupSim();
-                Intent i = new HoverParameters.Builder(OperationsActivity.this)
+                // setupSim();
+                /*Intent i = new HoverParameters.Builder(OperationsActivity.this)
                         //.request("d8774688")
                         .request("d867290d")
                         .finalMsgDisplayTime(0)
@@ -133,8 +133,8 @@ public class OperationsActivity extends AppCompatActivity {
                         //.setSim(networks.get(0).getOperatorName())
                         .buildIntent();
                 getStartActivityModel()
-                        .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
-                //checkAirtime();
+                        .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));*/
+                checkAirtime();
                 break;
             default:
                 break;
@@ -148,7 +148,7 @@ public class OperationsActivity extends AppCompatActivity {
 
     private void checkAirtime() {
 
-        ArrayList<NetworkItem.Network> networks = new ArrayList<>();
+        /*ArrayList<NetworkItem.Network> networks = new ArrayList<>();
         networks.add(new NetworkItem.Network("MTN", "mtn", R.drawable.mtn));
         networks.add(new NetworkItem.Network("GLO", "glo", R.drawable.glo));
         networks.add(new NetworkItem.Network("AIRTEL", "airtel", R.drawable.airtel));
@@ -161,37 +161,14 @@ public class OperationsActivity extends AppCompatActivity {
                     public void onNetworkSelected(NetworkItem.Network network) {
                         Toast.makeText(getApplicationContext(), "Network selected: " + network.getName(), Toast.LENGTH_SHORT).show();
 
-                       /* Intent j = new HoverParameters.Builder(requireActivity())
+                        Intent j = new HoverParameters.Builder(requireActivity())
                                 .request(senderBank.getOthersRechargeAction().getActionID()) // Add your action ID here
                                 .extra("Amount", binding.amountField.getEditText().getText().toString())
                                 .extra("PhoneNumber", binding.phoneNumberField.getEditText().getText().toString())
                                 .finalMsgDisplayTime(0)
                                 .buildIntent();
                         ((OperationsActivity) requireActivity()).getStartActivityModel()
-                                .postValue(new StartActivityModel(j, Constants.OPERATIONS_CODE));*/
-                        /*try {
-                            Hover.requestActionChoice(new String[] {"d867290d", "6fe4063b", "7a47c2fd"}, new Hover.ActionChoiceListener() {
-                                @Override
-                                public void onActionChosen(String actionID) {
-                                    Intent i = new HoverParameters.Builder(OperationsActivity.this)
-                                            .request(actionID)
-                                            .finalMsgDisplayTime(0)
-                                            .setEnvironment(HoverParameters.DEBUG_ENV)
-                                            .buildIntent();
-                                    getStartActivityModel()
-                                            .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
-                                }
-
-                                @Override
-                                public void onCanceled() {
-                                    Toast.makeText(getApplicationContext(), "You must choose a SIM card", Toast.LENGTH_SHORT).show();
-                                }
-                            }, OperationsActivity.this);
-                        } catch(HoverConfigException e) {
-                            e.printStackTrace();
-                            Toast.makeText(OperationsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }*/
-
+                                .postValue(new StartActivityModel(j, Constants.OPERATIONS_CODE));
                     }
                     @Override
                     public void onNetworkSelectionCanceled() {
@@ -200,10 +177,34 @@ public class OperationsActivity extends AppCompatActivity {
                 }, networks
         );
         selectMobileNetworkBottomSheetFragment.show(getSupportFragmentManager(), "networkSelection");
+
+        */
+        try {
+            Hover.requestActionChoice(new String[]{"d867290d", "6fe4063b", "7a47c2fd", "efdc5dd1"}, new Hover.ActionChoiceListener() {
+                @Override
+                public void onActionChosen(String actionID) {
+                    Intent i = new HoverParameters.Builder(OperationsActivity.this)
+                            .request(actionID)
+                            .finalMsgDisplayTime(0)
+                            .buildIntent();
+                    getStartActivityModel()
+                            .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
+                }
+
+                @Override
+                public void onCanceled() {
+                    Toast.makeText(getApplicationContext(), "You must choose a SIM card", Toast.LENGTH_SHORT).show();
+                }
+            }, OperationsActivity.this);
+        } catch (HoverConfigException e) {
+            e.printStackTrace();
+            Toast.makeText(OperationsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
-    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Log.i(TAG, "onActivityResult: " + requestCode + "." + resultCode + "." + data);
 
@@ -238,5 +239,9 @@ public class OperationsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupSim();
+    }
+
+    public void closeBtn(View view) {
+        finish();
     }
 }

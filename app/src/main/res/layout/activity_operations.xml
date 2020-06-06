@@ -6,9 +6,23 @@
   android:layout_height="match_parent"
   tools:context=".ui.activities.OperationsActivity">
 
+	<Button
+		android:id="@+id/close_btn"
+		style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="200dp"
+		android:text="Back"
+		android:textColor="@color/colorPrimaryDark"
+		android:onClick="closeBtn"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent" />
+
   <FrameLayout
 	android:id="@+id/operations_fragment_container"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

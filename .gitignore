@@ -12,3 +12,5 @@
 /captures
 .externalNativeBuild
 .cxx
+/Key
+app/release

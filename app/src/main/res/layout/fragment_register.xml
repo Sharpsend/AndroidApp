@@ -112,7 +112,7 @@
 		  android:contentDescription="@string/pin_should_be_4_characters_long_text"
 		  android:focusable="false"
 		  android:padding="8dp"
-		  android:text="@string/pin_should_be_4_characters_long_text"
+		  android:text="PIN is JUST for access into App, shouldn't be your bank pin"
 		  android:textColor="@color/colorTextGray"
 		  android:textSize="12sp"
 		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
