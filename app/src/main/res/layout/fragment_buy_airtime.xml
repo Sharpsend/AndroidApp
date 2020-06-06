@@ -20,16 +20,16 @@
 	  app:layout_constraintGuide_percent=".1"
 	  android:layout_height="match_parent"/>
 
-	<androidx.constraintlayout.widget.Guideline
-	  android:layout_width="wrap_content"
-	  app:layout_constraintGuide_percent=".9"
-	  android:id="@+id/right_guideline"
-	  android:orientation="vertical"
-	  android:layout_height="match_parent"/>
+	  <androidx.constraintlayout.widget.Guideline
+		  android:id="@+id/right_guideline"
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:orientation="vertical"
+		  app:layout_constraintGuide_begin="370dp" />
 
 	  <TextView
 		  android:id="@+id/buy_airtime_heading"
-		  android:layout_width="0dp"
+		  android:layout_width="wrap_content"
 		  android:layout_height="wrap_content"
 		  android:layout_marginTop="20dp"
 		  android:fontFamily="@font/sf_pro_display_regular"
@@ -37,9 +37,32 @@
 		  android:textColor="@color/colorPrimary"
 		  android:textSize="24sp"
 		  android:textStyle="bold"
-		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
 		  app:layout_constraintStart_toEndOf="@id/left_guideline"
 		  app:layout_constraintTop_toTopOf="parent" />
+
+	  <com.google.android.material.textfield.TextInputLayout
+		  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+		  android:layout_width="wrap_content"
+		  android:layout_height="30dp"
+		  android:fontFamily="@font/roboto"
+		  app:boxStrokeWidthFocused="1dp"
+		  app:hintEnabled="false"
+		  app:layout_constraintBaseline_toBaselineOf="@id/buy_airtime_heading"
+		  app:layout_constraintEnd_toStartOf="@id/right_guideline">
+
+		  <AutoCompleteTextView
+			  android:id="@+id/departmentEntry"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:clickable="true"
+			  android:focusable="false"
+			  android:paddingStart="6dp"
+			  android:paddingTop="6dp"
+			  android:paddingEnd="6dp"
+			  android:paddingBottom="6dp"
+			  android:text="MTN Sim 1"
+			  android:textSize="12sp" />
+	  </com.google.android.material.textfield.TextInputLayout>
 
 	<com.google.android.material.textfield.TextInputLayout
 	  android:layout_width="0dp"
