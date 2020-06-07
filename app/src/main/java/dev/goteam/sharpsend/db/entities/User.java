@@ -9,7 +9,7 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     private int userID;
     private String userName;
-    private NetworkItem.NetworkImpl defaultSim;
+    private String defaultSim;
 
     public User(String userName) {
         this.userName = userName;
@@ -27,11 +27,11 @@ public class User {
         return userName;
     }
 
-    public NetworkItem.NetworkImpl getDefaultSim() {
+    public String getDefaultSim() {
         return defaultSim;
     }
 
-    public void setDefaultSim(NetworkItem.NetworkImpl defaultSim) {
+    public void setDefaultSim(String defaultSim) {
         this.defaultSim = defaultSim;
     }
 }
