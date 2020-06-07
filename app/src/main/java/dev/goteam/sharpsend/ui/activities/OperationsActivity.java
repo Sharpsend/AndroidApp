@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,22 +26,21 @@ import java.util.List;
 
 import dev.goteam.sharpsend.AccessibilityTipsFragment;
 import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.SharpsendApp;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.db.entities.StartActivityModel;
 import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
-import dev.goteam.sharpsend.ui.fragments.operations.SelectMobileNetworkBottomSheetFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.TransferFundsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.BuyAirtimeFragment;
-import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
-import dev.goteam.sharpsend.utils.NetworkUtils;
+import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
 public class OperationsActivity extends AppCompatActivity {
+    public static ArrayList<NetworkItem.NetworkImpl> networks;
     private final String TAG = getClass().getSimpleName();
+    private String operation_id;
     private MutableLiveData<StartActivityModel> startActivityModel = new MutableLiveData<>();
-    public ArrayList<NetworkItem.Network> networks;
-
-    String operation_id;
+    private OperationsViewModel operationsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,8 @@ public class OperationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_operations);
 
         Intent intent = getIntent();
+        operationsViewModel = new ViewModelProvider(this).get(OperationsViewModel.class);
+
 
         try {
             operation_id = intent.getExtras().getString("operation_id");
@@ -59,7 +61,6 @@ public class OperationsActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), PermissionActivity.class);
         startActivityForResult(i, 0);
 
-        //setupSim();
         setUpOperatingFragment();
 
         startActivityModel.observe(this, startActivityModel1 -> {
@@ -69,8 +70,7 @@ public class OperationsActivity extends AppCompatActivity {
         });
     }
 
-
-    private void setupSim() {
+    public void setupSim() {
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -81,22 +81,18 @@ public class OperationsActivity extends AppCompatActivity {
         if (simInfos != null) {
 
             networks = new ArrayList<>();
-            for (SimInfo siminfo : simInfos) {
-                NetworkItem.Network network = new NetworkItem.Network(
-                        new StringBuilder()
-                                .append(siminfo.getOperatorName())
-                                .append(" (SIM ")
-                                .append(siminfo.slotIdx + 1)
-                                .append(")").toString(),
-                        siminfo.getOperatorName(),
-                        NetworkUtils.getSimId(siminfo.getOperatorName())
-                );
-                network.setImageRes(NetworkUtils.getSimRes(network.getId()));
-                networks.add(network);
-            }
+            networks = new NetworkItem().getNetworksFromSimInfos(simInfos);
+
+            networks = operationsViewModel.selectDefaultSim(networks);
 
             Log.i(TAG, "onNetworkSelected: " + simInfos.get(0).getNetworkOperator() + "." + simInfos.get(0).getNetworkOperatorName());
         }
+
+
+    }
+
+    public ArrayList<NetworkItem.NetworkImpl> getNetworks() {
+        return networks;
     }
 
     private void setUpOperatingFragment() {
@@ -148,37 +144,6 @@ public class OperationsActivity extends AppCompatActivity {
 
     private void checkAirtime() {
 
-        /*ArrayList<NetworkItem.Network> networks = new ArrayList<>();
-        networks.add(new NetworkItem.Network("MTN", "mtn", R.drawable.mtn));
-        networks.add(new NetworkItem.Network("GLO", "glo", R.drawable.glo));
-        networks.add(new NetworkItem.Network("AIRTEL", "airtel", R.drawable.airtel));
-        networks.add(new NetworkItem.Network("9MOBILE", "9mobile", R.drawable.mobile_9));
-
-        SelectMobileNetworkBottomSheetFragment selectMobileNetworkBottomSheetFragment
-                = new SelectMobileNetworkBottomSheetFragment(
-                new OnNetworkSelection() {
-                    @Override
-                    public void onNetworkSelected(NetworkItem.Network network) {
-                        Toast.makeText(getApplicationContext(), "Network selected: " + network.getName(), Toast.LENGTH_SHORT).show();
-
-                        Intent j = new HoverParameters.Builder(requireActivity())
-                                .request(senderBank.getOthersRechargeAction().getActionID()) // Add your action ID here
-                                .extra("Amount", binding.amountField.getEditText().getText().toString())
-                                .extra("PhoneNumber", binding.phoneNumberField.getEditText().getText().toString())
-                                .finalMsgDisplayTime(0)
-                                .buildIntent();
-                        ((OperationsActivity) requireActivity()).getStartActivityModel()
-                                .postValue(new StartActivityModel(j, Constants.OPERATIONS_CODE));
-                    }
-                    @Override
-                    public void onNetworkSelectionCanceled() {
-
-                    }
-                }, networks
-        );
-        selectMobileNetworkBottomSheetFragment.show(getSupportFragmentManager(), "networkSelection");
-
-        */
         try {
             Hover.requestActionChoice(new String[]{"d867290d", "6fe4063b", "7a47c2fd", "efdc5dd1"}, new Hover.ActionChoiceListener() {
                 @Override
@@ -208,6 +173,11 @@ public class OperationsActivity extends AppCompatActivity {
 
         Log.i(TAG, "onActivityResult: " + requestCode + "." + resultCode + "." + data);
 
+        try {
+            Log.i(TAG, "onActivityResult: " + requestCode + "." + resultCode + "." + data.getStringExtra("error") +  data.getStringArrayExtra("session_messages").length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (requestCode == Constants.OPERATIONS_CODE && resultCode == Activity.RESULT_OK) {
             String[] sessionTextArr = data.getStringArrayExtra("session_messages");
             String uuid = data.getStringExtra("uuid");
@@ -221,9 +191,10 @@ public class OperationsActivity extends AppCompatActivity {
             fragmentTransaction.replace(R.id.operations_fragment_container, newFragment, "transactionSuccessDialog");
             fragmentTransaction.commitAllowingStateLoss();
 
-        } else if (requestCode == 0 && resultCode == Activity.RESULT_CANCELED) {
+        } else if (requestCode == Constants.OPERATIONS_CODE && resultCode == Activity.RESULT_CANCELED) {
             try {
                 Toast.makeText(this, "Error: " + data.getStringExtra("error"), Toast.LENGTH_LONG).show();
+                finish();
             } catch (Exception e) {
                 if (e instanceof HoverConfigException) {
                     Toast.makeText(this, "A one time Internet connection is needed for proper usage,\nThanks 🙂", Toast.LENGTH_LONG).show();
@@ -231,14 +202,14 @@ public class OperationsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setupSim();
+        operationsViewModel.saveDefaultSim("GLO NG (SIM 2)");
+        ((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> setupSim());
     }
 
     public void closeBtn(View view) {

@@ -22,11 +22,11 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class NetworkRVAdapter extends RecyclerView.Adapter<NetworkRVAdapter.NetworkViewHolder> {
 
     private Context context;
-    private ArrayList<NetworkItem.Network> networks;
+    private ArrayList<NetworkItem.NetworkImpl> networks;
     private OnNetworkItemSelection onNetworkItemSelection;
 
     public NetworkRVAdapter(Context context,
-                            ArrayList<NetworkItem.Network> networks,
+                            ArrayList<NetworkItem.NetworkImpl> networks,
                             OnNetworkItemSelection selectedOnAdapterListener) {
         this.context = context;
         this.networks = networks;
@@ -44,7 +44,7 @@ public class NetworkRVAdapter extends RecyclerView.Adapter<NetworkRVAdapter.Netw
 
     @Override
     public void onBindViewHolder(@NonNull NetworkViewHolder holder, int position) {
-        NetworkItem.Network network = networks.get(position);
+        NetworkItem.NetworkImpl network = networks.get(position);
         holder.bind(network);
 
         holder.itemView.setOnClickListener(view -> {
@@ -55,7 +55,7 @@ public class NetworkRVAdapter extends RecyclerView.Adapter<NetworkRVAdapter.Netw
     }
 
     public void networkSelected(int position) {
-        for (NetworkItem.Network network: networks) {
+        for (NetworkItem.NetworkImpl network: networks) {
             network.setSelected(false);
         }
         networks.get(position).setSelected(true);
@@ -64,7 +64,7 @@ public class NetworkRVAdapter extends RecyclerView.Adapter<NetworkRVAdapter.Netw
 
     @Override
     public int getItemCount() {
-        return networks.size();
+        return networks == null ? 0 : networks.size();
     }
 
     class NetworkViewHolder extends RecyclerView.ViewHolder {
@@ -79,8 +79,8 @@ public class NetworkRVAdapter extends RecyclerView.Adapter<NetworkRVAdapter.Netw
                 image = itemView.findViewById(R.id.image);
         }
 
-        public void bind(NetworkItem.Network network) {
-            mobileName.setText(network.getName());
+        public void bind(NetworkItem.NetworkImpl network) {
+            mobileName.setText(network.getDisplayname());
             selectorImage.setVisibility(network.isSelected() ? View.VISIBLE : View.GONE);
             image.setImageResource(network.getImage());
 

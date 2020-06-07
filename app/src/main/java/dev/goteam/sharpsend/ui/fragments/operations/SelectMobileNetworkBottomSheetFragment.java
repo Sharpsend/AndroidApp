@@ -23,15 +23,15 @@ public class SelectMobileNetworkBottomSheetFragment extends RoundedBottomSheetFr
     implements OnNetworkItemSelection {
 
     private OnNetworkSelection onNetworkSelection;
-    private ArrayList<NetworkItem.Network> networks;
+    private ArrayList<NetworkItem.NetworkImpl> networks;
 
     private FragmentSelectMobileNetworkBinding binding;
     private NetworkRVAdapter networkRVAdapter;
-    private NetworkItem.Network selectedNetwork;
+    private NetworkItem.NetworkImpl selectedNetwork;
 
     public SelectMobileNetworkBottomSheetFragment(
             OnNetworkSelection networkSelection,
-            ArrayList<NetworkItem.Network> networks ) {
+            ArrayList<NetworkItem.NetworkImpl> networks ) {
         this.onNetworkSelection = networkSelection;
         this.networks = networks;
     }
@@ -65,7 +65,7 @@ public class SelectMobileNetworkBottomSheetFragment extends RoundedBottomSheetFr
     }
 
     @Override
-    public void onNetworkSelected(NetworkItem.Network network) {
+    public void onNetworkSelected(NetworkItem.NetworkImpl network) {
         this.selectedNetwork = network;
     }
 }

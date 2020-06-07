@@ -82,8 +82,8 @@ public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSe
     }
 
     @Override
-    public void onNetworkSelected(NetworkItem.Network network) {
-        Toast.makeText(requireContext(), "Network selected: " + network.getName(), Toast.LENGTH_SHORT).show();
+    public void onNetworkSelected(NetworkItem.NetworkImpl network) {
+        Toast.makeText(requireContext(), "Network selected: " + network.getDisplayname(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

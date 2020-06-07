@@ -5,6 +5,6 @@ import dev.goteam.sharpsend.db.entities.NetworkItem;
 
 public interface OnNetworkItemSelection {
 
-    void onNetworkSelected(NetworkItem.Network network);
+    void onNetworkSelected(NetworkItem.NetworkImpl network);
 
 }

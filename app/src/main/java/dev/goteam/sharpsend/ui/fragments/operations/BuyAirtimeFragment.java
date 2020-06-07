@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +17,22 @@ import android.widget.Toast;
 
 import com.hover.sdk.api.HoverParameters;
 
+import java.util.ArrayList;
+
+import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentBuyAirtimeBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.db.entities.MobileItem;
+import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.db.entities.StartActivityModel;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
+import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
 
-public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnMobileSelection, TextWatcher {
-
+public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnMobileSelection, TextWatcher, OnNetworkSelection {
+    private final String TAG = getClass().getSimpleName();
     private FragmentBuyAirtimeBinding binding;
     private BankItem.Bank senderBank;
     private MobileItem.Mobile recipientMobile;
@@ -43,12 +49,9 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.selectBankField.getEditText().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchBankSelection();
-            }
-        });
+        binding.selectSimField.getEditText().setOnClickListener(view1 -> launchSimSelection());
+
+        binding.selectBankField.getEditText().setOnClickListener(view1 -> launchBankSelection());
 
         binding.selectMobileNumberField.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,13 +92,24 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                                 ((OperationsActivity) requireActivity()).getStartActivityModel()
                                         .postValue(new StartActivityModel(j, Constants.OPERATIONS_CODE));
                             } else {
-                                Toast.makeText(requireActivity(), "Application dosen't support 3rd party recharge for your bank yet, Thank you", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(requireActivity(), "Application dosen't support 3rd party recharge for this bank yet, Thank you", Toast.LENGTH_SHORT).show();
                             }
                             break;
                     }
                 }
             }
         });
+    }
+
+    private void launchSimSelection() {
+        SelectMobileNetworkBottomSheetFragment selectMobileNetworkBottomSheetFragment
+                = new SelectMobileNetworkBottomSheetFragment(this, OperationsActivity.networks
+        );
+        selectMobileNetworkBottomSheetFragment.show(getParentFragmentManager(), "networkSelection");
+    }
+
+    private void selectedSim() {
+
     }
 
     private void launchBankSelection() {
@@ -107,6 +121,16 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         SelectAirtimeRecipientBottomSheetFragment selectAirtimeRecipientBottomSheetFragment =
                 new SelectAirtimeRecipientBottomSheetFragment(this, new MobileItem().getMobiles());
         selectAirtimeRecipientBottomSheetFragment.show(getParentFragmentManager(), "buyAirtimeFragment");
+    }
+
+    @Override
+    public void onNetworkSelected(NetworkItem.NetworkImpl network) {
+        Log.i(TAG, "onNetworkSelected: " + network.getDisplayname());
+    }
+
+    @Override
+    public void onNetworkSelectionCanceled() {
+
     }
 
     @Override

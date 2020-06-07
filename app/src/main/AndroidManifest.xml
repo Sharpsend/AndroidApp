@@ -15,7 +15,11 @@
 	<activity android:name=".ui.activities.ChangePinActivity" />
 	<activity android:name=".ui.activities.OperationsActivity" />
 	<activity android:name=".ui.activities.AuthActivity">
+		<intent-filter>
+			<action android:name="android.intent.action.MAIN" />
 
+			<category android:name="android.intent.category.LAUNCHER" />
+		</intent-filter>
 	</activity>
 	<activity
 	  android:name=".ui.activities.MainActivity"
