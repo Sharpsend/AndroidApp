@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,12 +31,14 @@ import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
 import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
+import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
 public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnMobileSelection, TextWatcher, OnNetworkSelection {
     private final String TAG = getClass().getSimpleName();
     private FragmentBuyAirtimeBinding binding;
     private BankItem.Bank senderBank;
     private MobileItem.Mobile recipientMobile;
+    private OperationsViewModel operationsViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +51,9 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        operationsViewModel = new ViewModelProvider(getActivity()).get(OperationsViewModel.class);
+
+        loadScreen();
 
         binding.selectSimField.getEditText().setOnClickListener(view1 -> launchSimSelection());
 
@@ -108,8 +114,9 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         selectMobileNetworkBottomSheetFragment.show(getParentFragmentManager(), "networkSelection");
     }
 
-    private void selectedSim() {
-
+    private void loadScreen() {
+        if (OperationsActivity.selectedDefaultSim != null)
+        binding.selectSimField.getEditText().setText(OperationsActivity.selectedDefaultSim.getDisplayname());
     }
 
     private void launchBankSelection() {
@@ -125,12 +132,18 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
 
     @Override
     public void onNetworkSelected(NetworkItem.NetworkImpl network) {
-        Log.i(TAG, "onNetworkSelected: " + network.getDisplayname());
+        if (network != null) {
+
+            OperationsActivity.selectedDefaultSim = network;
+            //operationsViewModel.saveDefaultSim(network.getDisplayname());
+            binding.selectSimField.getEditText().setText(network.getDisplayname());
+            Log.i(TAG, "onNetworkSelected: " + network.getDisplayname());
+        }
+
     }
 
     @Override
     public void onNetworkSelectionCanceled() {
-
     }
 
     @Override

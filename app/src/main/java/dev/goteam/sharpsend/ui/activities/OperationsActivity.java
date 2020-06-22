@@ -37,10 +37,13 @@ import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
 public class OperationsActivity extends AppCompatActivity {
     public static ArrayList<NetworkItem.NetworkImpl> networks;
+    public static NetworkItem.NetworkImpl selectedDefaultSim;
+
     private final String TAG = getClass().getSimpleName();
     private String operation_id;
     private MutableLiveData<StartActivityModel> startActivityModel = new MutableLiveData<>();
     private OperationsViewModel operationsViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class OperationsActivity extends AppCompatActivity {
     public void setupSim() {
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG, "setupSim: ");
             return;
         }
 
@@ -83,8 +87,10 @@ public class OperationsActivity extends AppCompatActivity {
             networks = new ArrayList<>();
             networks = new NetworkItem().getNetworksFromSimInfos(simInfos);
 
-            networks = operationsViewModel.selectDefaultSim(networks);
+            int simPosition = operationsViewModel.getDefaultSimPosition(networks);
 
+            networks.get(simPosition).setSelected(true);
+            selectedDefaultSim = networks.get(simPosition);
             Log.i(TAG, "onNetworkSelected: " + simInfos.get(0).getNetworkOperator() + "." + simInfos.get(0).getNetworkOperatorName());
         }
 
@@ -208,7 +214,6 @@ public class OperationsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        operationsViewModel.saveDefaultSim("GLO NG (SIM 2)");
         ((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> setupSim());
     }
 

@@ -57,6 +57,7 @@
 			  android:layout_height="wrap_content"
 			  android:clickable="true"
 			  android:focusable="false"
+			  android:inputType="textNoSuggestions"
 			  android:paddingStart="8dp"
 			  android:paddingTop="6dp"
 			  android:paddingEnd="6dp"
@@ -80,6 +81,7 @@
 		<com.google.android.material.textfield.MaterialAutoCompleteTextView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:inputType="textNoSuggestions"
 			android:clickable="true"
 			android:focusable="false"
 			android:fontFamily="@font/sf_pro_display_regular" />
@@ -102,6 +104,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:clickable="true"
+			android:inputType="textNoSuggestions"
 			android:focusable="false"
 			android:fontFamily="@font/sf_pro_display_regular" />
 

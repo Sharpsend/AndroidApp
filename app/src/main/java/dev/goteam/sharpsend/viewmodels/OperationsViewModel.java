@@ -4,10 +4,8 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import dev.goteam.sharpsend.AppRepository;
 import dev.goteam.sharpsend.SharpsendApp;
@@ -28,24 +26,16 @@ public class OperationsViewModel extends AndroidViewModel {
         });
     }
 
-    public ArrayList<NetworkItem.NetworkImpl> selectDefaultSim(ArrayList<NetworkItem.NetworkImpl> networks) {
+    public int getDefaultSimPosition (ArrayList<NetworkItem.NetworkImpl> networks) {
 
         if (user != null && user.getDefaultSim() != null) {
-            /*for (Iterator<NetworkItem.NetworkImpl> it = networks.iterator(); it.hasNext(); ) {
-                NetworkItem.NetworkImpl network = it.next();
-
-
-            }*/
-
             for (int i = 0; i < networks.size(); i++) {
                 if (networks.get(i).getDisplayname().equalsIgnoreCase(user.getDefaultSim())) {
-                    networks.get(i).setSelected(true);
-                } else {
-                    networks.get(i).setSelected(false);
+                    return i;
                 }
             }
         }
-        return networks;
+        return 0;
     }
 
     public void saveDefaultSim (String displayName) {
