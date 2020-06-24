@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -42,6 +43,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     private OperationsViewModel operationsViewModel;
     private User user;
     private TextInputLayout selectSimField;
+    private TextView title;
     private boolean isStarting = true;
     private ActivityOperationsBinding binding;
 
@@ -76,7 +78,10 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         Intent intent = getIntent();
         binding = ActivityOperationsBinding.inflate(getLayoutInflater());
         operationsViewModel = new ViewModelProvider(this).get(OperationsViewModel.class);
+
+        // View Binding is misbehaving, that is why i use this
         selectSimField = findViewById(R.id.select_sim_field);
+        title = findViewById(R.id.title);
 
         try {
             operation_id = intent.getExtras().getString("operation_id");
@@ -90,17 +95,12 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 user = user1;
                 networks = operationsViewModel.getSims(this, user);
                 setUpSims();
-                if (isStarting)
-                setUpOperatingFragment();
+                if (isStarting) {
+                    isStarting = false;
+                    setUpOperatingFragment();
+                }
             }
         });
-
-        //setUpOperatingFragment();
-
-        /*binding.selectSimField.getEditText().setOnClickListener(view1 -> {
-            Log.e(TAG, "onCreate: TAP");
-            launchSimSelection();
-        });*/
 
         selectSimField.getEditText().setOnClickListener(view1 -> launchSimSelection());
 
@@ -117,10 +117,6 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
             selectSimField.getEditText().setText(selectedNetwork.getDisplayName());
         }
-    }
-
-    public ArrayList<NetworkItem.NetworkImpl> getNetworks() {
-        return networks;
     }
 
     private void setUpOperatingFragment() {
@@ -149,9 +145,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
             case Constants.CHECK_AIRTIME:
 
                 //checkAirtime();
-
-                //newCheckAirtime();
-
+                newCheckAirtime();
                 break;
             default:
                 break;
@@ -163,21 +157,16 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     }
 
     private void newCheckAirtime() {
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.CALL_PHONE}, CALL_REQUEST);
-                return;
-            }
-        }*/
-
+        title.setText("Check Airtime");
         if (networks != null) {
-            String code = "*556##";
+            String code = networks.get(user.getSlotIdx()).getCheckBalanceCode();
             Intent callIntent = new Intent(Intent.ACTION_CALL).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            callIntent.setData(Uri.parse("tel:" + code));
+            callIntent.setData(Uri.parse("tel:" + Uri.encode(code)));
 
             callIntent.putExtra("com.android.phone.force.slot", true);
             callIntent.putExtra("Cdma_Supp", true);
 
+            Log.i(TAG, "newCheckAirtime: Dialing Code: " + code);
             //Add all slots here, according to device.. (different device require different key so put all together)
             for (String s : simSlotName)
                 callIntent.putExtra(s, user.getSlotIdx()); //0 or 1 according to sim.......
@@ -288,6 +277,5 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
     @Override
     public void onNetworkSelectionCanceled() {
-
     }
 }

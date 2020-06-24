@@ -63,7 +63,6 @@ public class OperationsViewModel extends AndroidViewModel {
         if (ContextCompat.checkSelfPermission(context,
                 android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_PHONE_STATE}, Constants.SIMINFO_REQUEST);
-
             // Don't return, it may be automatically accepted in recent Android Versions
         }
 

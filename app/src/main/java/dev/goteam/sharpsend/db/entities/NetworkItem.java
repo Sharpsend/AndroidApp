@@ -32,8 +32,8 @@ public class NetworkItem {
         }
 
         @Override
-        public Action getCheckBalanceAction() {
-            return new Action("d867290d", Constants.CHECK_AIRTIME, "Check Airtime");
+        public String getCheckBalanceCode() {
+            return "*556#";
         }
 
         @Override
@@ -69,7 +69,7 @@ public class NetworkItem {
 
         private int slotIdx;
         String operatorName;
-        String displayname;
+        String displayName;
         String id;
         boolean selected;
         int imageRes = R.drawable.glo;
@@ -77,7 +77,7 @@ public class NetworkItem {
         public Glo(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
-            displayname = operatorName;
+            displayName = operatorName;
             this.id = simId;
         }
 
@@ -87,13 +87,13 @@ public class NetworkItem {
         }
 
         @Override
-        public Action getCheckBalanceAction() {
-            return new Action("d867290d", Constants.CHECK_AIRTIME, "Check Airtime");
+        public String getCheckBalanceCode() {
+            return "#124*1#";
         }
 
         @Override
         public String getDisplayName() {
-            return displayname;
+            return displayName;
         }
 
         @Override
@@ -142,8 +142,8 @@ public class NetworkItem {
         }
 
         @Override
-        public Action getCheckBalanceAction() {
-            return new Action("d867290d", Constants.CHECK_AIRTIME, "Check Airtime");
+        public String getCheckBalanceCode() {
+            return "*123#";
         }
 
         @Override
@@ -197,8 +197,8 @@ public class NetworkItem {
         }
 
         @Override
-        public Action getCheckBalanceAction() {
-            return new Action("d867290d", Constants.CHECK_AIRTIME, "Check Airtime");
+        public String getCheckBalanceCode() {
+            return "*232#";
         }
 
         @Override
@@ -254,7 +254,7 @@ public class NetworkItem {
         int getImage();
         int getSlotIdx();
         String getNetworkOperatorCode();
-        Action getCheckBalanceAction();
+        String getCheckBalanceCode();
     }
 
     public static class Action {
