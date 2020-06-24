@@ -47,13 +47,10 @@ public class BanksRVAdapter extends RecyclerView.Adapter<BanksRVAdapter.BankRVVi
         BankItem.Bank bank = banks.get(position);
         holder.bind(bank);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bankSelected(position);
-                Log.i(TAG, "onClick: " + position);
-                mOnBankItemSelected.onBankItemSelected(banks.get(position));
-            }
+        holder.itemView.setOnClickListener(view -> {
+            bankSelected(position);
+            Log.i(TAG, "onClick: " + position);
+            mOnBankItemSelected.onBankItemSelected(banks.get(position));
         });
     }
 

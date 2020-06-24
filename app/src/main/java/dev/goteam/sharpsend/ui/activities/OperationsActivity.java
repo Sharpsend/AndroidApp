@@ -1,7 +1,6 @@
 package dev.goteam.sharpsend.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
@@ -9,41 +8,65 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverConfigException;
 import com.hover.sdk.api.HoverParameters;
-import com.hover.sdk.permissions.PermissionActivity;
-import com.hover.sdk.sims.SimInfo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import dev.goteam.sharpsend.AccessibilityTipsFragment;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.SharpsendApp;
+import dev.goteam.sharpsend.databinding.ActivityOperationsBinding;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
-import dev.goteam.sharpsend.db.entities.StartActivityModel;
+import dev.goteam.sharpsend.db.entities.User;
+import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
+import dev.goteam.sharpsend.ui.fragments.operations.SelectMobileNetworkBottomSheetFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.TransferFundsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.BuyAirtimeFragment;
+import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
-public class OperationsActivity extends AppCompatActivity {
+public class OperationsActivity extends AppCompatActivity implements OnNetworkSelection {
     public static ArrayList<NetworkItem.NetworkImpl> networks;
     public static NetworkItem.NetworkImpl selectedDefaultSim;
+    private OperationsViewModel operationsViewModel;
+    private User user;
+    private TextInputLayout selectSimField;
+    private boolean isStarting = true;
+    private ActivityOperationsBinding binding;
 
     private final String TAG = getClass().getSimpleName();
     private String operation_id;
     private MutableLiveData<StartActivityModel> startActivityModel = new MutableLiveData<>();
-    private OperationsViewModel operationsViewModel;
 
+    private final static String[] simSlotName = {
+            "extra_asus_dial_use_dualsim",
+            "com.android.phone.extra.slot",
+            "slot",
+            "simslot",
+            "sim_slot",
+            "subscription",
+            "Subscription",
+            "phone",
+            "com.android.phone.DialingMode",
+            "simSlot",
+            "slot_id",
+            "simId",
+            "simnum",
+            "phone_type",
+            "slotId",
+            "slotIdx"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +74,9 @@ public class OperationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_operations);
 
         Intent intent = getIntent();
+        binding = ActivityOperationsBinding.inflate(getLayoutInflater());
         operationsViewModel = new ViewModelProvider(this).get(OperationsViewModel.class);
-
+        selectSimField = findViewById(R.id.select_sim_field);
 
         try {
             operation_id = intent.getExtras().getString("operation_id");
@@ -60,11 +84,25 @@ public class OperationsActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
 
-        // Request Hover permission
-        Intent i = new Intent(getApplicationContext(), PermissionActivity.class);
-        startActivityForResult(i, 0);
+        operationsViewModel.getUser().observe(this, user1 -> {
+            Log.e(TAG, "OperationsViewModel: Got User");
+            if (user1 != null) {
+                user = user1;
+                networks = operationsViewModel.getSims(this, user);
+                setUpSims();
+                if (isStarting)
+                setUpOperatingFragment();
+            }
+        });
 
-        setUpOperatingFragment();
+        //setUpOperatingFragment();
+
+        /*binding.selectSimField.getEditText().setOnClickListener(view1 -> {
+            Log.e(TAG, "onCreate: TAP");
+            launchSimSelection();
+        });*/
+
+        selectSimField.getEditText().setOnClickListener(view1 -> launchSimSelection());
 
         startActivityModel.observe(this, startActivityModel1 -> {
             if (startActivityModel1 != null) {
@@ -73,28 +111,12 @@ public class OperationsActivity extends AppCompatActivity {
         });
     }
 
-    public void setupSim() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            Log.i(TAG, "setupSim: ");
-            return;
+    private void setUpSims() {
+        if (networks != null) {
+            NetworkItem.NetworkImpl selectedNetwork = getNetworkFromSlot(user.getSlotIdx());
+
+            selectSimField.getEditText().setText(selectedNetwork.getDisplayName());
         }
-
-        List<SimInfo> simInfos = Hover.getPresentSims(OperationsActivity.this);
-
-        if (simInfos != null) {
-
-            networks = new ArrayList<>();
-            networks = new NetworkItem().getNetworksFromSimInfos(simInfos);
-
-            int simPosition = operationsViewModel.getDefaultSimPosition(networks);
-
-            networks.get(simPosition).setSelected(true);
-            selectedDefaultSim = networks.get(simPosition);
-            Log.i(TAG, "onNetworkSelected: " + simInfos.get(0).getNetworkOperator() + "." + simInfos.get(0).getNetworkOperatorName());
-        }
-
-
     }
 
     public ArrayList<NetworkItem.NetworkImpl> getNetworks() {
@@ -126,26 +148,44 @@ public class OperationsActivity extends AppCompatActivity {
                 break;
             case Constants.CHECK_AIRTIME:
 
-                // setupSim();
-                /*Intent i = new HoverParameters.Builder(OperationsActivity.this)
-                        //.request("d8774688")
-                        .request("d867290d")
-                        .finalMsgDisplayTime(0)
-                        //.setEnvironment(HoverParameters.DEBUG_ENV)
-                        //.setSim(networks.get(0).getOperatorName())
-                        .buildIntent();
-                getStartActivityModel()
-                        .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));*/
-                checkAirtime();
+                //checkAirtime();
+
+                //newCheckAirtime();
+
                 break;
             default:
                 break;
         }
     }
 
-
     public MutableLiveData<StartActivityModel> getStartActivityModel() {
         return startActivityModel;
+    }
+
+    private void newCheckAirtime() {
+        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.CALL_PHONE}, CALL_REQUEST);
+                return;
+            }
+        }*/
+
+        if (networks != null) {
+            String code = "*556##";
+            Intent callIntent = new Intent(Intent.ACTION_CALL).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            callIntent.setData(Uri.parse("tel:" + code));
+
+            callIntent.putExtra("com.android.phone.force.slot", true);
+            callIntent.putExtra("Cdma_Supp", true);
+
+            //Add all slots here, according to device.. (different device require different key so put all together)
+            for (String s : simSlotName)
+                callIntent.putExtra(s, user.getSlotIdx()); //0 or 1 according to sim.......
+
+            startActivity(callIntent);
+        } else {
+            Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void checkAirtime() {
@@ -171,7 +211,13 @@ public class OperationsActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(OperationsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
 
+    public void launchSimSelection() {
+        SelectMobileNetworkBottomSheetFragment selectMobileNetworkBottomSheetFragment
+                = new SelectMobileNetworkBottomSheetFragment(this, networks
+        );
+        selectMobileNetworkBottomSheetFragment.show(getSupportFragmentManager(), "networkSelection");
     }
 
     @Override
@@ -214,10 +260,34 @@ public class OperationsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> setupSim());
+        if (user != null)
+        ((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> networks = operationsViewModel.getSims(this, user));
     }
 
     public void closeBtn(View view) {
         finish();
+    }
+
+    @Override
+    public void onNetworkSelected(int slotIdx) {
+        if (networks != null) {
+            NetworkItem.NetworkImpl selectedNetwork = getNetworkFromSlot(slotIdx);
+
+            selectSimField.getEditText().setText(selectedNetwork.getDisplayName());
+            operationsViewModel.saveUserSim(selectedNetwork.getSlotIdx());
+        }
+    }
+
+    private NetworkItem.NetworkImpl getNetworkFromSlot(int slotIdx) {
+        for (NetworkItem.NetworkImpl network : networks) {
+            if (network.getSlotIdx() == slotIdx)
+                return network;
+        }
+        return null;
+    }
+
+    @Override
+    public void onNetworkSelectionCanceled() {
+
     }
 }

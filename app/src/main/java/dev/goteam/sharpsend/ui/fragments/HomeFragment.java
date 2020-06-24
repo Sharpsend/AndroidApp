@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,6 @@ import dev.goteam.sharpsend.databinding.FragmentHomeBinding;
 import dev.goteam.sharpsend.db.entities.HomeItem;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.ui.adapters.HomeRVAdapter;
-import dev.goteam.sharpsend.ui.fragments.operations.SelectMobileNetworkBottomSheetFragment;
 import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.viewmodels.HomeViewModel;
@@ -84,8 +81,8 @@ public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSe
     }
 
     @Override
-    public void onNetworkSelected(NetworkItem.NetworkImpl network) {
-        Toast.makeText(requireContext(), "Network selected: " + network.getDisplayname(), Toast.LENGTH_SHORT).show();
+    public void onNetworkSelected(int network) {
+        //Toast.makeText(requireContext(), "Network selected: " + network.getDisplayName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -1,28 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".ui.activities.OperationsActivity">
-
-	<Button
-		android:id="@+id/close_btn"
-		style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="200dp"
-		android:text="Back"
-		android:textColor="@color/colorPrimaryDark"
-		android:onClick="closeBtn"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent" />
-
-  <FrameLayout
-	android:id="@+id/operations_fragment_container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent" />
+	android:layout_height="match_parent"
+	tools:context=".ui.activities.OperationsActivity"
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="64dp"
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+		android:paddingStart="36dp"
+		android:paddingEnd="36dp">
+
+		<ImageButton
+			android:id="@+id/backButton"
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:onClick="closeBtn"
+			android:layout_gravity="center"
+			android:background="@null"
+			android:scaleType="centerCrop"
+			android:src="@drawable/ic_back" />
+
+		<TextView
+			android:id="@+id/buy_airtime_heading"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:fontFamily="@font/sf_pro_display_medium"
+			android:lines="1"
+			android:letterSpacing="0.15"
+			android:paddingStart="8dp"
+			android:text="@string/buy_airtime_text"
+			android:textColor="@android:color/black"
+			android:textSize="18sp"
+			app:layout_constraintStart_toEndOf="@id/left_guideline"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:targetApi="lollipop" />
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/select_sim_field"
+			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+			android:layout_width="wrap_content"
+			android:layout_height="30dp"
+			android:layout_marginTop="3dp"
+			android:fontFamily="@font/roboto"
+			app:boxStrokeWidthFocused="1dp"
+			app:hintEnabled="false">
+
+			<AutoCompleteTextView
+				android:id="@+id/select_sim"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clickable="true"
+				android:focusable="false"
+				android:inputType="textNoSuggestions"
+				android:paddingStart="8dp"
+				android:paddingTop="6dp"
+				android:paddingEnd="6dp"
+				android:paddingBottom="6dp"
+				android:text="Select Sim"
+				android:textSize="12sp" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+	</LinearLayout>
+
+	<View
+		android:id="@+id/divider2"
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="?android:attr/listDivider" />
+
+	<FrameLayout
+		android:id="@+id/operations_fragment_container"
+		android:layout_width="match_parent"
+		android:layout_weight="1"
+		android:layout_height="0dp">
+
+		<Button
+			android:id="@+id/close_btn"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|center_horizontal"
+			android:layout_marginBottom="200dp"
+			android:foregroundGravity="center"
+			android:onClick="closeBtn"
+			android:text="Back"
+			android:textColor="@color/colorPrimaryDark"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+
+	</FrameLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

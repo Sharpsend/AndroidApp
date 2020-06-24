@@ -16,22 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.hover.sdk.api.HoverConfigException;
 import com.hover.sdk.api.HoverParameters;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentTransferFundsBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
-import dev.goteam.sharpsend.db.entities.StartActivityModel;
-import dev.goteam.sharpsend.ui.fragments.operations.RoundedBottomSheetFragment;
-import dev.goteam.sharpsend.ui.fragments.operations.SelectBankBottomSheetFragment;
-import dev.goteam.sharpsend.ui.fragments.operations.SelectRecipientBankBottomSheetFragment;
+import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 import dev.goteam.sharpsend.utils.Constants;
-import dev.goteam.sharpsend.utils.DataSource;
 
 public class TransferFundsFragment extends Fragment implements OnBankSelection, OnRecipientBankSelection, TextWatcher {
 

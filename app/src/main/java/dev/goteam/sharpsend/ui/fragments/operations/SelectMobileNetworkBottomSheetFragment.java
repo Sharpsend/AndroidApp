@@ -54,7 +54,7 @@ public class SelectMobileNetworkBottomSheetFragment extends RoundedBottomSheetFr
         binding.networkList.setAdapter(networkRVAdapter);
 
         binding.proceedButton.setOnClickListener(view1 -> {
-            onNetworkSelection.onNetworkSelected(selectedNetwork);
+            onNetworkSelection.onNetworkSelected(selectedNetwork.getSlotIdx());
             dismiss();
         });
 

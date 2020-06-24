@@ -1,4 +1,4 @@
-package dev.goteam.sharpsend.db.entities;
+package dev.goteam.sharpsend.models;
 
 import android.content.Intent;
 

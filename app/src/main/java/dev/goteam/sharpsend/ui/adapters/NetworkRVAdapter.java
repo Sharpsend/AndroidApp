@@ -80,7 +80,11 @@ public class NetworkRVAdapter extends RecyclerView.Adapter<NetworkRVAdapter.Netw
         }
 
         public void bind(NetworkItem.NetworkImpl network) {
-            mobileName.setText(network.getDisplayname());
+            mobileName.setText(
+                    String.format("%s (SIM %d)",
+                            network.getDisplayName(),
+                            network.getSlotIdx() + 1));
+
             selectorImage.setVisibility(network.isSelected() ? View.VISIBLE : View.GONE);
             image.setImageResource(network.getImage());
 

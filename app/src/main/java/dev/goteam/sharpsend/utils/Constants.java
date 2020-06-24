@@ -30,5 +30,9 @@ public class Constants {
     public static final String GLO = "glo";
     public static final String MOBILE_9 = "9mobile";
 
+    // Permissions
+    public static final int CALL_REQUEST = 100;
+    public static final int SIMINFO_REQUEST = 101;
+
 
 }

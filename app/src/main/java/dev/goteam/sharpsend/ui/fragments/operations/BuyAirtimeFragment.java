@@ -18,14 +18,11 @@ import android.widget.Toast;
 
 import com.hover.sdk.api.HoverParameters;
 
-import java.util.ArrayList;
-
-import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentBuyAirtimeBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.db.entities.MobileItem;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
-import dev.goteam.sharpsend.db.entities.StartActivityModel;
+import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
@@ -116,7 +113,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
 
     private void loadScreen() {
         if (OperationsActivity.selectedDefaultSim != null)
-        binding.selectSimField.getEditText().setText(OperationsActivity.selectedDefaultSim.getDisplayname());
+        binding.selectSimField.getEditText().setText(OperationsActivity.selectedDefaultSim.getDisplayName());
     }
 
     private void launchBankSelection() {
@@ -131,14 +128,14 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     }
 
     @Override
-    public void onNetworkSelected(NetworkItem.NetworkImpl network) {
-        if (network != null) {
+    public void onNetworkSelected(int network) {
+        /*if (network != null) {
 
             OperationsActivity.selectedDefaultSim = network;
             //operationsViewModel.saveDefaultSim(network.getDisplayname());
-            binding.selectSimField.getEditText().setText(network.getDisplayname());
-            Log.i(TAG, "onNetworkSelected: " + network.getDisplayname());
-        }
+            binding.selectSimField.getEditText().setText(network.getDisplayName());
+            Log.i(TAG, "onNetworkSelected: " + network.getDisplayName());
+        }*/
 
     }
 

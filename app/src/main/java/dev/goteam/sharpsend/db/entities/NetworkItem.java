@@ -1,7 +1,5 @@
 package dev.goteam.sharpsend.db.entities;
 
-import androidx.annotation.DrawableRes;
-
 import com.hover.sdk.sims.SimInfo;
 
 import java.util.ArrayList;
@@ -15,18 +13,16 @@ public class NetworkItem {
     public static class Mtn implements NetworkImpl {
 
         String networkOperatorCode;
-        String displayname;
+        String displayName;
         String id;
         boolean selected;
+        int slotIdx;
         int imageRes = R.drawable.mtn;
 
         public Mtn(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
             this.networkOperatorCode = networkOperatorCode;
-            displayname = new StringBuilder()
-                    .append(operatorName)
-                    .append(" (SIM ")
-                    .append(slotIdx + 1)
-                    .append(")").toString();
+            this.slotIdx = slotIdx;
+            displayName = operatorName;
             this.id = simId;
         }
 
@@ -41,8 +37,8 @@ public class NetworkItem {
         }
 
         @Override
-        public String getDisplayname() {
-            return displayname;
+        public String getDisplayName() {
+            return displayName;
         }
 
         @Override
@@ -52,6 +48,11 @@ public class NetworkItem {
 
         public int getImage() {
             return imageRes;
+        }
+
+        @Override
+        public int getSlotIdx() {
+            return slotIdx;
         }
 
         @Override
@@ -66,6 +67,7 @@ public class NetworkItem {
     }
     public static class Glo implements NetworkImpl {
 
+        private int slotIdx;
         String operatorName;
         String displayname;
         String id;
@@ -74,11 +76,8 @@ public class NetworkItem {
 
         public Glo(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
             this.operatorName = operatorName;
-            displayname = new StringBuilder()
-                    .append(operatorName)
-                    .append(" (SIM ")
-                    .append(slotIdx + 1)
-                    .append(")").toString();
+            this.slotIdx = slotIdx;
+            displayname = operatorName;
             this.id = simId;
         }
 
@@ -93,7 +92,7 @@ public class NetworkItem {
         }
 
         @Override
-        public String getDisplayname() {
+        public String getDisplayName() {
             return displayname;
         }
 
@@ -104,6 +103,11 @@ public class NetworkItem {
 
         public int getImage() {
             return imageRes;
+        }
+
+        @Override
+        public int getSlotIdx() {
+            return slotIdx;
         }
 
         @Override
@@ -118,6 +122,7 @@ public class NetworkItem {
     }
     public static class Airtel implements NetworkImpl {
 
+        private int slotIdx;
         String operatorName;
         String displayname;
         String id;
@@ -126,11 +131,8 @@ public class NetworkItem {
 
         public Airtel(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
             this.operatorName = operatorName;
-            displayname = new StringBuilder()
-                    .append(operatorName)
-                    .append(" (SIM ")
-                    .append(slotIdx + 1)
-                    .append(")").toString();
+            this.slotIdx = slotIdx;
+            displayname = operatorName;
             this.id = simId;
         }
 
@@ -145,7 +147,7 @@ public class NetworkItem {
         }
 
         @Override
-        public String getDisplayname() {
+        public String getDisplayName() {
             return displayname;
         }
 
@@ -156,6 +158,11 @@ public class NetworkItem {
 
         public int getImage() {
             return imageRes;
+        }
+
+        @Override
+        public int getSlotIdx() {
+            return slotIdx;
         }
 
         @Override
@@ -170,6 +177,7 @@ public class NetworkItem {
     }
     public static class Mobile_9 implements NetworkImpl {
 
+        private int slotIdx;
         String operatorName;
         String displayname;
         String id;
@@ -178,11 +186,8 @@ public class NetworkItem {
 
         public Mobile_9 (String operatorName, int slotIdx, String simId, String networkOperatorCode) {
             this.operatorName = operatorName;
-            displayname = new StringBuilder()
-                    .append(operatorName)
-                    .append(" (SIM ")
-                    .append(slotIdx + 1)
-                    .append(")").toString();
+            this.slotIdx = slotIdx;
+            displayname = operatorName;
             this.id = simId;
         }
 
@@ -197,7 +202,7 @@ public class NetworkItem {
         }
 
         @Override
-        public String getDisplayname() {
+        public String getDisplayName() {
             return displayname;
         }
 
@@ -208,6 +213,11 @@ public class NetworkItem {
 
         public int getImage() {
             return imageRes;
+        }
+
+        @Override
+        public int getSlotIdx() {
+            return slotIdx;
         }
 
         @Override
@@ -239,9 +249,10 @@ public class NetworkItem {
 
         boolean isSelected();
         void setSelected(boolean selected);
-        String getDisplayname();
+        String getDisplayName();
         String getId();
         int getImage();
+        int getSlotIdx();
         String getNetworkOperatorCode();
         Action getCheckBalanceAction();
     }
