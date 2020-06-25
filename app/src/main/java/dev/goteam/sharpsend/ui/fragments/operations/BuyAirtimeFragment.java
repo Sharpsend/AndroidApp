@@ -65,10 +65,12 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
 
                 // TODO Validate Input
                 if (senderBank != null && recipientMobile != null) {
+                    String code = null;
+                    Intent intent = null;
                     switch (recipientMobile.getId()) {
                         case Constants.MOBILE_NUMBER_SELF:
 
-                            Intent i = new HoverParameters.Builder(requireActivity())
+                            /*Intent i = new HoverParameters.Builder(requireActivity())
                                     .request(senderBank.getSelfRechargeAction().getActionID()) // Add your action ID here
                                     .extra("Amount", binding.amountField.getEditText().getText().toString())
                                     .finalMsgDisplayTime(0)
@@ -76,10 +78,35 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                                     .buildIntent();
                             ((OperationsActivity) requireActivity()).getStartActivityModel()
                                     .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
+*/
+                            code = senderBank.getSelfRechargeCode(binding.amountField.getEditText().getText().toString());
+
+                            intent = operationsViewModel.getCallIntent(code, OperationsActivity.user.getSlotIdx());
+
+                            if (intent != null) {
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getContext(), "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+                            }
+
                             break;
                         case Constants.MOBILE_NUMBER_THIRD_PARTY:
 
-                            if (senderBank.getOthersRechargeAction().getActionID() != null) {
+                            code = senderBank.getOthersRechargeCode(binding.amountField.getEditText().getText().toString(), binding.phoneNumberField.getEditText().getText().toString());
+
+                            if (code != null) {
+                                intent = operationsViewModel.getCallIntent(code, OperationsActivity.user.getSlotIdx());
+
+                                if (intent != null) {
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(getContext(), "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(requireActivity(), "Application dosen't support 3rd party recharge for this bank yet, Thank you", Toast.LENGTH_SHORT).show();
+                            }
+
+                            /*if (senderBank.getOthersRechargeAction().getActionID() != null) {
                                 Intent j = new HoverParameters.Builder(requireActivity())
                                         .request(senderBank.getOthersRechargeAction().getActionID()) // Add your action ID here
                                         .extra("Amount", binding.amountField.getEditText().getText().toString())
@@ -91,7 +118,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                                         .postValue(new StartActivityModel(j, Constants.OPERATIONS_CODE));
                             } else {
                                 Toast.makeText(requireActivity(), "Application dosen't support 3rd party recharge for this bank yet, Thank you", Toast.LENGTH_SHORT).show();
-                            }
+                            }*/
                             break;
                     }
                 }
@@ -152,7 +179,9 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         }
     }
 
-    @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    }
 
     @Override
     public void afterTextChanged(Editable editable) {
@@ -172,5 +201,8 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
             binding.sendButton.setEnabled(false);
         }
     }
-    @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    }
 }

@@ -45,6 +45,16 @@ public class BankItem {
         }
 
         @Override
+        public String getSelfRechargeCode(String amount) {
+            return String.format("*737*%s#", amount);
+        }
+
+        @Override
+        public String getOthersRechargeCode(String amount, String pNumber) {
+            return String.format("*737*%s*%s#", amount, pNumber);
+        }
+
+        @Override
         public String getName() {
             return "Guaranty Trust Bank plc";
         }
@@ -97,6 +107,16 @@ public class BankItem {
         }
 
         @Override
+        public String getSelfRechargeCode(String amount) {
+            return String.format("*966*%s#", amount);
+        }
+
+        @Override
+        public String getOthersRechargeCode(String amount, String pNumber) {
+            return String.format("*966*%s*%s#", amount, pNumber);
+        }
+
+        @Override
         public String getName() {
             return "Zenith Bank Plc";
         }
@@ -144,6 +164,16 @@ public class BankItem {
 
         @Override
         public RechargeAction getOthersRechargeAction() {
+            return null;
+        }
+
+        @Override
+        public String getSelfRechargeCode(String amount) {
+            return String.format("*909*%s#", amount);
+        }
+
+        @Override
+        public String getOthersRechargeCode(String amount, String pNumber) {
             return null;
         }
 
@@ -315,8 +345,9 @@ public class BankItem {
         void setSelected(boolean selected);
         RechargeAction getSelfRechargeAction();
         RechargeAction getOthersRechargeAction();
+        String getSelfRechargeCode(String amount);
+        String getOthersRechargeCode(String amount, String pNumber);
         List<TransferBankAction> getTransferBankActionList();
-
     }
 
     public class TransferBankAction {
