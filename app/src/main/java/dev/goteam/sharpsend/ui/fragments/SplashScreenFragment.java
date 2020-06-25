@@ -1,5 +1,6 @@
 package dev.goteam.sharpsend.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.ui.activities.AuthActivity;
+import dev.goteam.sharpsend.ui.activities.MainActivity;
 import dev.goteam.sharpsend.utils.Prefs;
 
 public class SplashScreenFragment extends Fragment {
@@ -37,11 +40,14 @@ public class SplashScreenFragment extends Fragment {
                     NavHostFragment.findNavController(
                             SplashScreenFragment.this).navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToOnboardingFragment()
                     );
-                } else {
+                } else if(isPinEnabled()) {
                     // add logic to navigate to the login screen
                     NavHostFragment.findNavController(
                             SplashScreenFragment.this
                     ).navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment());
+                } else {
+                    startActivity(new Intent(requireActivity(), MainActivity.class));
+                    requireActivity().finish();
                 }
             }
         }, 2500);
@@ -50,5 +56,7 @@ public class SplashScreenFragment extends Fragment {
     private boolean isFirstTime() {
         return !Prefs.isAuthenticated(requireContext());
     }
+
+    private boolean isPinEnabled() { return false; } // add logic for verifying if pin is enabled.
 
 }

@@ -40,8 +40,6 @@ public class RegisterFragment extends Fragment implements TextWatcher {
         super.onViewCreated(view, savedInstanceState);
 
         binding.usernameTextField.getEditText().addTextChangedListener(this);
-        binding.confirmPinField.getEditText().addTextChangedListener(this);
-        binding.pinField.getEditText().addTextChangedListener(this);
 
         binding.closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +51,9 @@ public class RegisterFragment extends Fragment implements TextWatcher {
         binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String PIN = binding.pinField.getEditText().getText().toString();
                 String username = binding.usernameTextField.getEditText().getText().toString();
 
-                Prefs.saveUser(RegisterFragment.this.getContext(), username, PIN);
+                Prefs.saveUser(RegisterFragment.this.getContext(), username);
                 Snackbar.make(view, "User Registered", Snackbar.LENGTH_LONG).show();
 
                 ((SharpsendApp) requireActivity().getApplication()).getRepository().saveUser(new User(username));
@@ -65,6 +62,11 @@ public class RegisterFragment extends Fragment implements TextWatcher {
                 requireActivity().finish();
             }
         });
+
+        // TODO: review why the name is not showing in the main page
+        // TODO: set up the functionality for the enabling and disabling pin support in the preference wrapper
+        // TODO: effect it in the settings too and react to the set values
+        // TODO: the crazy cancel icon too, check his ass!
 
     }
 
@@ -79,17 +81,10 @@ public class RegisterFragment extends Fragment implements TextWatcher {
     @Override
     public void afterTextChanged(Editable editable) {
         try {
-            if (
-                    binding.usernameTextField.getEditText().getText().toString().isEmpty()
-                    || binding.confirmPinField.getEditText().getText().toString().isEmpty()
-                    || binding.pinField.getEditText().getText().toString().isEmpty()
-            ) {
+            if (binding.usernameTextField.getEditText().getText().toString().isEmpty()) {
                 binding.signUpButton.setEnabled(false);
             } else {
-                String pin = binding.pinField.getEditText().getText().toString();
-                String confirmPin = binding.confirmPinField.getEditText().getText().toString();
-
-                binding.signUpButton.setEnabled(pin.equals(confirmPin) && (pin.length() == 4));
+                binding.signUpButton.setEnabled(true);
             }
         } catch (NullPointerException ex) {
             ex.printStackTrace();

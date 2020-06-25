@@ -50,12 +50,11 @@ public class Prefs {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
-    public static void saveUser(Context context, String username, String PIN) {
+    public static void saveUser(Context context, String username) {
         SharedPreferences sharedPreferences = getPreferences(context);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USERNAME_KEY, username);
-        editor.putString(PIN_KEY, PIN);
 
         editor.putBoolean(AUTHENTICATED, true);
 

@@ -7,8 +7,8 @@
 	<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 	<item name="colorAccent">@color/colorAccent</item>
 	<item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
-	  <item name="android:textViewStyle">@style/TextStyle</item>
-	  <item name="android:editTextStyle">@style/TextStyle</item>
+	<item name="android:textViewStyle">@style/TextStyle</item>
+	<item name="android:editTextStyle">@style/TextStyle</item>
   </style>
 
   <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
@@ -67,4 +67,13 @@
 	<style name="TextStyle" parent="AppTheme">
 		<item name="fontFamily">@font/sf_pro_display_regular</item>
 	</style>
+
+  <style name="SplashScreenTextViewStyles">
+	<item name="android:textViewStyle">@style/SplashScreenTextStyle</item>
+	<item name="android:editTextStyle">@style/SplashScreenTextStyle</item>
+  </style>
+
+  <style name="SplashScreenTextStyle">
+	<item name="fontFamily">@font/patrick_hand_regular</item>
+  </style>
 </resources>
