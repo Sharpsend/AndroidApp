@@ -30,7 +30,7 @@ import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
-public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnMobileSelection, TextWatcher, OnNetworkSelection {
+public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnMobileSelection, TextWatcher {
     private final String TAG = getClass().getSimpleName();
     private FragmentBuyAirtimeBinding binding;
     private BankItem.Bank senderBank;
@@ -50,18 +50,11 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         super.onViewCreated(view, savedInstanceState);
         operationsViewModel = new ViewModelProvider(getActivity()).get(OperationsViewModel.class);
 
-        loadScreen();
-
-        binding.selectSimField.getEditText().setOnClickListener(view1 -> launchSimSelection());
+        OperationsActivity.title.setText("Buy Airtime");
 
         binding.selectBankField.getEditText().setOnClickListener(view1 -> launchBankSelection());
 
-        binding.selectMobileNumberField.getEditText().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchMobileSelection();
-            }
-        });
+        binding.selectMobileNumberField.getEditText().setOnClickListener(view11 -> launchMobileSelection());
 
         binding.phoneNumberField.getEditText().addTextChangedListener(this);
         binding.amountField.getEditText().addTextChangedListener(this);
@@ -79,6 +72,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                                     .request(senderBank.getSelfRechargeAction().getActionID()) // Add your action ID here
                                     .extra("Amount", binding.amountField.getEditText().getText().toString())
                                     .finalMsgDisplayTime(0)
+                                    .setSim(operationsViewModel.getNetworkFromSlot(OperationsActivity.user.getSlotIdx()).getNetworkOperatorCode())
                                     .buildIntent();
                             ((OperationsActivity) requireActivity()).getStartActivityModel()
                                     .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
@@ -90,6 +84,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                                         .request(senderBank.getOthersRechargeAction().getActionID()) // Add your action ID here
                                         .extra("Amount", binding.amountField.getEditText().getText().toString())
                                         .extra("PhoneNumber", binding.phoneNumberField.getEditText().getText().toString())
+                                        .setSim(operationsViewModel.getNetworkFromSlot(OperationsActivity.user.getSlotIdx()).getNetworkOperatorCode())
                                         .finalMsgDisplayTime(0)
                                         .buildIntent();
                                 ((OperationsActivity) requireActivity()).getStartActivityModel()
@@ -104,18 +99,6 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         });
     }
 
-    private void launchSimSelection() {
-        SelectMobileNetworkBottomSheetFragment selectMobileNetworkBottomSheetFragment
-                = new SelectMobileNetworkBottomSheetFragment(this, OperationsActivity.networks
-        );
-        selectMobileNetworkBottomSheetFragment.show(getParentFragmentManager(), "networkSelection");
-    }
-
-    private void loadScreen() {
-        if (OperationsActivity.selectedDefaultSim != null)
-        binding.selectSimField.getEditText().setText(OperationsActivity.selectedDefaultSim.getDisplayName());
-    }
-
     private void launchBankSelection() {
         SelectBankBottomSheetFragment selectBankBottomSheetFragment = new SelectBankBottomSheetFragment(this);
         selectBankBottomSheetFragment.show(getParentFragmentManager(), "buyAirtimeFragment");
@@ -125,22 +108,6 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         SelectAirtimeRecipientBottomSheetFragment selectAirtimeRecipientBottomSheetFragment =
                 new SelectAirtimeRecipientBottomSheetFragment(this, new MobileItem().getMobiles());
         selectAirtimeRecipientBottomSheetFragment.show(getParentFragmentManager(), "buyAirtimeFragment");
-    }
-
-    @Override
-    public void onNetworkSelected(int network) {
-        /*if (network != null) {
-
-            OperationsActivity.selectedDefaultSim = network;
-            //operationsViewModel.saveDefaultSim(network.getDisplayname());
-            binding.selectSimField.getEditText().setText(network.getDisplayName());
-            Log.i(TAG, "onNetworkSelected: " + network.getDisplayName());
-        }*/
-
-    }
-
-    @Override
-    public void onNetworkSelectionCanceled() {
     }
 
     @Override

@@ -12,15 +12,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverConfigException;
-import com.hover.sdk.api.HoverParameters;
-
-import java.util.ArrayList;
 
 import dev.goteam.sharpsend.AccessibilityTipsFragment;
 import dev.goteam.sharpsend.R;
@@ -38,37 +35,18 @@ import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
 public class OperationsActivity extends AppCompatActivity implements OnNetworkSelection {
-    public static ArrayList<NetworkItem.NetworkImpl> networks;
-    public static NetworkItem.NetworkImpl selectedDefaultSim;
     private OperationsViewModel operationsViewModel;
-    private User user;
+    public static User user;
+
     private TextInputLayout selectSimField;
-    private TextView title;
+    private Button retryBtn;
+    public static TextView title;
     private boolean isStarting = true;
     private ActivityOperationsBinding binding;
 
     private final String TAG = getClass().getSimpleName();
     private String operation_id;
     private MutableLiveData<StartActivityModel> startActivityModel = new MutableLiveData<>();
-
-    private final static String[] simSlotName = {
-            "extra_asus_dial_use_dualsim",
-            "com.android.phone.extra.slot",
-            "slot",
-            "simslot",
-            "sim_slot",
-            "subscription",
-            "Subscription",
-            "phone",
-            "com.android.phone.DialingMode",
-            "simSlot",
-            "slot_id",
-            "simId",
-            "simnum",
-            "phone_type",
-            "slotId",
-            "slotIdx"
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +60,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         // View Binding is misbehaving, that is why i use this
         selectSimField = findViewById(R.id.select_sim_field);
         title = findViewById(R.id.title);
+        retryBtn = findViewById(R.id.retryBtn);
 
         try {
             operation_id = intent.getExtras().getString("operation_id");
@@ -89,11 +68,13 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
             ex.printStackTrace();
         }
 
+        // You have selected a sim with HNI 0, but the action's only valid choices are ["62120","62160","62150","62130"]
+
         operationsViewModel.getUser().observe(this, user1 -> {
             Log.e(TAG, "OperationsViewModel: Got User");
             if (user1 != null) {
                 user = user1;
-                networks = operationsViewModel.getSims(this, user);
+                operationsViewModel.getSims(this, user);
                 setUpSims();
                 if (isStarting) {
                     isStarting = false;
@@ -112,9 +93,8 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     }
 
     private void setUpSims() {
-        if (networks != null) {
-            NetworkItem.NetworkImpl selectedNetwork = getNetworkFromSlot(user.getSlotIdx());
-
+        if (operationsViewModel.getNetworks() != null) {
+            NetworkItem.NetworkImpl selectedNetwork = operationsViewModel.getNetworkFromSlot(user.getSlotIdx());
             selectSimField.getEditText().setText(selectedNetwork.getDisplayName());
         }
     }
@@ -144,8 +124,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 break;
             case Constants.CHECK_AIRTIME:
 
-                //checkAirtime();
-                newCheckAirtime();
+                checkAirtime();
                 break;
             default:
                 break;
@@ -156,55 +135,23 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         return startActivityModel;
     }
 
-    private void newCheckAirtime() {
+    private void checkAirtime() {
         title.setText("Check Airtime");
-        if (networks != null) {
-            String code = networks.get(user.getSlotIdx()).getCheckBalanceCode();
-            Intent callIntent = new Intent(Intent.ACTION_CALL).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            callIntent.setData(Uri.parse("tel:" + Uri.encode(code)));
 
-            callIntent.putExtra("com.android.phone.force.slot", true);
-            callIntent.putExtra("Cdma_Supp", true);
+        Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(user.getSlotIdx()).getCheckBalanceCode(), user.getSlotIdx());
 
-            Log.i(TAG, "newCheckAirtime: Dialing Code: " + code);
-            //Add all slots here, according to device.. (different device require different key so put all together)
-            for (String s : simSlotName)
-                callIntent.putExtra(s, user.getSlotIdx()); //0 or 1 according to sim.......
-
-            startActivity(callIntent);
+        if (intent != null) {
+            startActivity(intent);
         } else {
             Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
         }
-    }
 
-    private void checkAirtime() {
-
-        try {
-            Hover.requestActionChoice(new String[]{"d867290d", "6fe4063b", "7a47c2fd", "efdc5dd1"}, new Hover.ActionChoiceListener() {
-                @Override
-                public void onActionChosen(String actionID) {
-                    Intent i = new HoverParameters.Builder(OperationsActivity.this)
-                            .request(actionID)
-                            .finalMsgDisplayTime(0)
-                            .buildIntent();
-                    getStartActivityModel()
-                            .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
-                }
-
-                @Override
-                public void onCanceled() {
-                    Toast.makeText(getApplicationContext(), "You must choose a SIM card", Toast.LENGTH_SHORT).show();
-                }
-            }, OperationsActivity.this);
-        } catch (HoverConfigException e) {
-            e.printStackTrace();
-            Toast.makeText(OperationsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        }
+        retryBtn.setOnClickListener(view -> checkAirtime());
     }
 
     public void launchSimSelection() {
         SelectMobileNetworkBottomSheetFragment selectMobileNetworkBottomSheetFragment
-                = new SelectMobileNetworkBottomSheetFragment(this, networks
+                = new SelectMobileNetworkBottomSheetFragment(this, operationsViewModel.getNetworks()
         );
         selectMobileNetworkBottomSheetFragment.show(getSupportFragmentManager(), "networkSelection");
     }
@@ -250,7 +197,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     protected void onResume() {
         super.onResume();
         if (user != null)
-        ((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> networks = operationsViewModel.getSims(this, user));
+        ((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> operationsViewModel.getSims(this, user));
     }
 
     public void closeBtn(View view) {
@@ -259,23 +206,14 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
     @Override
     public void onNetworkSelected(int slotIdx) {
-        if (networks != null) {
-            NetworkItem.NetworkImpl selectedNetwork = getNetworkFromSlot(slotIdx);
+        if (operationsViewModel.getNetworks() != null) {
+            NetworkItem.NetworkImpl selectedNetwork = operationsViewModel.getNetworkFromSlot(slotIdx);
 
             selectSimField.getEditText().setText(selectedNetwork.getDisplayName());
-            operationsViewModel.saveUserSim(selectedNetwork.getSlotIdx());
+            operationsViewModel.saveUserSim(user, selectedNetwork.getSlotIdx());
         }
-    }
-
-    private NetworkItem.NetworkImpl getNetworkFromSlot(int slotIdx) {
-        for (NetworkItem.NetworkImpl network : networks) {
-            if (network.getSlotIdx() == slotIdx)
-                return network;
-        }
-        return null;
     }
 
     @Override
-    public void onNetworkSelectionCanceled() {
-    }
+    public void onNetworkSelectionCanceled() { }
 }
