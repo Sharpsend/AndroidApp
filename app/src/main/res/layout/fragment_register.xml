@@ -41,8 +41,10 @@
 	  android:layout_height="wrap_content"
 	  android:contentDescription="@string/cancel"
 	  android:layout_marginTop="20dp"
+	  android:layout_marginBottom="20dp"
+	  app:layout_constraintBottom_toTopOf="@id/create_an_account_heading"
 	  android:background="@null"
-	  android:src="@drawable/ic_close"
+	  android:src="@drawable/ic_cancel"
 	  app:layout_constraintStart_toEndOf="@id/left_guideline"
 	  app:layout_constraintTop_toTopOf="parent" />
 

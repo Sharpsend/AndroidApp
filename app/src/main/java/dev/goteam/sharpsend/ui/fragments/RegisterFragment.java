@@ -63,10 +63,7 @@ public class RegisterFragment extends Fragment implements TextWatcher {
             }
         });
 
-        // TODO: review why the name is not showing in the main page
-        // TODO: set up the functionality for the enabling and disabling pin support in the preference wrapper
         // TODO: effect it in the settings too and react to the set values
-        // TODO: the crazy cancel icon too, check his ass!
 
     }
 

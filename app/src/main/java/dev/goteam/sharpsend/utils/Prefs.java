@@ -10,6 +10,7 @@ public class Prefs {
     private static String USERNAME_KEY = "username";
     private static String FINGERPRINT_KEY = "fingerprint";
     private static String PIN_KEY = "pin";
+    private static String IS_PIN_ENABLED_KEY = "pin_enabled";
 
     public static boolean isAuthenticated(Context context) {
         SharedPreferences sharedPreferences = getPreferences(context);
@@ -67,11 +68,26 @@ public class Prefs {
         return sharedPreferences.getBoolean(FINGERPRINT_KEY, false);
     }
 
+    public static boolean isPinEnabled(Context ctx) {
+        SharedPreferences sharedPreferences = getPreferences(ctx);
+
+        return sharedPreferences.getBoolean(IS_PIN_ENABLED_KEY, false);
+    }
+
     public static void setFingerprintState(Context context, boolean state) {
         SharedPreferences sharedPreferences = getPreferences(context);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(FINGERPRINT_KEY, state);
+
+        editor.apply();
+    }
+
+    public static void setPinEnabledState(Context context, boolean state) {
+        SharedPreferences sharedPreferences = getPreferences(context);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(IS_PIN_ENABLED_KEY, state);
 
         editor.apply();
     }

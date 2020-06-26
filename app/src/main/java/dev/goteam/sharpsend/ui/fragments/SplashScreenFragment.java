@@ -57,6 +57,6 @@ public class SplashScreenFragment extends Fragment {
         return !Prefs.isAuthenticated(requireContext());
     }
 
-    private boolean isPinEnabled() { return false; } // add logic for verifying if pin is enabled.
+    private boolean isPinEnabled() { return Prefs.isPinEnabled(requireContext()); }
 
 }
