@@ -19,20 +19,19 @@ public class OnboardingAdapter extends PagerAdapter {
     private LayoutInflater mLayoutInflater;
 
     private int[] images = {
-            R.drawable.onboarding_image_one, R.drawable.onboarding_image_two, R.drawable.onboarding_image_three
+            R.drawable.onboarding_image_one, R.drawable.onboarding_image_two, R.drawable.onboarding_image_three, R.drawable.onboarding_image_four
     };
 
     private int[] labels = {
-            R.string.transfer_funds_text, R.string.buy_airtime_text, R.string.check_airtime_text
+            R.string.transfer_funds_text, R.string.buy_airtime_text, R.string.check_airtime_text, R.string.pay_bills_text
     };
 
     private int[] details = {
-        R.string.transfer_funds_details, R.string.buy_airtime_details, R.string.check_airtime_details
+        R.string.transfer_funds_details, R.string.buy_airtime_details, R.string.check_airtime_details, R.string.pay_bills_details
     };
 
     public OnboardingAdapter(Context context) {
         this.mContext = context;
-//        this.mLayoutInflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override

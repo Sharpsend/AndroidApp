@@ -36,14 +36,29 @@
 	android:showDividers="middle">
 
 	<Switch
+	  android:id="@+id/requestPinSwitch"
+	  android:layout_width="match_parent"
+	  android:layout_height="wrap_content"
+	  android:layout_marginTop="10dp"
+	  android:background="?attr/selectableItemBackground"
+	  android:fontFamily="@font/sf_pro_display_regular"
+	  android:paddingTop="12dp"
+	  android:paddingBottom="12dp"
+	  android:checked="true"
+	  android:text="@string/request_pin"
+	  android:textSize="16sp"
+	  android:thumbTint="@color/colorPrimary"
+	  android:trackTint="@color/colorPrimaryDark" />
+
+	<Switch
 	  android:id="@+id/fingerprintSwitch"
 	  android:layout_width="match_parent"
 	  android:layout_height="wrap_content"
 	  android:layout_marginTop="10dp"
 	  android:background="?attr/selectableItemBackground"
 	  android:fontFamily="@font/sf_pro_display_regular"
+	  android:paddingTop="12dp"
 	  android:paddingBottom="12dp"
-		android:paddingTop="12dp"
 	  android:text="Enable Fingerprint"
 	  android:textSize="16sp"
 	  android:thumbTint="@color/colorPrimary"
@@ -55,23 +70,23 @@
 	  android:layout_height="wrap_content"
 	  android:background="?attr/selectableItemBackground"
 	  android:drawableEnd="@drawable/ic_chevron_right_24dp"
-		android:paddingBottom="12dp"
-		android:paddingTop="12dp"
+	  android:paddingTop="12dp"
+	  android:paddingBottom="12dp"
 	  android:text="Change PIN"
 	  android:textColor="@color/transactionItemBlack"
 	  android:textSize="16sp" />
 
-	  <TextView
-		  android:id="@+id/accessibility_tips"
-		  android:layout_width="match_parent"
-		  android:layout_height="wrap_content"
-		  android:background="?attr/selectableItemBackground"
-		  android:drawableEnd="@drawable/ic_chevron_right_24dp"
-		  android:paddingBottom="12dp"
-		  android:paddingTop="12dp"
-		  android:text="Accessibility Tips"
-		  android:textColor="@color/transactionItemBlack"
-		  android:textSize="16sp" />
+	<TextView
+	  android:id="@+id/accessibility_tips"
+	  android:layout_width="match_parent"
+	  android:layout_height="wrap_content"
+	  android:background="?attr/selectableItemBackground"
+	  android:drawableEnd="@drawable/ic_chevron_right_24dp"
+	  android:paddingTop="12dp"
+	  android:paddingBottom="12dp"
+	  android:text="Accessibility Tips"
+	  android:textColor="@color/transactionItemBlack"
+	  android:textSize="16sp" />
   </LinearLayout>
 
 </RelativeLayout>

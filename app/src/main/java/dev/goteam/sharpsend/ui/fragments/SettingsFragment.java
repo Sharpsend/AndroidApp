@@ -2,6 +2,7 @@ package dev.goteam.sharpsend.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import dev.goteam.sharpsend.databinding.FragmentSettingsBinding;
 import dev.goteam.sharpsend.ui.activities.ChangePinActivity;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
+import dev.goteam.sharpsend.ui.fragments.operations.SetPinBottomSheetFragment;
+import dev.goteam.sharpsend.ui.listeners.OnPinSetListener;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.utils.FingerprintUtils;
 import dev.goteam.sharpsend.utils.Prefs;
@@ -25,12 +28,14 @@ public class SettingsFragment extends Fragment {
 
     private SettingsViewModel settingsViewModel;
     private FragmentSettingsBinding binding;
+    private boolean canceled;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
 
         settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+        binding.requestPinSwitch.setChecked(Prefs.isPinEnabled(requireContext()));
 
         return binding.getRoot();
     }
@@ -47,6 +52,33 @@ public class SettingsFragment extends Fragment {
 
         binding.fingerprintSwitch.setEnabled(FingerprintUtils.isFingerprintSupported(getContext()));
         binding.fingerprintSwitch.setChecked(Prefs.isFingerprintEnabled(requireContext()));
+
+        binding.requestPinSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Log.d("SettingsFragment", "Value: " + Prefs.isPinEnabled(requireContext()));
+                if (!b) {
+                    Prefs.setPinEnabledState(requireContext(), false);
+                    Toast.makeText(requireContext(), "PIN Support Disabled", Toast.LENGTH_SHORT).show();
+                } else {
+                    SetPinBottomSheetFragment setPinBottomSheetFragment = new SetPinBottomSheetFragment(new OnPinSetListener() {
+                        @Override
+                        public void onPinSet(String PIN) {
+                            Prefs.setPIN(requireContext(), PIN);
+                            Prefs.setPinEnabledState(requireContext(), true);
+                            Toast.makeText(requireContext(), "PIN Support Enabled", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onPinSetCanceled() {
+                            binding.requestPinSwitch.setChecked(false);
+                        }
+                    });
+
+                    setPinBottomSheetFragment.show(getParentFragmentManager(), "set_pin");
+                }
+            }
+        });
 
         binding.fingerprintSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

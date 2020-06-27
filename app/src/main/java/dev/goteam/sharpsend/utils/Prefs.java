@@ -89,7 +89,7 @@ public class Prefs {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_PIN_ENABLED_KEY, state);
 
-        editor.apply();
+        editor.commit();
     }
 
 }

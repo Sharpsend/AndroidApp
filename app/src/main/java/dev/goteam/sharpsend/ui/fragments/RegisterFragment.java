@@ -63,8 +63,6 @@ public class RegisterFragment extends Fragment implements TextWatcher {
             }
         });
 
-        // TODO: effect it in the settings too and react to the set values
-
     }
 
     @Override
