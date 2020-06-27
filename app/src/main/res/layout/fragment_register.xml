@@ -9,29 +9,17 @@
 	android:background="@color/colorScreenOnboarding"
 	tools:context="dev.goteam.sharpsend.ui.fragments.RegisterFragment">
 
-	  <ImageButton
-		  android:id="@+id/close_button"
-		  android:layout_width="48dp"
-		  android:layout_height="48dp"
-		  android:layout_marginTop="20dp"
-		  android:background="@null"
-		  android:src="@drawable/ic_close"
-		  android:contentDescription="Cancel"
-		  app:layout_constraintStart_toEndOf="@id/left_guideline"
-		  app:layout_constraintTop_toTopOf="parent" />
-
-	  <TextView
-		  android:id="@+id/create_an_account_heading"
-		  android:layout_width="0dp"
-		  android:layout_height="wrap_content"
-		  android:fontFamily="@font/sf_pro_display_regular"
-		  android:text="@string/create_an_account_text"
-		  android:textColor="@color/colorPrimary"
-		  android:textSize="24sp"
-		  android:textStyle="bold"
-		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-		  app:layout_constraintStart_toEndOf="@id/left_guideline"
-		  app:layout_constraintTop_toBottomOf="@id/close_button" />
+	<TextView
+	  android:id="@+id/create_an_account_heading"
+	  android:layout_width="0dp"
+	  android:layout_height="wrap_content"
+	  android:fontFamily="@font/sf_pro_display_regular"
+	  android:text="@string/hi_friend_nwhat_should_we_call_you"
+	  android:textColor="@android:color/black"
+	  android:textSize="28sp"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toBottomOf="@id/close_button" />
 
 	<androidx.constraintlayout.widget.Guideline
 	  android:id="@+id/left_guideline"
@@ -47,6 +35,19 @@
 	  android:orientation="vertical"
 	  app:layout_constraintGuide_percent=".9" />
 
+	<ImageButton
+	  android:id="@+id/close_button"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:contentDescription="@string/cancel"
+	  android:layout_marginTop="20dp"
+	  android:layout_marginBottom="20dp"
+	  app:layout_constraintBottom_toTopOf="@id/create_an_account_heading"
+	  android:background="@null"
+	  android:src="@drawable/ic_cancel"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toTopOf="parent" />
+
 	<com.google.android.material.textfield.TextInputLayout
 	  android:id="@+id/usernameTextField"
 	  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -58,81 +59,27 @@
 	  app:layout_constraintStart_toEndOf="@id/left_guideline"
 	  app:layout_constraintTop_toBottomOf="@id/create_an_account_heading">
 
-		<com.google.android.material.textfield.TextInputEditText
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:fontFamily="@font/sf_pro_display_regular" />
+	  <com.google.android.material.textfield.TextInputEditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:fontFamily="@font/sf_pro_display_regular" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 
-	<com.google.android.material.textfield.TextInputLayout
-	  android:id="@+id/pinField"
-	  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+	<Button
+	  android:id="@+id/sign_up_button"
+	  style="@style/ColoredButton"
 	  android:layout_width="0dp"
 	  android:layout_height="wrap_content"
-	  app:endIconMode="password_toggle"
 	  android:layout_marginTop="20dp"
-	  android:hint="@string/pin_label"
+	  android:enabled="false"
+	  android:fontFamily="@font/sf_pro_display_medium"
+	  android:text="@string/continue_text"
+	  android:textAllCaps="false"
+	  android:textColor="@android:color/white"
 	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
 	  app:layout_constraintStart_toEndOf="@id/left_guideline"
-	  app:layout_constraintTop_toBottomOf="@id/usernameTextField">
-
-		<com.google.android.material.textfield.TextInputEditText
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:fontFamily="@font/sf_pro_display_regular"
-			android:inputType="numberPassword" />
-
-	</com.google.android.material.textfield.TextInputLayout>
-
-	<com.google.android.material.textfield.TextInputLayout
-	  android:id="@+id/confirmPinField"
-	  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-	  android:layout_width="0dp"
-	  app:endIconMode="password_toggle"
-	  android:layout_height="wrap_content"
-	  android:layout_marginTop="20dp"
-	  android:hint="@string/confirm_pin_label"
-	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-	  app:layout_constraintStart_toEndOf="@id/left_guideline"
-	  app:layout_constraintTop_toBottomOf="@id/pinField">
-
-		<com.google.android.material.textfield.TextInputEditText
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:fontFamily="@font/sf_pro_display_regular"
-			android:inputType="numberPassword" />
-
-	</com.google.android.material.textfield.TextInputLayout>
-
-	  <TextView
-		  android:id="@+id/password_disclaimer_text"
-		  android:layout_width="0dp"
-		  android:layout_height="wrap_content"
-		  android:contentDescription="@string/pin_should_be_4_characters_long_text"
-		  android:focusable="false"
-		  android:padding="8dp"
-		  android:text="PIN is JUST for access into App, shouldn't be your bank pin"
-		  android:textColor="@color/colorTextGray"
-		  android:textSize="12sp"
-		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-		  app:layout_constraintStart_toEndOf="@id/left_guideline"
-		  app:layout_constraintTop_toBottomOf="@id/confirmPinField" />
-
-	  <Button
-		  android:id="@+id/sign_up_button"
-		  style="@style/ColoredButton"
-		  android:layout_width="0dp"
-		  android:layout_height="wrap_content"
-		  android:layout_marginTop="20dp"
-		  android:enabled="false"
-		  android:fontFamily="@font/sf_pro_display_medium"
-		  android:text="@string/sign_up_text"
-		  android:textAllCaps="false"
-		  android:textColor="@android:color/white"
-		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-		  app:layout_constraintStart_toEndOf="@id/left_guideline"
-		  app:layout_constraintTop_toBottomOf="@id/password_disclaimer_text" />
+	  app:layout_constraintTop_toBottomOf="@id/usernameTextField" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

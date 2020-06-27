@@ -14,7 +14,7 @@
   <string name="check_airtime_text">Check Airtime</string>
   <string name="check_airtime_details">Easily check your airtime account balance with one-click</string>
   <string name="get_started_text">Get Started</string>
-  <string name="username_label">Username</string>
+  <string name="username_label">Call me Friend&#8230;</string>
   <string name="create_an_account_text">Create an account</string>
   <string name="pin_label">PIN</string>
   <string name="confirm_pin_label">Confirm PIN</string>
@@ -22,7 +22,7 @@
   <string name="login_text">Log In</string>
   <string name="welcome_text">Welcome back, %s</string>
   <string name="welcome_text_placeholder">Welcome back,\n Soliudeen</string>
-  <string name="pin_should_be_4_characters_long_text">PIN should be 4-characters long</string>
+  <string name="pin_should_be_4_characters_long_text">PIN should be 4-characters long and should not be your bank PIN</string>
   <string name="use_fingerprint_text">Use Fingerprint</string>
   <string name="title_settings">Settings</string>
   <string name="title_transactions">Transactions</string>
@@ -34,6 +34,7 @@
   <string name="amount_text">Amount (&#8358;)</string>
   <string name="send_text">Send</string>
   <string name="proceed_text">Proceed</string>
+  <string name="pay_bills_details">Pay your utility bill for Electricity, TV &amp; Telecoms subscription</string>
   <string name="cancel_text">Cancel</string>
   <string name="recipient_placeholder">Access Bank PLC</string>
   <string name="select_mobile_number_text">Select mobile number</string>
@@ -51,5 +52,13 @@
   <string name="confirm_neW_pin_text">Confirm New Pin</string>
   <string name="accessibilty_tips">Sharpsend supports various types of apps for testing accessibility features. All the UI elements are been labeled properly that will enable visually impaired (screen readers) and motor-impaired users to navigate the entire application with less stress. If you want to use these accessibility features, you can use any apps but we recommend -- Android Accessibility Suites and Voice access. \n Android Accessibility Suite (formerly Google Talkback) is an accessibility feature that helps the visually impaired navigate their devices. If this app has been installed, you can activate it on your device settings so as to use it for Sharpsend. Download on Google PlayStore. \nVoice access is a voice-operated interface that can be accessed anywhere on your Android device by mentioning "Hey Google" to activate it. It enables you to perform any operations without having to touch your phone and Sharpsend is built to work well with Google Assistant. You can access Sharpsend through Google Assistant to perform financial operations with your voice without having to touch your device during this process. \nAt Sharpsend, we are passionate about building an inclusive platform to enable anyone to perform critical financial operations with zero stress.</string>
   <string name="select_network_text">Select Network</string>
+  <string name="offline_payments_made_easy">Offline payments made easy!</string>
+  <string name="cancel">Cancel</string>
+  <string name="hi_friend_nwhat_should_we_call_you">Hi Friend! \nWhat should we call you?</string>
+  <string name="continue_text">Continue</string>
+  <string name="request_pin">Request PIN</string>
+  <string name="set_pin">Set PIN</string>
+  <string name="enter_pin">Enter PIN</string>
+  <string name="pay_bills_text">Pay Bills</string>
 
 </resources>
