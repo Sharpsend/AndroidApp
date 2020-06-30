@@ -45,6 +45,10 @@ public class AppRepository {
         AppDatabase.executors.diskIO().execute(() -> mDatabase.userDao().insert(user));
     }
 
+    public void updateUser(User user) {
+        AppDatabase.executors.diskIO().execute(() -> mDatabase.userDao().updateUser(user));
+    }
+
     public void saveDefaultSim(User user) {
         AppDatabase.executors.diskIO().execute(() -> mDatabase.userDao().saveDefaultSim(user));
     }

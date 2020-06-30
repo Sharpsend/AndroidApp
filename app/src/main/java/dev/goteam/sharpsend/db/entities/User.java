@@ -11,6 +11,7 @@ public class User {
     private int userID;
     private String userName;
     private int slotIdx;
+    private String pin;
 
     public User(String userName) {
         this.userName = userName;
@@ -19,6 +20,14 @@ public class User {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    public String getPin() {
+        return pin;
     }
 
     public int getUserID() {

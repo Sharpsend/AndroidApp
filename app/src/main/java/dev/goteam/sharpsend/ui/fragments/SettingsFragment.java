@@ -12,9 +12,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import dev.goteam.sharpsend.databinding.FragmentSettingsBinding;
+import dev.goteam.sharpsend.db.entities.User;
 import dev.goteam.sharpsend.ui.activities.ChangePinActivity;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.fragments.operations.SetPinBottomSheetFragment;
@@ -28,7 +30,8 @@ public class SettingsFragment extends Fragment {
 
     private SettingsViewModel settingsViewModel;
     private FragmentSettingsBinding binding;
-    private boolean canceled;
+
+    private User mUser;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +39,15 @@ public class SettingsFragment extends Fragment {
 
         settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
         binding.requestPinSwitch.setChecked(Prefs.isPinEnabled(requireContext()));
+
+        settingsViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    mUser = user;
+                }
+            }
+        });
 
         return binding.getRoot();
     }
@@ -64,7 +76,10 @@ public class SettingsFragment extends Fragment {
                     SetPinBottomSheetFragment setPinBottomSheetFragment = new SetPinBottomSheetFragment(new OnPinSetListener() {
                         @Override
                         public void onPinSet(String PIN) {
-                            Prefs.setPIN(requireContext(), PIN);
+
+                            mUser.setPin(PIN);
+                            settingsViewModel.updateUser(mUser);
+
                             Prefs.setPinEnabledState(requireContext(), true);
                             Toast.makeText(requireContext(), "PIN Support Enabled", Toast.LENGTH_SHORT).show();
                         }
