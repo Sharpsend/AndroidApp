@@ -80,6 +80,17 @@
 		app:layout_constraintStart_toEndOf="@id/dot_indicator_two"
 		app:layout_constraintTop_toTopOf="parent"
 		tools:background="@drawable/indicator_active" />
+
+	  <TextView
+		android:id="@+id/dot_indicator_four"
+		android:layout_width="@dimen/indicator_size"
+		android:layout_height="@dimen/indicator_size"
+		android:layout_marginStart="5dp"
+		android:background="@{ currentPage == 3 ? @drawable/indicator_active : @drawable/indicator_inactive }"
+		app:layout_constraintStart_toEndOf="@id/dot_indicator_three"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:background="@drawable/indicator_active" />
+
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 	  <Button

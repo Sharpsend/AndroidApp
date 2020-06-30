@@ -23,4 +23,7 @@ public interface UserDao {
 
     @Update
     void saveDefaultSim(User user);
+
+    @Update
+    void updateUser(User user);
 }
