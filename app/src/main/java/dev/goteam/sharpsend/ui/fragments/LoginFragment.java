@@ -12,12 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentLoginBinding;
+import dev.goteam.sharpsend.db.entities.User;
 import dev.goteam.sharpsend.ui.activities.ForgotPinActivity;
 import dev.goteam.sharpsend.ui.listeners.OnFingerprintAuthenticatedListener;
 import dev.goteam.sharpsend.ui.activities.MainActivity;
@@ -30,7 +33,8 @@ public class LoginFragment extends Fragment implements TextWatcher {
     private FragmentLoginBinding binding;
     private LoginViewModel loginViewModel;
     private OnFingerprintAuthenticatedListener mOnFingerprintAuthenticatedListener;
-
+    private String PIN;
+    private String username;
 
     @Nullable
     @Override
@@ -38,6 +42,19 @@ public class LoginFragment extends Fragment implements TextWatcher {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_login, container, false
         );
+        LoginViewModelFactory loginViewModelFactory = new LoginViewModelFactory(requireActivity().getApplication());
+        loginViewModel = new ViewModelProvider(this, loginViewModelFactory).get(LoginViewModel.class);
+
+        loginViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    username = user.getUserName();
+                    binding.loginHeading.setText(getResources().getString(R.string.welcome_text, username));
+                    PIN = user.getPin();
+                }
+            }
+        });
 
         return binding.getRoot();
     }
@@ -45,9 +62,6 @@ public class LoginFragment extends Fragment implements TextWatcher {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LoginViewModelFactory loginViewModelFactory = new LoginViewModelFactory(requireActivity().getApplication());
-        loginViewModel = ViewModelProviders.of(this, loginViewModelFactory).get(LoginViewModel.class);
-        binding.loginHeading.setText(getResources().getString(R.string.welcome_text, loginViewModel.getUsername()));
         binding.fingerprintCta.setVisibility(
                 (loginViewModel.isFingerPrintIsEnabled() && FingerprintUtils.isFingerprintSupported(LoginFragment.this.requireContext()))
                         ? View.VISIBLE : View.GONE
@@ -79,7 +93,7 @@ public class LoginFragment extends Fragment implements TextWatcher {
             @Override
             public void onClick(View view) {
                 String enteredPIN = binding.pinField.getEditText().getText().toString();
-                if (enteredPIN.equals(loginViewModel.getPin())) {
+                if (enteredPIN.equals(PIN)) {
                     Snackbar.make(view, "Login Successful", Snackbar.LENGTH_LONG).show();
                     startActivity(new Intent(requireActivity(), MainActivity.class));
                     requireActivity().finish();

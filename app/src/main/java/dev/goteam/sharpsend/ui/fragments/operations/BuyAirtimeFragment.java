@@ -30,7 +30,7 @@ import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
-public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnMobileSelection, TextWatcher, OnNetworkSelection {
+public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnMobileSelection, TextWatcher {
     private final String TAG = getClass().getSimpleName();
     private FragmentBuyAirtimeBinding binding;
     private BankItem.Bank senderBank;
@@ -50,18 +50,11 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         super.onViewCreated(view, savedInstanceState);
         operationsViewModel = new ViewModelProvider(getActivity()).get(OperationsViewModel.class);
 
-        loadScreen();
-
-        binding.selectSimField.getEditText().setOnClickListener(view1 -> launchSimSelection());
+        OperationsActivity.title.setText("Buy Airtime");
 
         binding.selectBankField.getEditText().setOnClickListener(view1 -> launchBankSelection());
 
-        binding.selectMobileNumberField.getEditText().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchMobileSelection();
-            }
-        });
+        binding.selectMobileNumberField.getEditText().setOnClickListener(view11 -> launchMobileSelection());
 
         binding.phoneNumberField.getEditText().addTextChangedListener(this);
         binding.amountField.getEditText().addTextChangedListener(this);
@@ -72,48 +65,65 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
 
                 // TODO Validate Input
                 if (senderBank != null && recipientMobile != null) {
+                    String code = null;
+                    Intent intent = null;
                     switch (recipientMobile.getId()) {
                         case Constants.MOBILE_NUMBER_SELF:
 
-                            Intent i = new HoverParameters.Builder(requireActivity())
+                            /*Intent i = new HoverParameters.Builder(requireActivity())
                                     .request(senderBank.getSelfRechargeAction().getActionID()) // Add your action ID here
                                     .extra("Amount", binding.amountField.getEditText().getText().toString())
                                     .finalMsgDisplayTime(0)
+                                    .setSim(operationsViewModel.getNetworkFromSlot(OperationsActivity.user.getSlotIdx()).getNetworkOperatorCode())
                                     .buildIntent();
                             ((OperationsActivity) requireActivity()).getStartActivityModel()
                                     .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
+*/
+                            code = senderBank.getSelfRechargeCode(binding.amountField.getEditText().getText().toString());
+
+                            intent = operationsViewModel.getCallIntent(code, OperationsActivity.user.getSlotIdx());
+
+                            if (intent != null) {
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getContext(), "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+                            }
+
                             break;
                         case Constants.MOBILE_NUMBER_THIRD_PARTY:
 
-                            if (senderBank.getOthersRechargeAction().getActionID() != null) {
+                            code = senderBank.getOthersRechargeCode(binding.amountField.getEditText().getText().toString(), binding.phoneNumberField.getEditText().getText().toString());
+
+                            if (code != null) {
+                                intent = operationsViewModel.getCallIntent(code, OperationsActivity.user.getSlotIdx());
+
+                                if (intent != null) {
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(getContext(), "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(requireActivity(), "Application dosen't support 3rd party recharge for this bank yet, Thank you", Toast.LENGTH_SHORT).show();
+                            }
+
+                            /*if (senderBank.getOthersRechargeAction().getActionID() != null) {
                                 Intent j = new HoverParameters.Builder(requireActivity())
                                         .request(senderBank.getOthersRechargeAction().getActionID()) // Add your action ID here
                                         .extra("Amount", binding.amountField.getEditText().getText().toString())
                                         .extra("PhoneNumber", binding.phoneNumberField.getEditText().getText().toString())
+                                        .setSim(operationsViewModel.getNetworkFromSlot(OperationsActivity.user.getSlotIdx()).getNetworkOperatorCode())
                                         .finalMsgDisplayTime(0)
                                         .buildIntent();
                                 ((OperationsActivity) requireActivity()).getStartActivityModel()
                                         .postValue(new StartActivityModel(j, Constants.OPERATIONS_CODE));
                             } else {
                                 Toast.makeText(requireActivity(), "Application dosen't support 3rd party recharge for this bank yet, Thank you", Toast.LENGTH_SHORT).show();
-                            }
+                            }*/
                             break;
                     }
                 }
             }
         });
-    }
-
-    private void launchSimSelection() {
-        SelectMobileNetworkBottomSheetFragment selectMobileNetworkBottomSheetFragment
-                = new SelectMobileNetworkBottomSheetFragment(this, OperationsActivity.networks
-        );
-        selectMobileNetworkBottomSheetFragment.show(getParentFragmentManager(), "networkSelection");
-    }
-
-    private void loadScreen() {
-        if (OperationsActivity.selectedDefaultSim != null)
-        binding.selectSimField.getEditText().setText(OperationsActivity.selectedDefaultSim.getDisplayName());
     }
 
     private void launchBankSelection() {
@@ -125,22 +135,6 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         SelectAirtimeRecipientBottomSheetFragment selectAirtimeRecipientBottomSheetFragment =
                 new SelectAirtimeRecipientBottomSheetFragment(this, new MobileItem().getMobiles());
         selectAirtimeRecipientBottomSheetFragment.show(getParentFragmentManager(), "buyAirtimeFragment");
-    }
-
-    @Override
-    public void onNetworkSelected(int network) {
-        /*if (network != null) {
-
-            OperationsActivity.selectedDefaultSim = network;
-            //operationsViewModel.saveDefaultSim(network.getDisplayname());
-            binding.selectSimField.getEditText().setText(network.getDisplayName());
-            Log.i(TAG, "onNetworkSelected: " + network.getDisplayName());
-        }*/
-
-    }
-
-    @Override
-    public void onNetworkSelectionCanceled() {
     }
 
     @Override
@@ -185,7 +179,9 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         }
     }
 
-    @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    }
 
     @Override
     public void afterTextChanged(Editable editable) {
@@ -205,5 +201,8 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
             binding.sendButton.setEnabled(false);
         }
     }
-    @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    }
 }

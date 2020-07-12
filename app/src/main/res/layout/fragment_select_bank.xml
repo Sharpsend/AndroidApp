@@ -6,9 +6,10 @@
   <androidx.constraintlayout.widget.ConstraintLayout
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:padding="16dp"
-	  android:layout_marginStart="16dp"
-	  android:layout_marginEnd="16dp">
+	  android:paddingStart="@dimen/fragment_vertical_margin"
+	  android:paddingTop="8dp"
+	  android:paddingEnd="@dimen/fragment_vertical_margin"
+	  android:paddingBottom="@dimen/activity_horizontal_margin">
 
 	  <TextView
 		  android:id="@+id/select_bank_heading"
@@ -30,7 +31,6 @@
 		  android:text="@string/cancel_text"
 		  android:textColor="@color/colorGreyDark"
 		  android:textSize="18sp"
-		  app:layout_constraintBottom_toTopOf="@id/banksList"
 		  app:layout_constraintEnd_toEndOf="parent"
 		  app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,8 +41,7 @@
 	  app:layout_constraintEnd_toEndOf="parent"
 	  android:layout_height="wrap_content"
 	  tools:listitem="@layout/item_bank"
-	  android:layout_marginTop="10dp"
-	  app:layout_constraintTop_toBottomOf="@id/select_bank_heading" />
+		app:layout_constraintTop_toBottomOf="@id/cancel_button" />
 
 	<Button
 	  android:id="@+id/proceed_button"

@@ -3,8 +3,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:background="@color/colorScreenOnboarding"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:background="@color/colorScreenOnboarding">
 
   <ImageView
 	android:id="@+id/onboarding_item_image"
@@ -16,33 +16,35 @@
 	app:layout_constraintStart_toStartOf="parent"
 	app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-		android:id="@+id/onboarding_item_label"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:contentDescription="@string/transfer_funds_text"
-		android:fontFamily="@font/sf_pro_display_semibold"
-		android:textAlignment="center"
-		android:textColor="@android:color/black"
-		android:textSize="18sp"
-		app:layout_constraintTop_toBottomOf="@id/onboarding_item_image"
-		tools:text="@string/transfer_funds_text" />
+  <TextView
+	android:id="@+id/onboarding_item_label"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:contentDescription="@string/transfer_funds_text"
+	android:fontFamily="@font/sf_pro_display_semibold"
+	android:textAlignment="center"
+	android:textColor="@android:color/black"
+	android:textSize="18sp"
+	app:layout_constraintTop_toBottomOf="@id/onboarding_item_image"
+	tools:text="@string/transfer_funds_text" />
 
-	<TextView
-		android:id="@+id/onboarding_item_details"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:fontFamily="@font/sf_pro_display_medium"
-		android:lineSpacingExtra="0.15sp"
-		android:maxWidth="224dp"
-		android:textAlignment="center"
-		android:textColor="@color/colorTextGray"
-		android:textSize="16sp"
-		app:layout_constraintEnd_toStartOf="@id/end_guideline"
-		app:layout_constraintStart_toEndOf="@id/left_guideline"
-		app:layout_constraintTop_toBottomOf="@id/onboarding_item_label"
-		tools:text="@string/transfer_funds_details" />
+  <TextView
+	android:id="@+id/onboarding_item_details"
+	android:layout_width="0dp"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="10dp"
+	android:fontFamily="@font/sf_pro_display_medium"
+	android:lineSpacingExtra="0.15sp"
+	android:maxWidth="224dp"
+	android:textAlignment="center"
+	android:textColor="@color/colorTextGray"
+	android:textSize="16sp"
+	app:layout_constraintBottom_toBottomOf="parent"
+	app:layout_constraintEnd_toStartOf="@id/end_guideline"
+	app:layout_constraintStart_toEndOf="@id/left_guideline"
+	app:layout_constraintTop_toBottomOf="@id/onboarding_item_label"
+	app:layout_constraintVertical_bias="0"
+	tools:text="@string/transfer_funds_details" />
 
   <androidx.constraintlayout.widget.Guideline
 	android:id="@+id/end_guideline"

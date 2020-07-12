@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +27,7 @@ import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 import dev.goteam.sharpsend.utils.Constants;
+import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
 public class TransferFundsFragment extends Fragment implements OnBankSelection, OnRecipientBankSelection, TextWatcher {
 
@@ -33,6 +35,7 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
     private BankItem.TransferBankAction recipientBank;
     private FragmentTransferFundsBinding binding;
     private final String TAG = getClass().getSimpleName();
+    private OperationsViewModel operationsViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,45 +50,35 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.senderBankField.getEditText().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchBankSelection();
-            }
-        });
+        operationsViewModel = new ViewModelProvider(getActivity()).get(OperationsViewModel.class);
 
-        binding.selectRecipientBankField.getEditText().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchRecipientBankSelection();
-            }
-        });
+        binding.senderBankField.getEditText().setOnClickListener(view1 -> launchBankSelection());
 
+        binding.selectRecipientBankField.getEditText().setOnClickListener(view1 -> launchRecipientBankSelection());
+
+        OperationsActivity.title.setText("Transfer Funds");
         binding.accountNumberField.getEditText().addTextChangedListener(this);
         binding.amountField.getEditText().addTextChangedListener(this);
 
-        binding.sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.sendButton.setOnClickListener(view1 -> {
 
-                try {
-                    // TODO Validate inputs
-                    Intent i = new HoverParameters.Builder(requireActivity())
-                            .request(recipientBank.getActionID()) // Add your action ID here
-                            .extra("Amount", binding.amountField.getEditText().getText().toString())
-                            .extra("Nuban", binding.accountNumberField.getEditText().getText().toString())
-                            .finalMsgDisplayTime(0)
-                            //.setEnvironment(HoverParameters.DEBUG_ENV)
-                            .buildIntent();
-                    ((OperationsActivity) requireActivity()).getStartActivityModel()
-                            .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "onClick: ERROR");
-                    /*if (e instanceof HoverConfigException) {
-                        Toast.makeText(requireActivity(), "Internet ", Toast.LENGTH_SHORT).show();
-                    }*/
-                }
+            try {
+                // TODO Validate inputs
+                Intent i = new HoverParameters.Builder(requireActivity())
+                        .request(recipientBank.getActionID()) // Add your action ID here
+                        .extra("Amount", binding.amountField.getEditText().getText().toString())
+                        .extra("Nuban", binding.accountNumberField.getEditText().getText().toString())
+                        .finalMsgDisplayTime(0)
+                        .setSim(operationsViewModel.getNetworkFromSlot(OperationsActivity.user.getSlotIdx()).getNetworkOperatorCode())
+                        .buildIntent();
+                ((OperationsActivity) requireActivity()).getStartActivityModel()
+                        .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, "onClick: ERROR");
+                /*if (e instanceof HoverConfigException) {
+                    Toast.makeText(requireActivity(), "Internet ", Toast.LENGTH_SHORT).show();
+                }*/
             }
         });
     }
