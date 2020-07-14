@@ -1,5 +1,6 @@
 package dev.goteam.sharpsend.ui.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import dev.goteam.sharpsend.R;
@@ -29,8 +32,9 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<BankItem.TransferBankAction> filteredBanks = new ArrayList<>();
+            Log.d("RecipientBanksAdapter", "CharSequence: " + charSequence + " Size: " + finalTransferBankActions.size());
 
-            if (charSequence == null || charSequence == "") {
+            if (charSequence == null || charSequence.equals("") || charSequence.length() == 0) {
                 filteredBanks.addAll(finalTransferBankActions);
             } else {
                 String text = charSequence.toString().trim();
@@ -57,6 +61,14 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
 
     public RecipientBanksRVAdapter(List<BankItem.TransferBankAction> transferBankActions,
                                    OnRecipientBankItemSelected onRecipientBankItemSelected) {
+
+        Collections.sort(transferBankActions, new Comparator<BankItem.TransferBankAction>() {
+            @Override
+            public int compare(BankItem.TransferBankAction transferBankAction, BankItem.TransferBankAction t1) {
+                return transferBankAction.getName().compareTo(t1.getName());
+            }
+        });
+
         this.transferBankActions = transferBankActions;
         this.finalTransferBankActions = transferBankActions;
         this.onRecipientBankItemSelected = onRecipientBankItemSelected;
