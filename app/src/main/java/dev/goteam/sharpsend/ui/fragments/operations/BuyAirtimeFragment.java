@@ -25,6 +25,7 @@ import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
+import dev.goteam.sharpsend.ui.listeners.OnContactSelectionListener;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
 import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
@@ -36,6 +37,14 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     private BankItem.Bank senderBank;
     private MobileItem.Mobile recipientMobile;
     private OperationsViewModel operationsViewModel;
+
+    private OnContactSelectionListener mOnContactSelectionListener;
+
+    private boolean isForSelf = false;
+
+    public BuyAirtimeFragment(OnContactSelectionListener mOnContactSelectionListener) {
+        this.mOnContactSelectionListener = mOnContactSelectionListener;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +62,9 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         OperationsActivity.title.setText("Buy Airtime");
 
         binding.selectBankField.getEditText().setOnClickListener(view1 -> launchBankSelection());
+        binding.phoneNumberField.setEndIconOnClickListener((phoneNumberView) -> {
+            openContacts();
+        });
 
         binding.selectMobileNumberField.getEditText().setOnClickListener(view11 -> launchMobileSelection());
 
@@ -124,6 +136,10 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                 }
             }
         });
+    }
+
+    private void openContacts() {
+        mOnContactSelectionListener.openContacts();
     }
 
     private void launchBankSelection() {

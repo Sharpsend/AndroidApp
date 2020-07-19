@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,11 +32,12 @@ import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
 import dev.goteam.sharpsend.ui.fragments.operations.SelectMobileNetworkBottomSheetFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.TransferFundsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.BuyAirtimeFragment;
+import dev.goteam.sharpsend.ui.listeners.OnContactSelectionListener;
 import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
-public class OperationsActivity extends AppCompatActivity implements OnNetworkSelection {
+public class OperationsActivity extends AppCompatActivity implements OnNetworkSelection, OnContactSelectionListener {
     private OperationsViewModel operationsViewModel;
     public static User user;
 
@@ -47,6 +50,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     private final String TAG = getClass().getSimpleName();
     private String operation_id;
     private MutableLiveData<StartActivityModel> startActivityModel = new MutableLiveData<>();
+    private final static int SELECT_PHONE_NUMBER = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +122,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 break;
             case Constants.BUY_AIRTIME:
 
-                fragment = new BuyAirtimeFragment();
+                fragment = new BuyAirtimeFragment(this);
                 fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "buyAirtimeFragment");
                 fragmentTransaction.commit();
                 break;
@@ -179,7 +183,8 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
             fragmentTransaction.replace(R.id.operations_fragment_container, newFragment, "transactionSuccessDialog");
             fragmentTransaction.commitAllowingStateLoss();
 
-        } else if (requestCode == Constants.OPERATIONS_CODE && resultCode == Activity.RESULT_CANCELED) {
+        }
+        else if (requestCode == Constants.OPERATIONS_CODE && resultCode == Activity.RESULT_CANCELED) {
             try {
                 Toast.makeText(this, "Error: " + data.getStringExtra("error"), Toast.LENGTH_LONG).show();
                 finish();
@@ -188,6 +193,20 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                     Toast.makeText(this, "A one time Internet connection is needed for proper usage,\nThanks 🙂", Toast.LENGTH_LONG).show();
                 }
                 e.printStackTrace();
+            }
+        }
+        else if (requestCode == SELECT_PHONE_NUMBER && resultCode == RESULT_OK) {
+            Uri contactUri = data.getData();
+            String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
+            Cursor cursor = getContentResolver().query(contactUri, projection,
+                    null, null, null);
+
+            // If the cursor returned is valid, get the phone number
+            if (cursor != null && cursor.moveToFirst()) {
+                int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                String number = cursor.getString(numberIndex);
+                // Do something with the phone number
+                Log.d(TAG, number);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -216,4 +235,16 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
     @Override
     public void onNetworkSelectionCanceled() { }
+
+    @Override
+    public void openContacts() {
+        Intent selectContactIntent = new Intent(Intent.ACTION_PICK);
+        selectContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        startActivityForResult(selectContactIntent, SELECT_PHONE_NUMBER);
+    }
+
+    @Override
+    public void onContactSelected(String name) {
+
+    }
 }
