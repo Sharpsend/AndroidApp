@@ -6,7 +6,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.icu.lang.UScript;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
@@ -28,8 +27,6 @@ import dev.goteam.sharpsend.AppRepository;
 import dev.goteam.sharpsend.SharpsendApp;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.db.entities.User;
-import dev.goteam.sharpsend.ui.activities.MainActivity;
-import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.utils.Constants;
 
 public class OperationsViewModel extends AndroidViewModel {
@@ -109,7 +106,7 @@ public class OperationsViewModel extends AndroidViewModel {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, Constants.CALL_REQUEST);
+                ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, Constants.CALL_PERMISSION_REQUEST);
                 Log.e(TAG, "setupSim: 2");
                 return;
             }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.ui.activities.AuthActivity;
 import dev.goteam.sharpsend.ui.activities.MainActivity;
 import dev.goteam.sharpsend.utils.Prefs;
+
+import static android.content.ContentValues.TAG;
 
 public class SplashScreenFragment extends Fragment {
 
@@ -36,6 +39,7 @@ public class SplashScreenFragment extends Fragment {
             @Override
             public void run() {
                 // check if this is the first time the user opens the app - preferences would be used.
+                Log.i(TAG, "run: " + isFirstTime() + isPinEnabled());
                 if (isFirstTime()) {
                     NavHostFragment.findNavController(
                             SplashScreenFragment.this).navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToOnboardingFragment()
