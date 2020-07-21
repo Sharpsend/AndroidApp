@@ -172,6 +172,10 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         setUpPhone(false);
     }
 
+    public void setThirdPartyMobileNumber(String number) {
+        binding.phoneNumberField.getEditText().setText(number);
+    }
+
     @Override
     public void onMobileSelectionCanceled() {
         this.recipientMobile = null;

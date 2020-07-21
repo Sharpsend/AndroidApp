@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -206,7 +207,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String number = cursor.getString(numberIndex);
                 // Do something with the phone number
-                Log.d(TAG, number);
+                this.onContactSelected(number);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -244,7 +245,17 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     }
 
     @Override
-    public void onContactSelected(String name) {
+    public void onContactSelected(String number) {
+        number = number.trim();
+        if (number.startsWith("+234")) {
+            number = number.replace("+234", "0");
+        }
+        Log.d(TAG, number + " from ops");
+        BuyAirtimeFragment fragment = (BuyAirtimeFragment) getSupportFragmentManager().findFragmentByTag("buyAirtimeFragment");
+        if (fragment != null) {
+            Log.d(TAG, "fragment found!");
+            fragment.setThirdPartyMobileNumber(number);
+        }
 
     }
 }

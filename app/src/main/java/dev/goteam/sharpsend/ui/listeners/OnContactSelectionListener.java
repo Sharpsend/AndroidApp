@@ -4,6 +4,6 @@ public interface OnContactSelectionListener {
 
     void openContacts();
 
-    void onContactSelected(String name);
+    void onContactSelected(String number);
 
 }
