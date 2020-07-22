@@ -53,8 +53,10 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
         operationsViewModel = new ViewModelProvider(getActivity()).get(OperationsViewModel.class);
 
         binding.senderBankField.getEditText().setOnClickListener(view1 -> launchBankSelection());
+        binding.senderBankField.setEndIconOnClickListener(view1 -> launchBankSelection());
 
         binding.selectRecipientBankField.getEditText().setOnClickListener(view1 -> launchRecipientBankSelection());
+        binding.selectRecipientBankField.setEndIconOnClickListener(view1 -> launchRecipientBankSelection());
 
         OperationsActivity.title.setText("Transfer Funds");
         binding.accountNumberField.getEditText().addTextChangedListener(this);
