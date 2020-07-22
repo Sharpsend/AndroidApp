@@ -1,8 +1,8 @@
 package dev.goteam.sharpsend.ui.listeners;
 
-import dev.goteam.sharpsend.db.entities.BankItem;
+import dev.goteam.sharpsend.db.entities.Action;
 
 public interface OnRecipientBankSelection {
-    void onRecipientBankSelected(BankItem.TransferBankAction transferBankAction);
+    void onRecipientBankSelected(Action transferBankAction);
     void onSelectionCanceled();
 }

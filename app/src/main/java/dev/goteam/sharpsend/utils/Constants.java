@@ -2,15 +2,6 @@ package dev.goteam.sharpsend.utils;
 
 public class Constants {
 
-//    operations constants
-    public static final int OPERATION_FUNDS_TRANSFER = 0;
-    public static final int OPERATION_BUY_AIRTIME = 1;
-    public static final int OPERATION_ACCESSIBILITY_TIPS = 5;
-    public static final int OPERATION_CHECK_AIRTIME = 2;
-
-//    bank constants
-    public static final int NO_BANK_SELECTED = -1;
-
     public static final int OPERATIONS_CODE = 12;
 
 //    mobile number constants
@@ -31,8 +22,11 @@ public class Constants {
     public static final String MOBILE_9 = "9mobile";
 
     // Permissions
-    public static final int CALL_REQUEST = 100;
+    public static final int CALL_PERMISSION_REQUEST = 100;
     public static final int SIMINFO_REQUEST = 101;
 
 
+    public static final String Bank = "Bank";
+    public static final String Recharge = "Recharge";
+    public static final String checkBalance = "CheckBalance";
 }

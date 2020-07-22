@@ -9,17 +9,19 @@
 	android:background="@color/colorScreenOnboarding"
 	tools:context="dev.goteam.sharpsend.ui.fragments.RegisterFragment">
 
-	<TextView
-	  android:id="@+id/create_an_account_heading"
-	  android:layout_width="0dp"
-	  android:layout_height="wrap_content"
-	  android:fontFamily="@font/sf_pro_display_regular"
-	  android:text="@string/hi_friend_nwhat_should_we_call_you"
-	  android:textColor="@android:color/black"
-	  android:textSize="28sp"
-	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-	  app:layout_constraintStart_toEndOf="@id/left_guideline"
-	  app:layout_constraintTop_toBottomOf="@id/close_button" />
+	  <TextView
+		  android:id="@+id/create_an_account_heading"
+		  android:layout_width="0dp"
+		  android:layout_height="wrap_content"
+		  android:layout_marginTop="20dp"
+		  android:fontFamily="@font/sf_pro_display_regular"
+		  android:text="@string/hi_friend_nwhat_should_we_call_you"
+		  android:textColor="@android:color/black"
+		  android:textSize="25sp"
+		  android:textStyle="bold"
+		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+		  app:layout_constraintStart_toEndOf="@id/left_guideline"
+		  app:layout_constraintTop_toBottomOf="@id/close_button" />
 
 	<androidx.constraintlayout.widget.Guideline
 	  android:id="@+id/left_guideline"
@@ -48,38 +50,39 @@
 	  app:layout_constraintStart_toEndOf="@id/left_guideline"
 	  app:layout_constraintTop_toTopOf="parent" />
 
-	<com.google.android.material.textfield.TextInputLayout
-	  android:id="@+id/usernameTextField"
-	  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-	  android:layout_width="0dp"
-	  android:layout_height="wrap_content"
-	  android:layout_marginTop="20dp"
-	  android:hint="@string/username_label"
-	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-	  app:layout_constraintStart_toEndOf="@id/left_guideline"
-	  app:layout_constraintTop_toBottomOf="@id/create_an_account_heading">
+	  <com.google.android.material.textfield.TextInputLayout
+		  android:id="@+id/usernameTextField"
+		  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+		  android:layout_width="0dp"
+		  android:layout_height="wrap_content"
+		  android:layout_marginTop="57dp"
+		  android:hint="@string/username_label"
+		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+		  app:layout_constraintStart_toEndOf="@id/left_guideline"
+		  app:layout_constraintTop_toBottomOf="@id/create_an_account_heading">
 
-	  <com.google.android.material.textfield.TextInputEditText
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:fontFamily="@font/sf_pro_display_regular" />
+		  <com.google.android.material.textfield.TextInputEditText
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:singleLine="true"
+			  android:fontFamily="@font/sf_pro_display_regular" />
 
-	</com.google.android.material.textfield.TextInputLayout>
+	  </com.google.android.material.textfield.TextInputLayout>
 
-	<Button
-	  android:id="@+id/sign_up_button"
-	  style="@style/ColoredButton"
-	  android:layout_width="0dp"
-	  android:layout_height="wrap_content"
-	  android:layout_marginTop="20dp"
-	  android:enabled="false"
-	  android:fontFamily="@font/sf_pro_display_medium"
-	  android:text="@string/continue_text"
-	  android:textAllCaps="false"
-	  android:textColor="@android:color/white"
-	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-	  app:layout_constraintStart_toEndOf="@id/left_guideline"
-	  app:layout_constraintTop_toBottomOf="@id/usernameTextField" />
+	  <Button
+		  android:id="@+id/sign_up_button"
+		  style="@style/ColoredButton"
+		  android:layout_width="0dp"
+		  android:layout_height="wrap_content"
+		  android:layout_marginTop="43dp"
+		  android:enabled="false"
+		  android:fontFamily="@font/sf_pro_display_medium"
+		  android:text="@string/continue_text"
+		  android:textAllCaps="false"
+		  android:textColor="@android:color/white"
+		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+		  app:layout_constraintStart_toEndOf="@id/left_guideline"
+		  app:layout_constraintTop_toBottomOf="@id/usernameTextField" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -37,6 +37,11 @@ public class NetworkItem {
         }
 
         @Override
+        public Action getCheckBalanceAction() {
+            return new Action("d867290d", null, "Check Balance on MTN NG", Constants.checkBalance);
+        }
+
+        @Override
         public String getDisplayName() {
             return displayName;
         }
@@ -89,6 +94,11 @@ public class NetworkItem {
         @Override
         public String getCheckBalanceCode() {
             return "#124*1#";
+        }
+
+        @Override
+        public Action getCheckBalanceAction() {
+            return new Action("6fe4063b", null, "Check Balance on Glo NG", Constants.checkBalance);
         }
 
         @Override
@@ -147,6 +157,11 @@ public class NetworkItem {
         }
 
         @Override
+        public Action getCheckBalanceAction() {
+            return new Action("7a47c2fd", null, "Check Balance on Airtel NG", Constants.checkBalance);
+        }
+
+        @Override
         public String getDisplayName() {
             return displayname;
         }
@@ -199,6 +214,11 @@ public class NetworkItem {
         @Override
         public String getCheckBalanceCode() {
             return "*232#";
+        }
+
+        @Override
+        public Action getCheckBalanceAction() {
+            return new Action("efdc5dd1", null, "Check Balance on 9 Mobile NG", Constants.checkBalance);
         }
 
         @Override
@@ -255,30 +275,7 @@ public class NetworkItem {
         int getSlotIdx();
         String getNetworkOperatorCode();
         String getCheckBalanceCode();
-    }
-
-    public static class Action {
-
-        private String actionID;
-        private String name;
-        private String code;
-        private Action(String actionID, String code, String name) {
-            this.actionID = actionID;
-            this.name = name;
-            this.code = code;
-        }
-
-        public String getActionID() {
-            return actionID;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getCode() {
-            return code;
-        }
+        Action getCheckBalanceAction();
     }
 
     private class Builder {

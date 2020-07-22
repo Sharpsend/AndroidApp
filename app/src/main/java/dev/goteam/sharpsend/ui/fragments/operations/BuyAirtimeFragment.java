@@ -82,16 +82,17 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                     switch (recipientMobile.getId()) {
                         case Constants.MOBILE_NUMBER_SELF:
 
-                            /*Intent i = new HoverParameters.Builder(requireActivity())
-                                    .request(senderBank.getSelfRechargeAction().getActionID()) // Add your action ID here
+                            Intent i = new HoverParameters.Builder(requireActivity())
+                                    .request(senderBank.getSelfRechargeAction().getActionID())
                                     .extra("Amount", binding.amountField.getEditText().getText().toString())
                                     .finalMsgDisplayTime(0)
                                     .setSim(operationsViewModel.getNetworkFromSlot(OperationsActivity.user.getSlotIdx()).getNetworkOperatorCode())
                                     .buildIntent();
                             ((OperationsActivity) requireActivity()).getStartActivityModel()
                                     .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
-*/
-                            code = senderBank.getSelfRechargeCode(binding.amountField.getEditText().getText().toString());
+
+                            // New method
+                           /* code = senderBank.getSelfRechargeCode(binding.amountField.getEditText().getText().toString());
 
                             intent = operationsViewModel.getCallIntent(code, OperationsActivity.user.getSlotIdx());
 
@@ -99,7 +100,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(getContext(), "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
-                            }
+                            }*/
 
                             break;
                         case Constants.MOBILE_NUMBER_THIRD_PARTY:

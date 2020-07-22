@@ -1,5 +1,6 @@
 package dev.goteam.sharpsend.ui.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,21 +12,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.hover.sdk.api.HoverConfigException;
+import com.hover.sdk.api.HoverParameters;
 
 import dev.goteam.sharpsend.AccessibilityTipsFragment;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.SharpsendApp;
 import dev.goteam.sharpsend.databinding.ActivityOperationsBinding;
+import dev.goteam.sharpsend.db.entities.Action;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.db.entities.User;
 import dev.goteam.sharpsend.models.StartActivityModel;
@@ -43,6 +48,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     public static User user;
 
     private TextInputLayout selectSimField;
+    private LinearLayout header;
     private Button retryBtn;
     public static TextView title;
     private boolean isStarting = true;
@@ -66,6 +72,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         selectSimField = findViewById(R.id.select_sim_field);
         title = findViewById(R.id.title);
         retryBtn = findViewById(R.id.retryBtn);
+        header = findViewById(R.id.header);
 
         try {
             operation_id = intent.getExtras().getString("operation_id");
@@ -117,6 +124,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 break;
             case Constants.ACCESSIBILITY_TIPS:
 
+                header.setVisibility(View.GONE);
                 fragment = new AccessibilityTipsFragment();
                 fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "AccessibilityTipsFragment");
                 fragmentTransaction.commit();
@@ -129,6 +137,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 break;
             case Constants.CHECK_AIRTIME:
 
+                //checkAirtime();
                 checkAirtime();
                 break;
             default:
@@ -140,7 +149,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         return startActivityModel;
     }
 
-    private void checkAirtime() {
+    private void newCheckAirtime() {
         title.setText("Check Airtime");
 
         Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(user.getSlotIdx()).getCheckBalanceCode(), user.getSlotIdx());
@@ -151,7 +160,31 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
             Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
         }
 
-        retryBtn.setOnClickListener(view -> checkAirtime());
+        retryBtn.setOnClickListener(view -> newCheckAirtime());
+    }
+
+    private void checkAirtime() {
+        title.setText("Check Airtime");
+
+        Action action = operationsViewModel.getNetworks().get(user.getSlotIdx()).getCheckBalanceAction();
+
+        if (operationsViewModel.getNetworks() != null && operationsViewModel.getNetworks().size() != 0) {
+            try {
+                Intent i = new HoverParameters.Builder(this)
+                        .request(action.getActionID()) // Add your action ID here
+                        .finalMsgDisplayTime(0)
+                        .buildIntent();
+                getStartActivityModel()
+                        .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, "onClick: ERROR");
+            }
+        } else {
+            Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+        }
+
+        retryBtn.setOnClickListener(view -> newCheckAirtime());
     }
 
     public void launchSimSelection() {
@@ -218,6 +251,26 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         super.onResume();
         if (user != null)
         ((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> operationsViewModel.getSims(this, user));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case Constants.CALL_PERMISSION_REQUEST:
+                Log.i(TAG, "onRequestPermissionsResult: " + grantResults);
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    operationsViewModel.getSims(this, user);
+                }  else {
+                    // We need to call Toast.makeText() (and most other functions dealing with the UI) from within the main thread.
+                    this.runOnUiThread(() -> Toast.makeText(OperationsActivity.this, "This feature is unavailable because the feature requires a permission that have been denied.", Toast.LENGTH_LONG).show());
+
+                    finish();
+                }
+                return;
+        }
+        // Other 'case' lines to check for other
+        // permissions this app might request.
     }
 
     public void closeBtn(View view) {

@@ -76,5 +76,6 @@
 
   <style name="SplashScreenTextStyle">
 	<item name="fontFamily">@font/patrick_hand_regular</item>
+	  <item name="android:textColor">@color/colorPrimaryDark</item>
   </style>
 </resources>

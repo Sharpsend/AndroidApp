@@ -21,6 +21,7 @@ import com.hover.sdk.api.HoverParameters;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentTransferFundsBinding;
+import dev.goteam.sharpsend.db.entities.Action;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
@@ -32,7 +33,7 @@ import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 public class TransferFundsFragment extends Fragment implements OnBankSelection, OnRecipientBankSelection, TextWatcher {
 
     private BankItem.Bank senderBank;
-    private BankItem.TransferBankAction recipientBank;
+    private Action recipientBank;
     private FragmentTransferFundsBinding binding;
     private final String TAG = getClass().getSimpleName();
     private OperationsViewModel operationsViewModel;
@@ -117,7 +118,7 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
     }
 
     @Override
-    public void onRecipientBankSelected(BankItem.TransferBankAction transferBankAction) {
+    public void onRecipientBankSelected(Action transferBankAction) {
         this.recipientBank = transferBankAction;
         binding.selectRecipientBankField.getEditText().setText(transferBankAction.getName());
     }

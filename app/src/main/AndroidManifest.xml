@@ -15,7 +15,9 @@
 	android:roundIcon="@mipmap/ic_launcher_round"
 	android:supportsRtl="true"
 	android:theme="@style/AppTheme">
-	<activity android:name=".ui.activities.ForgotPinActivity"></activity>
+	<activity android:name=".ui.activities.ForgotPinActivity">
+
+	</activity>
 	<activity android:name=".ui.activities.ChangePinActivity" />
 	<activity android:name=".ui.activities.OperationsActivity" />
 	<activity android:name=".ui.activities.AuthActivity">
