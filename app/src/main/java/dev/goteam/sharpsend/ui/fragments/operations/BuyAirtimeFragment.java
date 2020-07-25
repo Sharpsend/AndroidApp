@@ -25,6 +25,7 @@ import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
+import dev.goteam.sharpsend.ui.listeners.OnContactSelectionListener;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
 import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
@@ -36,6 +37,12 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     private BankItem.Bank senderBank;
     private MobileItem.Mobile recipientMobile;
     private OperationsViewModel operationsViewModel;
+
+    private OnContactSelectionListener mOnContactSelectionListener;
+
+    public BuyAirtimeFragment(OnContactSelectionListener mOnContactSelectionListener) {
+        this.mOnContactSelectionListener = mOnContactSelectionListener;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,8 +60,13 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         OperationsActivity.title.setText("Buy Airtime");
 
         binding.selectBankField.getEditText().setOnClickListener(view1 -> launchBankSelection());
+        binding.selectBankField.setEndIconOnClickListener(view1 -> launchBankSelection());
+        binding.phoneNumberField.setEndIconOnClickListener((phoneNumberView) -> {
+            openContacts();
+        });
 
         binding.selectMobileNumberField.getEditText().setOnClickListener(view11 -> launchMobileSelection());
+        binding.selectMobileNumberField.setEndIconOnClickListener(view11 -> launchMobileSelection());
 
         binding.phoneNumberField.getEditText().addTextChangedListener(this);
         binding.amountField.getEditText().addTextChangedListener(this);
@@ -106,26 +118,15 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                             } else {
                                 Toast.makeText(requireActivity(), "Application dosen't support 3rd party recharge for this bank yet, Thank you", Toast.LENGTH_SHORT).show();
                             }
-
-                            // New method
-                            /*if (senderBank.getOthersRechargeAction().getActionID() != null) {
-                                Intent j = new HoverParameters.Builder(requireActivity())
-                                        .request(senderBank.getOthersRechargeAction().getActionID()) // Add your action ID here
-                                        .extra("Amount", binding.amountField.getEditText().getText().toString())
-                                        .extra("PhoneNumber", binding.phoneNumberField.getEditText().getText().toString())
-                                        .setSim(operationsViewModel.getNetworkFromSlot(OperationsActivity.user.getSlotIdx()).getNetworkOperatorCode())
-                                        .finalMsgDisplayTime(0)
-                                        .buildIntent();
-                                ((OperationsActivity) requireActivity()).getStartActivityModel()
-                                        .postValue(new StartActivityModel(j, Constants.OPERATIONS_CODE));
-                            } else {
-                                Toast.makeText(requireActivity(), "Application dosen't support 3rd party recharge for this bank yet, Thank you", Toast.LENGTH_SHORT).show();
-                            }*/
                             break;
                     }
                 }
             }
         });
+    }
+
+    private void openContacts() {
+        mOnContactSelectionListener.openContacts();
     }
 
     private void launchBankSelection() {
@@ -156,6 +157,10 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         this.recipientMobile = mobile;
         binding.selectMobileNumberField.getEditText().setText(this.recipientMobile.getName());
         setUpPhone(false);
+    }
+
+    public void setThirdPartyMobileNumber(String number) {
+        binding.phoneNumberField.getEditText().setText(number);
     }
 
     @Override
