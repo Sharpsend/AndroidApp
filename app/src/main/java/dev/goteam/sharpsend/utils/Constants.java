@@ -12,6 +12,7 @@ public class Constants {
     public static final String TRANSFER_FUNDS = "transfer_funds";
     public static final String BUY_AIRTIME = "buy_airtime";
     public static final String CHECK_AIRTIME = "check_airtime";
+    public static final String PAY_BILLS = "pay_bills";
 
     public static final String ACCESSIBILITY_TIPS = "accessibility_tips";
 
@@ -25,6 +26,9 @@ public class Constants {
     public static final int CALL_PERMISSION_REQUEST = 100;
     public static final int SIMINFO_REQUEST = 101;
 
+    // PayBill Item Ids
+    public static final String DATA_SERVICES = "data_services";
+    public static final String DSTV_SUB = "dstv_subscription";
 
     public static final String Bank = "Bank";
     public static final String Recharge = "Recharge";

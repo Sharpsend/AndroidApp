@@ -31,6 +31,7 @@ import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.db.entities.User;
 import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
+import dev.goteam.sharpsend.ui.fragments.operations.PayBillsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.SelectMobileNetworkBottomSheetFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.TransferFundsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.BuyAirtimeFragment;
@@ -130,9 +131,14 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 fragmentTransaction.commit();
                 break;
             case Constants.CHECK_AIRTIME:
-
                 //checkAirtime();
                 checkAirtime();
+                break;
+            case Constants.PAY_BILLS:
+
+                fragment = new PayBillsFragment();
+                fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "payBillsFragment");
+                fragmentTransaction.commit();
                 break;
             default:
                 break;

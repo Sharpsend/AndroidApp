@@ -24,7 +24,7 @@ import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.viewmodels.HomeViewModel;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 
-public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSelectedListener, OnNetworkSelection {
+public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSelectedListener {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSe
         homeItems.add(new HomeItem("Transfer Funds", "Send money to any bank account in Nigeria", R.drawable.ic_transfer, Constants.TRANSFER_FUNDS));
         homeItems.add(new HomeItem("Buy Airtime", "Get instant call credit on any phone with zero stress", R.drawable.ic_buy_airtime, Constants.BUY_AIRTIME));
         homeItems.add(new HomeItem("Check Airtime", "Easily check your airtime account balance with one-click ", R.drawable.ic_check_airtime, Constants.CHECK_AIRTIME));
+        homeItems.add(new HomeItem("Pay Bills", "Pay your utility bill for your basic needs", R.drawable.ic_pay_bills, Constants.PAY_BILLS));
 
         HomeRVAdapter homeRVAdapter = new HomeRVAdapter(this, homeItems);
         binding.homeRV.setAdapter(homeRVAdapter);
@@ -58,35 +59,5 @@ public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSe
         Intent operationsIntent = new Intent(requireActivity(), OperationsActivity.class);
         operationsIntent.putExtra("operation_id", homeItem.getType());
         startActivity(operationsIntent);
-
-       /* if (position != 2) {
-            Intent operationsIntent = new Intent(requireActivity(), OperationsActivity.class);
-            operationsIntent.putExtra("operation_id", position);
-            startActivity(operationsIntent);
-        } else {
-
-            ArrayList<NetworkItem.Network> networks = new ArrayList<>();
-            networks.add(new NetworkItem.Network("MTN", "mtn", R.drawable.mtn));
-            networks.add(new NetworkItem.Network("GLO", "glo", R.drawable.glo));
-            networks.add(new NetworkItem.Network("AIRTEL", "airtel", R.drawable.airtel));
-            networks.add(new NetworkItem.Network("9MOBILE", "9mobile", R.drawable.mobile_9));
-
-            SelectMobileNetworkBottomSheetFragment selectMobileNetworkBottomSheetFragment
-                    = new SelectMobileNetworkBottomSheetFragment(
-                    this, networks
-            );
-            selectMobileNetworkBottomSheetFragment.show(getParentFragmentManager(), "networkSelection");
-        }
-        switch (pos)*/
-    }
-
-    @Override
-    public void onNetworkSelected(int network) {
-        //Toast.makeText(requireContext(), "Network selected: " + network.getDisplayName(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNetworkSelectionCanceled() {
-        // add stub code...
     }
 }

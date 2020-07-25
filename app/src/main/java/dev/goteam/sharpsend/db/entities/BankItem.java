@@ -9,11 +9,13 @@ public class BankItem {
 
     public class GT implements Bank {
 
+        private final ArrayList<PayBillItem> payBillItems;
         private List<Action> transferBankActionList;
         private boolean selected;
 
         public GT() {
             transferBankActionList = new ArrayList<>();
+            payBillItems = new ArrayList<>();
             selected = false;
 
             // Transfer Data
@@ -32,6 +34,13 @@ public class BankItem {
             transferBankActionList.add(new Action("864c9715", "ZEB", "Zenith Bank Plc", Constants.Bank));
             transferBankActionList.add(new Action("71924468", "FBN", "First Bank of Nigeria Limited", Constants.Bank));
             transferBankActionList.add(new Action("5da366f2", "GTB", "Guaranty Trust Bank plc", Constants.Bank));
+
+            payBillItems.add(new PayBillItem("Data Services", "dataSvc"));
+            payBillItems.add(new PayBillItem("DSTV Subscription", "dataSvc"));
+            payBillItems.add(new PayBillItem("GOTV Subscription", "dataSvc"));
+            payBillItems.add(new PayBillItem("Ikeja Electric", "dataSvc"));
+            payBillItems.add(new PayBillItem("Ibadan Electric - IBIDEC", "dataSvc"));
+            payBillItems.add(new PayBillItem("WAEC Result Checker PIN", "dataSvc"));
         }
 
         @Override
@@ -70,6 +79,11 @@ public class BankItem {
         }
 
         @Override
+        public List<PayBillItem> getPayBillItems() {
+            return payBillItems;
+        }
+
+        @Override
         public boolean isSelected() {
             return selected;
         }
@@ -82,10 +96,12 @@ public class BankItem {
 
     public class ZEB implements Bank {
 
+        private final ArrayList<PayBillItem> payBillItems;
         private List<Action> transferBankActionList;
         private boolean selected;
 
         public ZEB() {
+            payBillItems = new ArrayList<>();
             transferBankActionList = new ArrayList<>();
             selected = false;
 
@@ -132,6 +148,11 @@ public class BankItem {
         }
 
         @Override
+        public List<PayBillItem> getPayBillItems() {
+            return payBillItems;
+        }
+
+        @Override
         public boolean isSelected() {
             return selected;
         }
@@ -144,10 +165,12 @@ public class BankItem {
 
     public class STIB implements Bank {
 
+        private final ArrayList<PayBillItem> payBillItems;
         private List<Action> transferBankActionList;
         private boolean selected;
 
         public STIB() {
+            payBillItems = new ArrayList<>();
             transferBankActionList = new ArrayList<>();
             selected = false;
 
@@ -190,6 +213,11 @@ public class BankItem {
         @Override
         public List<Action> getTransferBankActionList() {
             return transferBankActionList;
+        }
+
+        @Override
+        public List<PayBillItem> getPayBillItems() {
+            return payBillItems;
         }
 
         @Override
@@ -348,5 +376,6 @@ public class BankItem {
         String getSelfRechargeCode(String amount);
         String getOthersRechargeCode(String amount, String pNumber);
         List<Action> getTransferBankActionList();
+        List<PayBillItem> getPayBillItems();
     }
 }

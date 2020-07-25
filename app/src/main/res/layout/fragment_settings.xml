@@ -1,92 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@color/colorScreenOnboarding"
-  android:paddingStart="@dimen/fragment_vertical_margin"
-  android:paddingEnd="@dimen/fragment_vertical_margin"
-  tools:context="dev.goteam.sharpsend.ui.fragments.TransactionsFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorScreenOnboarding"
+    android:orientation="vertical"
+    tools:context="dev.goteam.sharpsend.ui.fragments.TransactionsFragment">
 
-  <FrameLayout
-	android:id="@+id/header"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:paddingTop="31dp"
-	android:paddingBottom="22dp">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:fontFamily="@font/sf_pro_display_medium"
+        android:gravity="center"
+        android:lines="1"
+        android:text="Settings"
+        android:textColor="#B2000000"
+        android:textFontWeight="500"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="p" />
 
-	<TextView
-	  android:id="@+id/textView5"
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:fontFamily="@font/sf_pro_display_regular"
-	  android:text="@string/title_settings"
-	  android:textColor="@color/colorPrimary"
-	  android:textSize="24sp"
-	  android:textStyle="bold" />
-  </FrameLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
-  <LinearLayout
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:layout_below="@id/header"
-	android:divider="?android:attr/listDivider"
-	android:orientation="vertical"
-	android:showDividers="middle">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:divider="?android:attr/listDivider"
+        android:orientation="vertical"
+		android:layout_weight="1"
+        android:paddingStart="@dimen/fragment_vertical_margin"
+        android:paddingEnd="@dimen/fragment_vertical_margin"
+        android:showDividers="middle">
 
-	<Switch
-	  android:id="@+id/requestPinSwitch"
-	  android:layout_width="match_parent"
-	  android:layout_height="wrap_content"
-	  android:layout_marginTop="10dp"
-	  android:background="?attr/selectableItemBackground"
-	  android:fontFamily="@font/sf_pro_display_regular"
-	  android:paddingTop="12dp"
-	  android:paddingBottom="12dp"
-	  android:checked="true"
-	  android:text="@string/request_pin"
-	  android:textSize="16sp"
-	  android:thumbTint="@color/colorPrimary"
-	  android:trackTint="@color/colorPrimaryDark" />
+        <Switch
+            android:id="@+id/requestPinSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:checked="true"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="@string/request_pin"
+            android:textSize="16sp"
+            android:thumbTint="@color/colorPrimary"
+            android:trackTint="@color/colorPrimaryDark" />
 
-	<Switch
-	  android:id="@+id/fingerprintSwitch"
-	  android:layout_width="match_parent"
-	  android:layout_height="wrap_content"
-	  android:layout_marginTop="10dp"
-	  android:background="?attr/selectableItemBackground"
-	  android:fontFamily="@font/sf_pro_display_regular"
-	  android:paddingTop="12dp"
-	  android:paddingBottom="12dp"
-	  android:text="Enable Fingerprint"
-	  android:textSize="16sp"
-	  android:thumbTint="@color/colorPrimary"
-	  android:trackTint="@color/colorPrimaryDark" />
+        <Switch
+            android:id="@+id/fingerprintSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Enable Fingerprint"
+            android:textSize="16sp"
+            android:thumbTint="@color/colorPrimary"
+            android:trackTint="@color/colorPrimaryDark" />
 
-	<TextView
-	  android:id="@+id/change_pin_text"
-	  android:layout_width="match_parent"
-	  android:layout_height="wrap_content"
-	  android:background="?attr/selectableItemBackground"
-	  android:drawableEnd="@drawable/ic_chevron_right_24dp"
-	  android:paddingTop="12dp"
-	  android:paddingBottom="12dp"
-	  android:text="Change PIN"
-	  android:textColor="@color/transactionItemBlack"
-	  android:textSize="16sp" />
+        <TextView
+            android:id="@+id/change_pin_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_chevron_right_24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Change PIN"
+            android:textColor="@color/transactionItemBlack"
+            android:textSize="16sp" />
 
-	<TextView
-	  android:id="@+id/accessibility_tips"
-	  android:layout_width="match_parent"
-	  android:layout_height="wrap_content"
-	  android:background="?attr/selectableItemBackground"
-	  android:drawableEnd="@drawable/ic_chevron_right_24dp"
-	  android:paddingTop="12dp"
-	  android:paddingBottom="12dp"
-	  android:text="Accessibility Tips"
-	  android:textColor="@color/transactionItemBlack"
-	  android:textSize="16sp" />
-  </LinearLayout>
+        <TextView
+            android:id="@+id/accessibility_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_chevron_right_24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Accessibility Tips"
+            android:textColor="@color/transactionItemBlack"
+            android:textSize="16sp" />
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
