@@ -12,7 +12,7 @@ public class Constants {
     public static final String TRANSFER_FUNDS = "transfer_funds";
     public static final String BUY_AIRTIME = "buy_airtime";
     public static final String CHECK_AIRTIME = "check_airtime";
-    public static final String PAY_BILLS = "pay_bills";
+    public static final String BUY_DATA = "buy_data";
 
     public static final String ACCESSIBILITY_TIPS = "accessibility_tips";
 

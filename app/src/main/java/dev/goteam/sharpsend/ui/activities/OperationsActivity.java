@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -35,7 +34,6 @@ import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.db.entities.User;
 import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.dialogs.TransactionSuccessDialog;
-import dev.goteam.sharpsend.ui.fragments.operations.PayBillsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.SelectMobileNetworkBottomSheetFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.TransferFundsFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.BuyAirtimeFragment;
@@ -138,13 +136,11 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 break;
             case Constants.CHECK_AIRTIME:
                 //checkAirtime();
-                checkAirtime();
+                newCheckAirtime();
                 break;
-            case Constants.PAY_BILLS:
+            case Constants.BUY_DATA:
 
-                fragment = new PayBillsFragment();
-                fragmentTransaction.replace(R.id.operations_fragment_container, fragment, "payBillsFragment");
-                fragmentTransaction.commit();
+                buyData();
                 break;
             default:
                 break;
@@ -172,10 +168,10 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     private void checkAirtime() {
         title.setText("Check Airtime");
 
-        Action action = operationsViewModel.getNetworks().get(user.getSlotIdx()).getCheckBalanceAction();
-
         if (operationsViewModel.getNetworks() != null && operationsViewModel.getNetworks().size() != 0) {
             try {
+                Action action = operationsViewModel.getNetworks().get(user.getSlotIdx()).getCheckBalanceAction();
+
                 Intent i = new HoverParameters.Builder(this)
                         .request(action.getActionID()) // Add your action ID here
                         .finalMsgDisplayTime(0)
@@ -186,6 +182,20 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 e.printStackTrace();
                 Log.e(TAG, "onClick: ERROR");
             }
+        } else {
+            Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+        }
+
+        retryBtn.setOnClickListener(view -> newCheckAirtime());
+    }
+
+    private void buyData() {
+        title.setText("Buy Data");
+
+        Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(user.getSlotIdx()).getBuyDataCode(), user.getSlotIdx());
+
+        if (intent != null) {
+            startActivity(intent);
         } else {
             Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
         }

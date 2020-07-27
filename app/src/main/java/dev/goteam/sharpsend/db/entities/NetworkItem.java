@@ -42,6 +42,11 @@ public class NetworkItem {
         }
 
         @Override
+        public String getBuyDataCode() {
+            return "*131*1#";
+        }
+
+        @Override
         public String getDisplayName() {
             return displayName;
         }
@@ -99,6 +104,11 @@ public class NetworkItem {
         @Override
         public Action getCheckBalanceAction() {
             return new Action("6fe4063b", null, "Check Balance on Glo NG", Constants.checkBalance);
+        }
+
+        @Override
+        public String getBuyDataCode() {
+            return "*777#";
         }
 
         @Override
@@ -162,6 +172,11 @@ public class NetworkItem {
         }
 
         @Override
+        public String getBuyDataCode() {
+            return "*141#";
+        }
+
+        @Override
         public String getDisplayName() {
             return displayname;
         }
@@ -222,6 +237,11 @@ public class NetworkItem {
         }
 
         @Override
+        public String getBuyDataCode() {
+            return "*200*2#";
+        }
+
+        @Override
         public String getDisplayName() {
             return displayname;
         }
@@ -276,6 +296,7 @@ public class NetworkItem {
         String getNetworkOperatorCode();
         String getCheckBalanceCode();
         Action getCheckBalanceAction();
+        String getBuyDataCode();
     }
 
     private class Builder {
