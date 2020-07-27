@@ -96,6 +96,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         });
 
         selectSimField.getEditText().setOnClickListener(view1 -> launchSimSelection());
+        selectSimField.setEndIconOnClickListener(view1 -> launchSimSelection());
 
         startActivityModel.observe(this, startActivityModel1 -> {
             if (startActivityModel1 != null) {
