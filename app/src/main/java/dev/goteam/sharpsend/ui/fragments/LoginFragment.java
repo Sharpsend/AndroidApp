@@ -25,6 +25,7 @@ import dev.goteam.sharpsend.ui.activities.ForgotPinActivity;
 import dev.goteam.sharpsend.ui.listeners.OnFingerprintAuthenticatedListener;
 import dev.goteam.sharpsend.ui.activities.MainActivity;
 import dev.goteam.sharpsend.utils.FingerprintUtils;
+import dev.goteam.sharpsend.utils.Utils;
 import dev.goteam.sharpsend.viewmodels.LoginViewModel;
 import dev.goteam.sharpsend.viewmodels.LoginViewModelFactory;
 
@@ -92,6 +93,7 @@ public class LoginFragment extends Fragment implements TextWatcher {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.closeKeyboard(requireActivity().getCurrentFocus(), requireContext());
                 String enteredPIN = binding.pinField.getEditText().getText().toString();
                 if (enteredPIN.equals(PIN)) {
                     Snackbar.make(view, "Login Successful", Snackbar.LENGTH_LONG).show();

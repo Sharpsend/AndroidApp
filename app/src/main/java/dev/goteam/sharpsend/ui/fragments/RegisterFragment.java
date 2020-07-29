@@ -23,6 +23,7 @@ import dev.goteam.sharpsend.databinding.FragmentRegisterBinding;
 import dev.goteam.sharpsend.db.entities.User;
 import dev.goteam.sharpsend.ui.activities.MainActivity;
 import dev.goteam.sharpsend.utils.Prefs;
+import dev.goteam.sharpsend.utils.Utils;
 
 public class RegisterFragment extends Fragment implements TextWatcher {
 
@@ -51,6 +52,7 @@ public class RegisterFragment extends Fragment implements TextWatcher {
         binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.closeKeyboard(requireActivity().getCurrentFocus(), requireContext());
                 String username = binding.usernameTextField.getEditText().getText().toString();
 
                 Prefs.saveUser(RegisterFragment.this.getContext(), username);
