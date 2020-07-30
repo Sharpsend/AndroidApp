@@ -80,6 +80,10 @@ public class ChangePinActivity extends AppCompatActivity implements TextWatcher 
 
     }
 
+    public void closeBtn(View view) {
+        finish();
+    }
+
     @Override
     public void afterTextChanged(Editable editable) {
         String currentPIN = binding.currentPinField.getEditText().getText().toString();

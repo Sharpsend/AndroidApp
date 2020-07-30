@@ -107,6 +107,10 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Prefs.setFingerprintState(requireContext(), b);
+                if (!Prefs.isPinEnabled(getContext())) {
+                    Toast.makeText(requireContext(), b ? "You have to enable PIN support to use fingerprint" : "Fingerprint Disabled", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Toast.makeText(requireContext(), b ? "Fingerprint Enabled" : "Fingerprint Disabled", Toast.LENGTH_SHORT).show();
             }
         });

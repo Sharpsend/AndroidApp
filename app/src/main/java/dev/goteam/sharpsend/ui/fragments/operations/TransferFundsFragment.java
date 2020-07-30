@@ -28,6 +28,7 @@ import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 import dev.goteam.sharpsend.utils.Constants;
+import dev.goteam.sharpsend.utils.Utils;
 import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
 public class TransferFundsFragment extends Fragment implements OnBankSelection, OnRecipientBankSelection, TextWatcher {
@@ -64,7 +65,7 @@ public class TransferFundsFragment extends Fragment implements OnBankSelection, 
         binding.amountField.getEditText().addTextChangedListener(this);
 
         binding.sendButton.setOnClickListener(view1 -> {
-
+            Utils.closeKeyboard(requireActivity().getCurrentFocus(), requireContext());
             try {
                 // TODO Validate inputs
                 Intent i = new HoverParameters.Builder(requireActivity())

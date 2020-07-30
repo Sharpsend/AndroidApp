@@ -29,6 +29,7 @@ import dev.goteam.sharpsend.ui.listeners.OnContactSelectionListener;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
 import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
+import dev.goteam.sharpsend.utils.Utils;
 import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
 
 public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnMobileSelection, TextWatcher {
@@ -74,7 +75,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         binding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Utils.closeKeyboard(requireActivity().getCurrentFocus(), requireContext());
                 // TODO Validate Input
                 if (senderBank != null && recipientMobile != null) {
                     String code = null;
