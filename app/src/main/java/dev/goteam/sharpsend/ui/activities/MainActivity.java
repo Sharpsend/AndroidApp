@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
 
-public class MainActivity extends AppCompatActivity implements Hover.DownloadListener {
+public class MainActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
     @Override
@@ -31,21 +31,5 @@ public class MainActivity extends AppCompatActivity implements Hover.DownloadLis
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-        // Initialize Hover
-        Hover.initialize(getApplicationContext(), this);
     }
-
-    @Override
-    public void onError(String s) {
-        Toast.makeText(this, "Error while attempting to download actions, see logcat for error", Toast.LENGTH_LONG).show();
-        Log.e(TAG, "Error: " + s);
-    }
-
-    @Override
-    public void onSuccess(ArrayList<HoverAction> arrayList) {
-        //Toast.makeText(this, "Successfully downloaded " + arrayList.size() + " actions", Toast.LENGTH_LONG).show();
-        Log.d(TAG, "Successfully downloaded " + arrayList.size() + " actions");
-    }
-
 }

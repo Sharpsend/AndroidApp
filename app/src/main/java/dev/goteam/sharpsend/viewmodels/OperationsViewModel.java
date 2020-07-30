@@ -98,19 +98,6 @@ public class OperationsViewModel extends AndroidViewModel {
     }
 
     public void getSims(Context context, User user) {
-        if (ContextCompat.checkSelfPermission(context,
-                android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_PHONE_STATE}, Constants.SIMINFO_REQUEST);
-            // Don't return, it may be automatically accepted in recent Android Versions
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, Constants.CALL_PERMISSION_REQUEST);
-                Log.e(TAG, "setupSim: 2");
-                return;
-            }
-        }
 
         List<SimInfo> simInfos = Hover.getPresentSims(context);
 

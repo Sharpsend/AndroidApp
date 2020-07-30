@@ -14,6 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hover.sdk.actions.HoverAction;
+import com.hover.sdk.api.Hover;
+
+import java.util.ArrayList;
+
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.ui.activities.AuthActivity;
 import dev.goteam.sharpsend.ui.activities.MainActivity;
@@ -21,7 +26,7 @@ import dev.goteam.sharpsend.utils.Prefs;
 
 import static android.content.ContentValues.TAG;
 
-public class SplashScreenFragment extends Fragment {
+public class SplashScreenFragment extends Fragment implements Hover.DownloadListener {
 
     private Handler handler;
 
@@ -55,6 +60,9 @@ public class SplashScreenFragment extends Fragment {
                 }
             }
         }, 2500);
+
+        // Initialize Hover
+        Hover.initialize(getActivity().getApplicationContext(), this);
     }
 
     private boolean isFirstTime() {
@@ -63,4 +71,14 @@ public class SplashScreenFragment extends Fragment {
 
     private boolean isPinEnabled() { return Prefs.isPinEnabled(requireContext()); }
 
+    @Override
+    public void onError(String s) {
+        Log.e(TAG, "Error: " + s);
+    }
+
+    @Override
+    public void onSuccess(ArrayList<HoverAction> arrayList) {
+        //Toast.makeText(this, "Successfully downloaded " + arrayList.size() + " actions", Toast.LENGTH_LONG).show();
+        Log.d(TAG, "Successfully downloaded " + arrayList.size() + " actions");
+    }
 }

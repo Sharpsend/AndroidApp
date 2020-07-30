@@ -26,6 +26,7 @@ import com.hover.sdk.api.HoverConfigException;
 import com.hover.sdk.api.HoverParameters;
 
 import dev.goteam.sharpsend.AccessibilityTipsFragment;
+import dev.goteam.sharpsend.BuildConfig;
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.SharpsendApp;
 import dev.goteam.sharpsend.databinding.ActivityOperationsBinding;
@@ -62,7 +63,11 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operations);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         Intent intent = getIntent();
         binding = ActivityOperationsBinding.inflate(getLayoutInflater());
         operationsViewModel = new ViewModelProvider(this).get(OperationsViewModel.class);
@@ -154,16 +159,26 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
     private void newCheckAirtime() {
         title.setText("Check Airtime");
+        int slotIdx = user.getSlotIdx();
 
-        Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(user.getSlotIdx()).getCheckBalanceCode(), user.getSlotIdx());
+        try {
+            Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(slotIdx).getCheckBalanceCode(), slotIdx);
 
-        if (intent != null) {
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+            if (intent != null) {
+                startActivity(intent);
+            } else {
+                throw new Exception();
+            }
+
+            retryBtn.setOnClickListener(view -> newCheckAirtime());
+        } catch (Exception e) {
+            if (BuildConfig.DEBUG) {
+                Toast.makeText(this, "Error: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            } else {
+                Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+            }
         }
-
-        retryBtn.setOnClickListener(view -> newCheckAirtime());
     }
 
     private void checkAirtime() {
@@ -192,16 +207,26 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
     private void buyData() {
         title.setText("Buy Data");
+        int slotIdx = user.getSlotIdx();
 
-        Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(user.getSlotIdx()).getBuyDataCode(), user.getSlotIdx());
+        try {
+            Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(slotIdx).getBuyDataCode(), slotIdx);
 
-        if (intent != null) {
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+            if (intent != null) {
+                startActivity(intent);
+            } else {
+                throw new Exception();
+            }
+
+            retryBtn.setOnClickListener(view -> buyData());
+        } catch (Exception e) {
+            if (BuildConfig.DEBUG) {
+                Toast.makeText(this, "Error: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            } else {
+                Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
+            }
         }
-
-        retryBtn.setOnClickListener(view -> newCheckAirtime());
     }
 
     public void launchSimSelection() {
@@ -266,8 +291,8 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     @Override
     protected void onResume() {
         super.onResume();
-        if (user != null)
-        ((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> operationsViewModel.getSims(this, user));
+        //if (user != null)
+        //((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> operationsViewModel.getSims(this, user));
     }
 
     @Override
