@@ -63,6 +63,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.changePinText.setVisibility(Prefs.isPinEnabled(requireContext()) ? View.VISIBLE : View.GONE);
         binding.changePinText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +80,7 @@ public class SettingsFragment extends Fragment {
                 Log.d("SettingsFragment", "Value: " + Prefs.isPinEnabled(requireContext()));
                 if (!b) {
                     Prefs.setPinEnabledState(requireContext(), false);
+                    binding.changePinText.setVisibility(Prefs.isPinEnabled(requireContext()) ? View.VISIBLE : View.GONE);
                     Toast.makeText(requireContext(), "PIN Support Disabled", Toast.LENGTH_SHORT).show();
                 } else {
                     SetPinBottomSheetFragment setPinBottomSheetFragment = new SetPinBottomSheetFragment(new OnPinSetListener() {
@@ -89,12 +91,14 @@ public class SettingsFragment extends Fragment {
                             settingsViewModel.updateUser(mUser);
 
                             Prefs.setPinEnabledState(requireContext(), true);
+                            binding.changePinText.setVisibility(Prefs.isPinEnabled(requireContext()) ? View.VISIBLE : View.GONE);
                             Toast.makeText(requireContext(), "PIN Support Enabled", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onPinSetCanceled() {
                             binding.requestPinSwitch.setChecked(false);
+                            binding.changePinText.setVisibility(Prefs.isPinEnabled(requireContext()) ? View.VISIBLE : View.GONE);
                         }
                     });
                     setPinBottomSheetFragment.show(getParentFragmentManager(), "set_pin");
