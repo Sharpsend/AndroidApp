@@ -1,10 +1,14 @@
 package dev.goteam.sharpsend.ui.fragments.operations;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,11 +22,14 @@ import android.widget.Toast;
 
 import com.hover.sdk.api.HoverParameters;
 
+import java.security.Permission;
+
 import dev.goteam.sharpsend.databinding.FragmentBuyAirtimeBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.db.entities.MobileItem;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.models.StartActivityModel;
+import dev.goteam.sharpsend.ui.activities.MainActivity;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnContactSelectionListener;
@@ -40,9 +47,11 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     private OperationsViewModel operationsViewModel;
 
     private OnContactSelectionListener mOnContactSelectionListener;
+    private String airtimeState;
 
     public BuyAirtimeFragment(OnContactSelectionListener mOnContactSelectionListener) {
         this.mOnContactSelectionListener = mOnContactSelectionListener;
+        this.airtimeState = Constants.MOBILE_NUMBER_SELF;
     }
 
     @Override
@@ -83,47 +92,35 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
                     switch (recipientMobile.getId()) {
                         case Constants.MOBILE_NUMBER_SELF:
 
-                            Intent i = new HoverParameters.Builder(requireActivity())
-                                    .request(senderBank.getSelfRechargeAction().getActionID())
-                                    .extra("Amount", binding.amountField.getEditText().getText().toString())
-                                    .finalMsgDisplayTime(0)
-                                    .setSim(operationsViewModel.getNetworkFromSlot(OperationsActivity.user.getSlotIdx()).getNetworkOperatorCode())
-                                    .buildIntent();
-                            ((OperationsActivity) requireActivity()).getStartActivityModel()
-                                    .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
-
-                            // New method
-                           /* code = senderBank.getSelfRechargeCode(binding.amountField.getEditText().getText().toString());
-
-                            intent = operationsViewModel.getCallIntent(code, OperationsActivity.user.getSlotIdx());
-
-                            if (intent != null) {
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(getContext(), "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
-                            }*/
+                            code = senderBank.getSelfRechargeCode(binding.amountField.getEditText().getText().toString());
+                            Log.d(TAG, code);
+                            buyAirtime(code);
 
                             break;
                         case Constants.MOBILE_NUMBER_THIRD_PARTY:
 
-                            code = senderBank.getOthersRechargeCode(binding.amountField.getEditText().getText().toString(), binding.phoneNumberField.getEditText().getText().toString());
-
-                            if (code != null) {
-                                intent = operationsViewModel.getCallIntent(code, OperationsActivity.user.getSlotIdx());
-
-                                if (intent != null) {
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(getContext(), "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(requireActivity(), "Application dosen't support 3rd party recharge for this bank yet, Thank you", Toast.LENGTH_SHORT).show();
-                            }
+                            code = senderBank.getOthersRechargeCode(
+                                    binding.amountField.getEditText().getText().toString(),
+                                    binding.phoneNumberField.getEditText().getText().toString()
+                            );
+                            Log.d(TAG, code);
+                            buyAirtime(code);
                             break;
                     }
                 }
             }
         });
+    }
+
+    private void buyAirtime(String airtimeRequestCode) {
+        Intent buyAirtimeIntent = Utils.createCallIntent(airtimeRequestCode);
+        Toast.makeText(requireContext(), airtimeRequestCode, Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(requireContext(), "Permissions need to be granted", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        startActivity(buyAirtimeIntent);
     }
 
     private void openContacts() {
@@ -176,10 +173,12 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
         if (this.recipientMobile == null || this.recipientMobile.getId().equals(Constants.MOBILE_NUMBER_SELF)) {
             binding.phoneNumberField.setVisibility(View.GONE);
             binding.phoneNumberHelperText.setVisibility(View.GONE);
+            this.airtimeState = Constants.MOBILE_NUMBER_SELF;
         } else if (this.recipientMobile.getId().equals(Constants.MOBILE_NUMBER_THIRD_PARTY)) {
             binding.phoneNumberField.setVisibility(View.VISIBLE);
             binding.phoneNumberHelperText.setVisibility(View.VISIBLE);
             binding.sendButton.setEnabled(false);
+            this.airtimeState = Constants.MOBILE_NUMBER_THIRD_PARTY;
         }
 
         if (nullified) {

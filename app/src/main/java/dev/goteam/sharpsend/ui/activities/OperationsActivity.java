@@ -111,8 +111,11 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
     private void setUpSims() {
         if (operationsViewModel.getNetworks() != null) {
+            Log.d(TAG, "networks is not null");
             NetworkItem.NetworkImpl selectedNetwork = operationsViewModel.getNetworkFromSlot(user.getSlotIdx());
             selectSimField.getEditText().setText(selectedNetwork.getDisplayName());
+        } else {
+            Log.d(TAG, "networks is null");
         }
     }
 
