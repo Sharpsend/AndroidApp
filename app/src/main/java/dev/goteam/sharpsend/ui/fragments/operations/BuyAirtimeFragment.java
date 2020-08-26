@@ -26,7 +26,7 @@ import java.security.Permission;
 
 import dev.goteam.sharpsend.databinding.FragmentBuyAirtimeBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
-import dev.goteam.sharpsend.db.entities.MobileItem;
+import dev.goteam.sharpsend.db.entities.Selectable;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.activities.MainActivity;
@@ -43,7 +43,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     private final String TAG = getClass().getSimpleName();
     private FragmentBuyAirtimeBinding binding;
     private BankItem.Bank senderBank;
-    private MobileItem.Mobile recipientMobile;
+    private Selectable.Item recipientMobile;
     private OperationsViewModel operationsViewModel;
 
     private OnContactSelectionListener mOnContactSelectionListener;
@@ -134,7 +134,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
 
     private void launchMobileSelection() {
         SelectAirtimeRecipientBottomSheetFragment selectAirtimeRecipientBottomSheetFragment =
-                new SelectAirtimeRecipientBottomSheetFragment(this, new MobileItem().getMobiles());
+                new SelectAirtimeRecipientBottomSheetFragment(this, new Selectable().getMobileItems(), "Mobile number");
         selectAirtimeRecipientBottomSheetFragment.show(getParentFragmentManager(), "buyAirtimeFragment");
     }
 
@@ -151,7 +151,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     }
 
     @Override
-    public void onMobileSelected(MobileItem.Mobile mobile) {
+    public void onMobileSelected(Selectable.Item mobile) {
         this.recipientMobile = mobile;
         binding.selectMobileNumberField.getEditText().setText(this.recipientMobile.getName());
         setUpPhone(false);
