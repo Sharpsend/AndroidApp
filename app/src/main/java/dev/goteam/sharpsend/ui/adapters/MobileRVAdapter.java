@@ -22,14 +22,14 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.MobileViewHolder> {
 
     private Context context;
-    private ArrayList<Selectable.Item> items;
+    private ArrayList<Selectable.Item> mobiles;
     private OnMobileItemSelection onMobileItemSelection;
 
     public MobileRVAdapter(Context context,
-                           ArrayList<Selectable.Item> items,
+                           ArrayList<Selectable.Item> mobiles,
                            OnMobileItemSelection selectedOnAdapterListener) {
         this.context = context;
-        this.items = items;
+        this.mobiles = mobiles;
         this.onMobileItemSelection = selectedOnAdapterListener;
     }
 
@@ -44,30 +44,30 @@ public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.Mobile
 
     @Override
     public void onBindViewHolder(@NonNull MobileViewHolder holder, int position) {
-        Selectable.Item item = items.get(position);
-        holder.bind(item);
+        Selectable.Item mobile = mobiles.get(position);
+        holder.bind(mobile);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bankSelected(position);
                 Log.i(TAG, "onClick: " + position);
-                onMobileItemSelection.onMobileSelected(items.get(position));
+                onMobileItemSelection.onMobileSelected(mobiles.get(position));
             }
         });
     }
 
     public void bankSelected(int position) {
-        for (Selectable.Item item : items) {
-            item.setSelected(false);
+        for (Selectable.Item mobile: mobiles) {
+            mobile.setSelected(false);
         }
-        items.get(position).setSelected(true);
+        mobiles.get(position).setSelected(true);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return mobiles.size();
     }
 
     class MobileViewHolder extends RecyclerView.ViewHolder {
@@ -81,11 +81,11 @@ public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.Mobile
                 selectorImage = itemView.findViewById(R.id.selectorImage);
         }
 
-        public void bind(Selectable.Item item) {
-            mobileName.setText(item.getName());
-            selectorImage.setVisibility(item.isSelected() ? View.VISIBLE : View.GONE);
+        public void bind(Selectable.Item mobile) {
+            mobileName.setText(mobile.getName());
+            selectorImage.setVisibility(mobile.isSelected() ? View.VISIBLE : View.GONE);
 
-            itemView.setBackgroundResource(item.isSelected() ? R.drawable.bank_selected_bg : R.drawable.bank_unselected_bg);
+            itemView.setBackgroundResource(mobile.isSelected() ? R.drawable.bank_selected_bg : R.drawable.bank_unselected_bg);
         }
     }
 }

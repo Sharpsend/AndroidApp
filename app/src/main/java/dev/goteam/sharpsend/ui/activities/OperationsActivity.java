@@ -289,13 +289,6 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //if (user != null)
-        //((SharpsendApp) getApplication()).getAppExecutors().diskIO().execute(() -> operationsViewModel.getSims(this, user));
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case Constants.CALL_PERMISSION_REQUEST:

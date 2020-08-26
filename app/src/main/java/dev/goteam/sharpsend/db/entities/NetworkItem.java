@@ -77,6 +77,7 @@ public class NetworkItem {
     }
     public static class Glo implements NetworkImpl {
 
+        String networkOperatorCode;
         private int slotIdx;
         String operatorName;
         String displayName;
@@ -85,6 +86,7 @@ public class NetworkItem {
         int imageRes = R.drawable.glo;
 
         public Glo(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
+            this.networkOperatorCode = networkOperatorCode;
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
             displayName = operatorName;
@@ -93,7 +95,7 @@ public class NetworkItem {
 
         @Override
         public String getNetworkOperatorCode() {
-            return operatorName;
+            return networkOperatorCode;
         }
 
         @Override
@@ -142,23 +144,25 @@ public class NetworkItem {
     }
     public static class Airtel implements NetworkImpl {
 
+        String networkOperatorCode;
         private int slotIdx;
         String operatorName;
-        String displayname;
+        String displayName;
         String id;
         boolean selected;
         int imageRes = R.drawable.airtel;
 
         public Airtel(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
+            this.networkOperatorCode = networkOperatorCode;
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
-            displayname = operatorName;
+            displayName = operatorName;
             this.id = simId;
         }
 
         @Override
         public String getNetworkOperatorCode() {
-            return operatorName;
+            return networkOperatorCode;
         }
 
         @Override
@@ -178,7 +182,7 @@ public class NetworkItem {
 
         @Override
         public String getDisplayName() {
-            return displayname;
+            return displayName;
         }
 
         @Override
@@ -206,7 +210,7 @@ public class NetworkItem {
         }
     }
     public static class Mobile_9 implements NetworkImpl {
-
+        String networkOperatorCode;
         private int slotIdx;
         String operatorName;
         String displayname;
@@ -215,6 +219,7 @@ public class NetworkItem {
         int imageRes = R.drawable.mobile_9;
 
         public Mobile_9 (String operatorName, int slotIdx, String simId, String networkOperatorCode) {
+            this.networkOperatorCode = networkOperatorCode;
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
             displayname = operatorName;
@@ -223,7 +228,7 @@ public class NetworkItem {
 
         @Override
         public String getNetworkOperatorCode() {
-            return operatorName;
+            return networkOperatorCode;
         }
 
         @Override
@@ -233,7 +238,7 @@ public class NetworkItem {
 
         @Override
         public Action getCheckBalanceAction() {
-            return new Action("efdc5dd1", null, "Check Balance on 9 Item NG", Constants.checkBalance);
+            return new Action("efdc5dd1", null, "Check Balance on 9 Mobile NG", Constants.checkBalance);
         }
 
         @Override

@@ -19,6 +19,7 @@ public class Constants {
     public static final String BUY_DATA = "buy_data";
 
     public static final String ACCESSIBILITY_TIPS = "accessibility_tips";
+    public static final String FAQ = "faq";
 
     // Networks
     public static final String MTN = "mtn";

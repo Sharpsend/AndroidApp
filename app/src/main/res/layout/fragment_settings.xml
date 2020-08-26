@@ -91,6 +91,18 @@
             android:text="Accessibility Tips"
             android:textColor="@color/transactionItemBlack"
             android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/faq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_chevron_right_24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Frequently asked questions"
+            android:textColor="@color/transactionItemBlack"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>

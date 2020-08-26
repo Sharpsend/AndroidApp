@@ -2,6 +2,7 @@ package dev.goteam.sharpsend.ui.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -125,6 +126,14 @@ public class SettingsFragment extends Fragment {
                 Intent operationsIntent = new Intent(requireActivity(), OperationsActivity.class);
                 operationsIntent.putExtra("operation_id", Constants.ACCESSIBILITY_TIPS);
                 startActivity(operationsIntent);
+            }
+        });
+
+        binding.faq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sharpsend.co/#faqs"));
+                startActivity(browserIntent);
             }
         });
     }
