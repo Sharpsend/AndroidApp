@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentSelectAirtimeRecipientBinding;
-import dev.goteam.sharpsend.db.entities.MobileItem;
+import dev.goteam.sharpsend.db.entities.Selectable;
 import dev.goteam.sharpsend.ui.adapters.MobileRVAdapter;
 import dev.goteam.sharpsend.ui.listeners.OnMobileItemSelection;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
@@ -22,18 +22,20 @@ import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
 public class SelectAirtimeRecipientBottomSheetFragment extends RoundedBottomSheetFragment
     implements OnMobileItemSelection {
 
+    private final String header;
     private OnMobileSelection mobileSelection;
-    private ArrayList<MobileItem.Mobile> mobiles;
+    private ArrayList<Selectable.Item> items;
 
     private FragmentSelectAirtimeRecipientBinding binding;
     private MobileRVAdapter mobileRVAdapter;
-    private MobileItem.Mobile selectedMobile;
+    private Selectable.Item selectedItem;
 
     public SelectAirtimeRecipientBottomSheetFragment(
             OnMobileSelection mobileSelection,
-            ArrayList<MobileItem.Mobile> mobiles ) {
+            ArrayList<Selectable.Item> items, String header) {
         this.mobileSelection = mobileSelection;
-        this.mobiles = mobiles;
+        this.items = items;
+        this.header = header;
     }
 
     @Nullable
@@ -49,14 +51,17 @@ public class SelectAirtimeRecipientBottomSheetFragment extends RoundedBottomShee
         super.onViewCreated(view, savedInstanceState);
         binding.mobileList.setHasFixedSize(true);
         binding.mobileList.setLayoutManager(new LinearLayoutManager(requireContext()));
+        if (header != null) {
+            binding.selectorHeader.setText(header);
+        }
 
-        mobileRVAdapter = new MobileRVAdapter(requireContext(), mobiles, this);
+        mobileRVAdapter = new MobileRVAdapter(requireContext(), items, this);
         binding.mobileList.setAdapter(mobileRVAdapter);
 
         binding.proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mobileSelection.onMobileSelected(selectedMobile);
+                mobileSelection.onMobileSelected(selectedItem);
                 dismiss();
             }
         });
@@ -71,7 +76,7 @@ public class SelectAirtimeRecipientBottomSheetFragment extends RoundedBottomShee
     }
 
     @Override
-    public void onMobileSelected(MobileItem.Mobile mobile) {
-        selectedMobile = mobile;
+    public void onMobileSelected(Selectable.Item item) {
+        selectedItem = item;
     }
 }

@@ -233,7 +233,7 @@ public class NetworkItem {
 
         @Override
         public Action getCheckBalanceAction() {
-            return new Action("efdc5dd1", null, "Check Balance on 9 Mobile NG", Constants.checkBalance);
+            return new Action("efdc5dd1", null, "Check Balance on 9 Item NG", Constants.checkBalance);
         }
 
         @Override

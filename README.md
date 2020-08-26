@@ -2,7 +2,7 @@
 
 **Hello, and welcome to Sharpsend**
 
-  Sharpsend is a mobile platform that enables anyone to perform financial operations completely offline. 
+  Sharpsend is a item platform that enables anyone to perform financial operations completely offline. 
   You can send money to any bank account in Nigeria, get instant call credit on any phone number with zero stress, 
   and easily check airtime account balance with one-click of a button. All of this won't have been possible without the use of the 
   SDK provided to us by the amazing folks at Hover, which essentially allows us to perform these USSD operations seamlessly.
@@ -39,7 +39,7 @@ To buy airtime on Sharpsend, you will do the following;
 
 ### Check Airtime
 
-To buy airtime on Sharpsend, click on the buy airtime quick action and it will automatically display your airtime balance based on the mobile phone number registered with your bank account.
+To buy airtime on Sharpsend, click on the buy airtime quick action and it will automatically display your airtime balance based on the item phone number registered with your bank account.
 
 ### Transaction History
 

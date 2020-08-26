@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +19,12 @@ import com.hover.sdk.api.HoverParameters;
 
 import dev.goteam.sharpsend.databinding.FragmentBuyAirtimeBinding;
 import dev.goteam.sharpsend.db.entities.BankItem;
-import dev.goteam.sharpsend.db.entities.MobileItem;
-import dev.goteam.sharpsend.db.entities.NetworkItem;
+import dev.goteam.sharpsend.db.entities.Selectable;
 import dev.goteam.sharpsend.models.StartActivityModel;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
 import dev.goteam.sharpsend.ui.listeners.OnBankSelection;
 import dev.goteam.sharpsend.ui.listeners.OnContactSelectionListener;
 import dev.goteam.sharpsend.ui.listeners.OnMobileSelection;
-import dev.goteam.sharpsend.ui.listeners.OnNetworkSelection;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.utils.Utils;
 import dev.goteam.sharpsend.viewmodels.OperationsViewModel;
@@ -36,7 +33,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     private final String TAG = getClass().getSimpleName();
     private FragmentBuyAirtimeBinding binding;
     private BankItem.Bank senderBank;
-    private MobileItem.Mobile recipientMobile;
+    private Selectable.Item recipientItem;
     private OperationsViewModel operationsViewModel;
 
     private OnContactSelectionListener mOnContactSelectionListener;
@@ -77,10 +74,10 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
             public void onClick(View view) {
                 Utils.closeKeyboard(requireActivity().getCurrentFocus(), requireContext());
                 // TODO Validate Input
-                if (senderBank != null && recipientMobile != null) {
+                if (senderBank != null && recipientItem != null) {
                     String code = null;
                     Intent intent = null;
-                    switch (recipientMobile.getId()) {
+                    switch (recipientItem.getId()) {
                         case Constants.MOBILE_NUMBER_SELF:
 
                             Intent i = new HoverParameters.Builder(requireActivity())
@@ -137,7 +134,7 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
 
     private void launchMobileSelection() {
         SelectAirtimeRecipientBottomSheetFragment selectAirtimeRecipientBottomSheetFragment =
-                new SelectAirtimeRecipientBottomSheetFragment(this, new MobileItem().getMobiles());
+                new SelectAirtimeRecipientBottomSheetFragment(this, new Selectable().getMobileItems(), "Mobile number");
         selectAirtimeRecipientBottomSheetFragment.show(getParentFragmentManager(), "buyAirtimeFragment");
     }
 
@@ -154,9 +151,9 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     }
 
     @Override
-    public void onMobileSelected(MobileItem.Mobile mobile) {
-        this.recipientMobile = mobile;
-        binding.selectMobileNumberField.getEditText().setText(this.recipientMobile.getName());
+    public void onMobileSelected(Selectable.Item item) {
+        this.recipientItem = item;
+        binding.selectMobileNumberField.getEditText().setText(this.recipientItem.getName());
         setUpPhone(false);
     }
 
@@ -166,17 +163,17 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
 
     @Override
     public void onMobileSelectionCanceled() {
-        this.recipientMobile = null;
+        this.recipientItem = null;
         binding.selectMobileNumberField.getEditText().setText(null);
 
         setUpPhone(true);
     }
 
     private void setUpPhone(boolean nullified) {
-        if (this.recipientMobile == null || this.recipientMobile.getId().equals(Constants.MOBILE_NUMBER_SELF)) {
+        if (this.recipientItem == null || this.recipientItem.getId().equals(Constants.MOBILE_NUMBER_SELF)) {
             binding.phoneNumberField.setVisibility(View.GONE);
             binding.phoneNumberHelperText.setVisibility(View.GONE);
-        } else if (this.recipientMobile.getId().equals(Constants.MOBILE_NUMBER_THIRD_PARTY)) {
+        } else if (this.recipientItem.getId().equals(Constants.MOBILE_NUMBER_THIRD_PARTY)) {
             binding.phoneNumberField.setVisibility(View.VISIBLE);
             binding.phoneNumberHelperText.setVisibility(View.VISIBLE);
             binding.sendButton.setEnabled(false);
@@ -194,13 +191,13 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     @Override
     public void afterTextChanged(Editable editable) {
         if (
-                this.recipientMobile != null && this.senderBank != null
+                this.recipientItem != null && this.senderBank != null
                         && !binding.amountField.getEditText().getText().toString().isEmpty()) {
 
-            if (this.recipientMobile.getId().equals(Constants.MOBILE_NUMBER_THIRD_PARTY) &&
+            if (this.recipientItem.getId().equals(Constants.MOBILE_NUMBER_THIRD_PARTY) &&
                     binding.phoneNumberField.getEditText().getText().toString().length() == 11) {
                 binding.sendButton.setEnabled(true);
-            } else if (this.recipientMobile.getId().equals(Constants.MOBILE_NUMBER_THIRD_PARTY)) {
+            } else if (this.recipientItem.getId().equals(Constants.MOBILE_NUMBER_THIRD_PARTY)) {
                 binding.sendButton.setEnabled(false);
             } else {
                 binding.sendButton.setEnabled(true);

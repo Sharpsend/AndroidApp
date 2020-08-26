@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
-import dev.goteam.sharpsend.db.entities.BankItem;
-import dev.goteam.sharpsend.db.entities.MobileItem;
+import dev.goteam.sharpsend.db.entities.Selectable;
 import dev.goteam.sharpsend.ui.listeners.OnMobileItemSelection;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -23,14 +22,14 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.MobileViewHolder> {
 
     private Context context;
-    private ArrayList<MobileItem.Mobile> mobiles;
+    private ArrayList<Selectable.Item> items;
     private OnMobileItemSelection onMobileItemSelection;
 
     public MobileRVAdapter(Context context,
-                           ArrayList<MobileItem.Mobile> mobiles,
+                           ArrayList<Selectable.Item> items,
                            OnMobileItemSelection selectedOnAdapterListener) {
         this.context = context;
-        this.mobiles = mobiles;
+        this.items = items;
         this.onMobileItemSelection = selectedOnAdapterListener;
     }
 
@@ -45,30 +44,30 @@ public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.Mobile
 
     @Override
     public void onBindViewHolder(@NonNull MobileViewHolder holder, int position) {
-        MobileItem.Mobile mobile = mobiles.get(position);
-        holder.bind(mobile);
+        Selectable.Item item = items.get(position);
+        holder.bind(item);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bankSelected(position);
                 Log.i(TAG, "onClick: " + position);
-                onMobileItemSelection.onMobileSelected(mobiles.get(position));
+                onMobileItemSelection.onMobileSelected(items.get(position));
             }
         });
     }
 
     public void bankSelected(int position) {
-        for (MobileItem.Mobile mobile: mobiles) {
-            mobile.setSelected(false);
+        for (Selectable.Item item : items) {
+            item.setSelected(false);
         }
-        mobiles.get(position).setSelected(true);
+        items.get(position).setSelected(true);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return mobiles.size();
+        return items.size();
     }
 
     class MobileViewHolder extends RecyclerView.ViewHolder {
@@ -82,11 +81,11 @@ public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.Mobile
                 selectorImage = itemView.findViewById(R.id.selectorImage);
         }
 
-        public void bind(MobileItem.Mobile mobile) {
-            mobileName.setText(mobile.getName());
-            selectorImage.setVisibility(mobile.isSelected() ? View.VISIBLE : View.GONE);
+        public void bind(Selectable.Item item) {
+            mobileName.setText(item.getName());
+            selectorImage.setVisibility(item.isSelected() ? View.VISIBLE : View.GONE);
 
-            itemView.setBackgroundResource(mobile.isSelected() ? R.drawable.bank_selected_bg : R.drawable.bank_unselected_bg);
+            itemView.setBackgroundResource(item.isSelected() ? R.drawable.bank_selected_bg : R.drawable.bank_unselected_bg);
         }
     }
 }

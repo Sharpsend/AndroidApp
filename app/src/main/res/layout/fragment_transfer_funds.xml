@@ -2,15 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorScreenOnboarding"
+        >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".ui.fragments.operations.TransferFundsFragment">
 
         <androidx.constraintlayout.widget.Guideline
@@ -42,11 +45,27 @@
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:inputType="textNoSuggestions"
                 android:clickable="true"
                 android:focusable="false"
                 android:fontFamily="@font/sf_pro_display_regular" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/sender_bank_helper_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:focusable="false"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:paddingStart="12dp"
+            android:text="Your's"
+            android:textColor="@color/colorGreyDark"
+            app:layout_constraintEnd_toStartOf="@id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/sender_bank_field" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/select_recipient_bank_field"
@@ -56,14 +75,17 @@
             android:layout_marginTop="20dp"
             android:hint="@string/select_recipient_bank_text"
             app:endIconMode="dropdown_menu"
+            tools:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintStart_toEndOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/sender_bank_field">
+            app:layout_constraintTop_toBottomOf="@id/sender_bank_helper_text">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
+                android:inputType="textNoSuggestions"
                 android:focusable="false"
                 android:fontFamily="@font/sf_pro_display_regular" />
 
@@ -84,6 +106,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLength="10"
+                android:singleLine="true"
                 android:fontFamily="@font/sf_pro_display_regular" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -137,4 +161,5 @@
             app:layout_constraintTop_toBottomOf="@id/amount_field" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
