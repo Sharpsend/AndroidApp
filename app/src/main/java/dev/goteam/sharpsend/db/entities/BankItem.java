@@ -231,12 +231,347 @@ public class BankItem {
         }
     }
 
+    public class FCMB implements Bank {
+
+        private List<Action> transferBankActionList;
+        private boolean selected;
+
+        public FCMB() {
+            transferBankActionList = new ArrayList<>();
+            selected = false;
+
+            // Transfer Data
+            transferBankActionList.add(new Action("babbd284", "CTB", "City Bank", Constants.Bank));
+            transferBankActionList.add(new Action("c1940fe7", "STB", "Sterling Bank Plc", Constants.Bank));
+            transferBankActionList.add(new Action("fe104bba", "STIB", "Stanbic IBTC Bank Plc", Constants.Bank));
+        }
+
+        @Override
+        public Action getSelfRechargeAction() {
+            return new Action("a22bb973", "SELF", Constants.MOBILE_NUMBER_SELF, Constants.Recharge);
+        }
+
+        @Override
+        public Action getOthersRechargeAction() {
+            return null;
+        }
+
+        @Override
+        public String getSelfRechargeCode(String amount) {
+            return String.format("*329*%s#", amount);
+        }
+
+        @Override
+        public String getOthersRechargeCode(String amount, String pNumber) {
+            return String.format("*329*%s*%s#", amount, pNumber);
+        }
+
+        @Override
+        public String getName() {
+            return "First City Monument Bank";
+        }
+
+        @Override
+        public int getImageRes() {
+            return 0;
+        }
+
+        @Override
+        public List<Action> getTransferBankActionList() {
+            return transferBankActionList;
+        }
+
+        @Override
+        public List<PayBillItem> getPayBillItems() {
+            return null;
+        }
+
+        @Override
+        public boolean isSelected() {
+            return selected;
+        }
+
+        @Override
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
+    }
+
+    public class FBN implements Bank {
+
+        private List<Action> transferBankActionList;
+        private boolean selected;
+
+        public FBN() {
+            transferBankActionList = new ArrayList<>();
+            selected = false;
+
+            // Transfer Data
+            transferBankActionList.add(new Action("babbd284", "CTB", "City Bank", Constants.Bank));
+            transferBankActionList.add(new Action("c1940fe7", "STB", "Sterling Bank Plc", Constants.Bank));
+            transferBankActionList.add(new Action("fe104bba", "STIB", "Stanbic IBTC Bank Plc", Constants.Bank));
+        }
+
+        @Override
+        public Action getSelfRechargeAction() {
+            return new Action("a22bb973", "SELF", Constants.MOBILE_NUMBER_SELF, Constants.Recharge);
+        }
+
+        @Override
+        public Action getOthersRechargeAction() {
+            return null;
+        }
+
+        @Override
+        public String getSelfRechargeCode(String amount) {
+            return String.format("*894*%s#", amount);
+        }
+
+        @Override
+        public String getOthersRechargeCode(String amount, String pNumber) {
+            return String.format("*894*%s*%s#", amount, pNumber);
+        }
+
+        @Override
+        public String getName() {
+            return "First Bank Plc";
+        }
+
+        @Override
+        public int getImageRes() {
+            return 0;
+        }
+
+        @Override
+        public List<Action> getTransferBankActionList() {
+            return transferBankActionList;
+        }
+
+        @Override
+        public List<PayBillItem> getPayBillItems() {
+            return null;
+        }
+
+        @Override
+        public boolean isSelected() {
+            return selected;
+        }
+
+        @Override
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
+    }
+
+    public class ACCESS implements Bank {
+
+        private List<Action> transferBankActionList;
+        private boolean selected;
+
+        public ACCESS() {
+            transferBankActionList = new ArrayList<>();
+            selected = false;
+
+            // Transfer Data
+            transferBankActionList.add(new Action("babbd284", "CTB", "City Bank", Constants.Bank));
+            transferBankActionList.add(new Action("c1940fe7", "STB", "Sterling Bank Plc", Constants.Bank));
+            transferBankActionList.add(new Action("fe104bba", "STIB", "Stanbic IBTC Bank Plc", Constants.Bank));
+        }
+
+        @Override
+        public Action getSelfRechargeAction() {
+            return new Action("a22bb973", "SELF", Constants.MOBILE_NUMBER_SELF, Constants.Recharge);
+        }
+
+        @Override
+        public Action getOthersRechargeAction() {
+            return null;
+        }
+
+        @Override
+        public String getSelfRechargeCode(String amount) {
+            return String.format("*901*%s#", amount);
+        }
+
+        @Override
+        public String getOthersRechargeCode(String amount, String pNumber) {
+            return String.format("*901*%s*%s#", amount, pNumber);
+        }
+
+        @Override
+        public String getName() {
+            return "Access Bank Plc";
+        }
+
+        @Override
+        public int getImageRes() {
+            return 0;
+        }
+
+        @Override
+        public List<Action> getTransferBankActionList() {
+            return transferBankActionList;
+        }
+
+        @Override
+        public List<PayBillItem> getPayBillItems() {
+            return null;
+        }
+
+        @Override
+        public boolean isSelected() {
+            return selected;
+        }
+
+        @Override
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
+    }
+
+    public class WEMA implements Bank {
+
+        private List<Action> transferBankActionList;
+        private boolean selected;
+
+        public WEMA() {
+            transferBankActionList = new ArrayList<>();
+            selected = false;
+
+            // Transfer Data
+            transferBankActionList.add(new Action("babbd284", "CTB", "City Bank", Constants.Bank));
+            transferBankActionList.add(new Action("c1940fe7", "STB", "Sterling Bank Plc", Constants.Bank));
+            transferBankActionList.add(new Action("fe104bba", "STIB", "Stanbic IBTC Bank Plc", Constants.Bank));
+        }
+
+        @Override
+        public Action getSelfRechargeAction() {
+            return new Action("a22bb973", "SELF", Constants.MOBILE_NUMBER_SELF, Constants.Recharge);
+        }
+
+        @Override
+        public Action getOthersRechargeAction() {
+            return null;
+        }
+
+        @Override
+        public String getSelfRechargeCode(String amount) {
+            return String.format("*945*%s#", amount);
+        }
+
+        @Override
+        public String getOthersRechargeCode(String amount, String pNumber) {
+            return String.format("*945*%s*%s#", pNumber, amount);
+        }
+
+        @Override
+        public String getName() {
+            return "Wema Bank Plc";
+        }
+
+        @Override
+        public int getImageRes() {
+            return 0;
+        }
+
+        @Override
+        public List<Action> getTransferBankActionList() {
+            return transferBankActionList;
+        }
+
+        @Override
+        public List<PayBillItem> getPayBillItems() {
+            return null;
+        }
+
+        @Override
+        public boolean isSelected() {
+            return selected;
+        }
+
+        @Override
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
+    }
+
+    public class UBA implements Bank {
+
+        private List<Action> transferBankActionList;
+        private boolean selected;
+
+        public UBA() {
+            transferBankActionList = new ArrayList<>();
+            selected = false;
+
+            // Transfer Data
+            transferBankActionList.add(new Action("babbd284", "CTB", "City Bank", Constants.Bank));
+            transferBankActionList.add(new Action("c1940fe7", "STB", "Sterling Bank Plc", Constants.Bank));
+            transferBankActionList.add(new Action("fe104bba", "STIB", "Stanbic IBTC Bank Plc", Constants.Bank));
+        }
+
+        @Override
+        public Action getSelfRechargeAction() {
+            return new Action("a22bb973", "SELF", Constants.MOBILE_NUMBER_SELF, Constants.Recharge);
+        }
+
+        @Override
+        public Action getOthersRechargeAction() {
+            return null;
+        }
+
+        @Override
+        public String getSelfRechargeCode(String amount) {
+            return String.format("*919*%s#", amount);
+        }
+
+        @Override
+        public String getOthersRechargeCode(String amount, String pNumber) {
+            return String.format("*919*%s*%s#", pNumber, amount);
+        }
+
+        @Override
+        public String getName() {
+            return "United Bank of Africa Plc";
+        }
+
+        @Override
+        public int getImageRes() {
+            return 0;
+        }
+
+        @Override
+        public List<Action> getTransferBankActionList() {
+            return transferBankActionList;
+        }
+
+        @Override
+        public List<PayBillItem> getPayBillItems() {
+            return null;
+        }
+
+        @Override
+        public boolean isSelected() {
+            return selected;
+        }
+
+        @Override
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
+    }
+
 
     public ArrayList<BankItem.Bank> getSupportedBanks() {
         ArrayList<Bank> supportedBanks = new ArrayList<>();
         supportedBanks.add(new GT());
         supportedBanks.add(new ZEB());
         supportedBanks.add(new STIB());
+        supportedBanks.add(new FCMB());
+        supportedBanks.add(new FBN());
+        supportedBanks.add(new ACCESS());
+        supportedBanks.add(new UBA());
+        supportedBanks.add(new WEMA());
         return supportedBanks;
     }
 
