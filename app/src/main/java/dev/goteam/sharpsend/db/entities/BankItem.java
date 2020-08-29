@@ -65,7 +65,7 @@ public class BankItem {
 
         @Override
         public String getName() {
-            return "Guaranty Trust Bank plc";
+            return "Guaranty Trust Bank PLC";
         }
 
         @Override
@@ -202,7 +202,7 @@ public class BankItem {
 
         @Override
         public String getName() {
-            return "Stanbic IBTC Bank Plc";
+            return "Stanbic IBTC Bank PLC";
         }
 
         @Override
@@ -334,7 +334,7 @@ public class BankItem {
 
         @Override
         public String getName() {
-            return "First Bank Plc";
+            return "First Bank PLC";
         }
 
         @Override
@@ -400,7 +400,7 @@ public class BankItem {
 
         @Override
         public String getName() {
-            return "Access Bank Plc";
+            return "Access Bank PLC";
         }
 
         @Override
@@ -466,7 +466,7 @@ public class BankItem {
 
         @Override
         public String getName() {
-            return "Wema Bank Plc";
+            return "Wema Bank PLC";
         }
 
         @Override
@@ -532,7 +532,7 @@ public class BankItem {
 
         @Override
         public String getName() {
-            return "United Bank of Africa Plc";
+            return "United Bank of Africa PLC";
         }
 
         @Override
@@ -560,7 +560,6 @@ public class BankItem {
             this.selected = selected;
         }
     }
-
 
     public ArrayList<BankItem.Bank> getSupportedBanks() {
         ArrayList<Bank> supportedBanks = new ArrayList<>();
