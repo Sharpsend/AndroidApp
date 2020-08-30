@@ -75,9 +75,8 @@ public class BanksRVAdapter extends RecyclerView.Adapter<BanksRVAdapter.BankRVVi
 
         public BankRVViewHolder(View itemView) {
             super(itemView);
-
-                bankName = itemView.findViewById(R.id.bank_name);
-                selectorImage = itemView.findViewById(R.id.selectorImage);
+            bankName = itemView.findViewById(R.id.bank_name);
+            selectorImage = itemView.findViewById(R.id.selectorImage);
         }
 
         public void bind(BankItem.Bank bank) {
@@ -85,6 +84,8 @@ public class BanksRVAdapter extends RecyclerView.Adapter<BanksRVAdapter.BankRVVi
             selectorImage.setVisibility(bank.isSelected() ? View.VISIBLE : View.GONE);
 
             itemView.setBackgroundResource(bank.isSelected() ? R.drawable.bank_selected_bg : R.drawable.bank_unselected_bg);
+            this.itemView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            this.itemView.requestLayout();
         }
     }
 }

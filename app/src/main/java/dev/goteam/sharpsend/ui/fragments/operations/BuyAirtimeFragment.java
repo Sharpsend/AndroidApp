@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.hover.sdk.api.HoverParameters;
 
 import java.security.Permission;
@@ -85,10 +86,17 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
             @Override
             public void onClick(View view) {
                 Utils.closeKeyboard(requireActivity().getCurrentFocus(), requireContext());
-                // TODO Validate Input
+                String code = null;
+                if (senderBank.getName().contains("Stanbic")) {
+                    code = senderBank.getSelfRechargeCode("1");
+                    buyAirtime(code);
+                    Log.d(TAG, code);
+                    return;
+                }
+
                 if (senderBank != null && recipientMobile != null) {
-                    String code = null;
                     Intent intent = null;
+
                     switch (recipientMobile.getId()) {
                         case Constants.MOBILE_NUMBER_SELF:
 
@@ -142,6 +150,26 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
     public void onBankSelected(BankItem.Bank bank) {
         this.senderBank = bank;
         binding.selectBankField.getEditText().setText(this.senderBank.getName());
+
+        if (this.senderBank.getName().contains("Stanbic")) {
+            binding.amountField.setVisibility(View.GONE);
+            binding.phoneNumberField.setVisibility(View.GONE);
+            binding.selectMobileNumberField.setVisibility(View.GONE);
+
+            Snackbar.make(
+                    requireView(),
+                    "Stanbic does not support amount and phone number. You're advised to try sending directly",
+                    Snackbar.LENGTH_LONG
+            ).show();
+            binding.sendButton.setEnabled(true);
+
+        } else {
+            binding.amountField.setVisibility(View.VISIBLE);
+            binding.phoneNumberField.setVisibility(View.VISIBLE);
+            binding.selectMobileNumberField.setVisibility(View.VISIBLE);
+            binding.sendButton.setEnabled(false);
+        }
+
     }
 
     @Override
