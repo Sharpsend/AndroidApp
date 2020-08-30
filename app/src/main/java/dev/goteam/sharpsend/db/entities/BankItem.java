@@ -542,8 +542,10 @@ public class BankItem {
         supportedBanks.add(new ZEB());
         supportedBanks.add(new STIB());
         supportedBanks.add(new FCMB());
-        supportedBanks.add(new UBA());
         supportedBanks.add(new FBN());
+        supportedBanks.add(new ACCESS());
+        supportedBanks.add(new UBA());
+        supportedBanks.add(new WEMA());
         return supportedBanks;
     }
 
