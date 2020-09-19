@@ -8,6 +8,10 @@ public class Constants {
     public static final String MOBILE_NUMBER_SELF = "self";
     public static final String MOBILE_NUMBER_THIRD_PARTY = "third_party";
 
+    //    transfer funds constants
+    public static final String TRANSFER_SAME_BANK = "same";
+    public static final String TRANSFER_OTHER_BANK = "other";
+
     // Home item Ids
     public static final String TRANSFER_FUNDS = "transfer_funds";
     public static final String BUY_AIRTIME = "buy_airtime";
@@ -15,6 +19,7 @@ public class Constants {
     public static final String BUY_DATA = "buy_data";
 
     public static final String ACCESSIBILITY_TIPS = "accessibility_tips";
+    public static final String FAQ = "faq";
 
     // Networks
     public static final String MTN = "mtn";

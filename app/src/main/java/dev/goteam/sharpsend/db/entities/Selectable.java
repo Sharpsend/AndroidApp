@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import dev.goteam.sharpsend.utils.Constants;
 
-public class MobileItem {
+public class Selectable {
 
-    public class Self implements Mobile {
+    public class Self implements Item {
 
         String name;
         String id;
@@ -38,7 +38,7 @@ public class MobileItem {
         }
     }
 
-    public class ThirdParty implements Mobile {
+    public class ThirdParty implements Item {
 
         String name;
         String id;
@@ -70,15 +70,15 @@ public class MobileItem {
         }
     }
 
-    public ArrayList<MobileItem.Mobile> getMobiles() {
-        ArrayList<MobileItem.Mobile> mobiles = new ArrayList<>();
-        mobiles.add(new Self("Self", Constants.MOBILE_NUMBER_SELF));
-        mobiles.add(new ThirdParty("Third Party", Constants.MOBILE_NUMBER_THIRD_PARTY));
+    public ArrayList<Item> getMobileItems() {
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(new Self("Self", Constants.MOBILE_NUMBER_SELF));
+        items.add(new ThirdParty("Third Party", Constants.MOBILE_NUMBER_THIRD_PARTY));
 
-        return mobiles;
+        return items;
     }
 
-    public interface Mobile {
+    public interface Item {
 
         boolean isSelected();
         void setSelected(boolean selected);

@@ -22,8 +22,8 @@ public class NetworkItem {
         public Mtn(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
             this.networkOperatorCode = networkOperatorCode;
             this.slotIdx = slotIdx;
-            displayName = operatorName;
-            this.id = simId;
+            displayName = operatorName != null ? operatorName : "MTN";
+            this.id = simId != null ? simId : Constants.MTN;
         }
 
         @Override
@@ -77,6 +77,7 @@ public class NetworkItem {
     }
     public static class Glo implements NetworkImpl {
 
+        String networkOperatorCode;
         private int slotIdx;
         String operatorName;
         String displayName;
@@ -85,15 +86,16 @@ public class NetworkItem {
         int imageRes = R.drawable.glo;
 
         public Glo(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
+            this.networkOperatorCode = networkOperatorCode;
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
-            displayName = operatorName;
-            this.id = simId;
+            displayName = operatorName != null ? operatorName : "Glo";
+            this.id = simId != null ? simId : Constants.GLO;
         }
 
         @Override
         public String getNetworkOperatorCode() {
-            return operatorName;
+            return networkOperatorCode;
         }
 
         @Override
@@ -140,25 +142,28 @@ public class NetworkItem {
             this.selected = selected;
         }
     }
+
     public static class Airtel implements NetworkImpl {
 
+        String networkOperatorCode;
         private int slotIdx;
         String operatorName;
-        String displayname;
+        String displayName;
         String id;
         boolean selected;
         int imageRes = R.drawable.airtel;
 
         public Airtel(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
+            this.networkOperatorCode = networkOperatorCode;
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
-            displayname = operatorName;
-            this.id = simId;
+            displayName = operatorName != null ? operatorName : "Airtel";
+            this.id = simId != null ? simId : Constants.AIRTEL;
         }
 
         @Override
         public String getNetworkOperatorCode() {
-            return operatorName;
+            return networkOperatorCode;
         }
 
         @Override
@@ -178,7 +183,7 @@ public class NetworkItem {
 
         @Override
         public String getDisplayName() {
-            return displayname;
+            return displayName;
         }
 
         @Override
@@ -205,8 +210,9 @@ public class NetworkItem {
             this.selected = selected;
         }
     }
-    public static class Mobile_9 implements NetworkImpl {
 
+    public static class Mobile_9 implements NetworkImpl {
+        String networkOperatorCode;
         private int slotIdx;
         String operatorName;
         String displayname;
@@ -215,15 +221,16 @@ public class NetworkItem {
         int imageRes = R.drawable.mobile_9;
 
         public Mobile_9 (String operatorName, int slotIdx, String simId, String networkOperatorCode) {
+            this.networkOperatorCode = networkOperatorCode;
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
-            displayname = operatorName;
-            this.id = simId;
+            displayname = operatorName != null ? operatorName : "9 Mobile";
+            this.id = simId != null ? simId : Constants.MOBILE_9;
         }
 
         @Override
         public String getNetworkOperatorCode() {
-            return operatorName;
+            return networkOperatorCode;
         }
 
         @Override
@@ -281,6 +288,18 @@ public class NetworkItem {
                 networks.add(networkItemBuilder.build(siminfo.slotIdx, siminfo.getNetworkOperator()));
             }
         }
+
+        return networks;
+    }
+
+    public ArrayList<NetworkItem.NetworkImpl> getAllNetworks () {
+
+        ArrayList<NetworkItem.NetworkImpl> networks = new ArrayList<>();
+
+        networks.add(new Mtn(null, 0, null, null));
+        networks.add(new Glo(null, 1, null, null));
+        networks.add(new Airtel(null, 2, null, null));
+        networks.add(new Mobile_9(null, 3, null, null));
 
         return networks;
     }

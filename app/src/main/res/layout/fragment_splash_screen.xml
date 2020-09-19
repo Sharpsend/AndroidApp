@@ -7,15 +7,15 @@
   android:background="@color/colorSecondary"
   tools:context="dev.goteam.sharpsend.ui.fragments.SplashScreenFragment">
 
-  <ImageView
-	android:id="@+id/imageView3"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:contentDescription="@string/welcome_to_sharpsend_app"
-	android:paddingBottom="5dp"
-	android:src="@drawable/splash_screen_logo"
-	app:layout_constraintBottom_toBottomOf="parent"
-	app:layout_constraintTop_toTopOf="parent" />
+	<ImageView
+		android:id="@+id/imageView3"
+		android:layout_width="match_parent"
+		android:layout_height="40dp"
+		android:contentDescription="@string/welcome_to_sharpsend_app"
+		android:scaleType="fitCenter"
+		android:src="@drawable/splash_screen_logo"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
   <TextView
 	android:layout_width="wrap_content"

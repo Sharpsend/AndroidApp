@@ -32,7 +32,7 @@
             app:layout_constraintTop_toBottomOf="@id/networkList" />
 
         <TextView
-            android:id="@+id/select_mobile_number_heading"
+            android:id="@+id/selector_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_display_medium"

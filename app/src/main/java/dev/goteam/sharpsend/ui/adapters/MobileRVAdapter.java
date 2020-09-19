@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import dev.goteam.sharpsend.R;
-import dev.goteam.sharpsend.db.entities.BankItem;
-import dev.goteam.sharpsend.db.entities.MobileItem;
+import dev.goteam.sharpsend.db.entities.Selectable;
 import dev.goteam.sharpsend.ui.listeners.OnMobileItemSelection;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -23,11 +22,11 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.MobileViewHolder> {
 
     private Context context;
-    private ArrayList<MobileItem.Mobile> mobiles;
+    private ArrayList<Selectable.Item> mobiles;
     private OnMobileItemSelection onMobileItemSelection;
 
     public MobileRVAdapter(Context context,
-                           ArrayList<MobileItem.Mobile> mobiles,
+                           ArrayList<Selectable.Item> mobiles,
                            OnMobileItemSelection selectedOnAdapterListener) {
         this.context = context;
         this.mobiles = mobiles;
@@ -45,7 +44,7 @@ public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.Mobile
 
     @Override
     public void onBindViewHolder(@NonNull MobileViewHolder holder, int position) {
-        MobileItem.Mobile mobile = mobiles.get(position);
+        Selectable.Item mobile = mobiles.get(position);
         holder.bind(mobile);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +58,7 @@ public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.Mobile
     }
 
     public void bankSelected(int position) {
-        for (MobileItem.Mobile mobile: mobiles) {
+        for (Selectable.Item mobile: mobiles) {
             mobile.setSelected(false);
         }
         mobiles.get(position).setSelected(true);
@@ -82,7 +81,7 @@ public class MobileRVAdapter extends RecyclerView.Adapter<MobileRVAdapter.Mobile
                 selectorImage = itemView.findViewById(R.id.selectorImage);
         }
 
-        public void bind(MobileItem.Mobile mobile) {
+        public void bind(Selectable.Item mobile) {
             mobileName.setText(mobile.getName());
             selectorImage.setVisibility(mobile.isSelected() ? View.VISIBLE : View.GONE);
 
