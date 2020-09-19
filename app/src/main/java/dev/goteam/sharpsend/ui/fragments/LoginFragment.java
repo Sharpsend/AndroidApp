@@ -68,13 +68,6 @@ public class LoginFragment extends Fragment implements TextWatcher {
                         ? View.VISIBLE : View.GONE
         );
 
-        binding.closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requireActivity().finish();
-            }
-        });
-
         binding.forgotPinText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
