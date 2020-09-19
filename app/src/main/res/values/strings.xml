@@ -60,5 +60,7 @@
   <string name="set_pin">Set PIN</string>
   <string name="enter_pin">Enter PIN</string>
   <string name="pay_bills_text">Pay Bills</string>
+  <string name="buy_text">Buy</string>
+  <string name="reset_pin">Reset PIN</string>
 
 </resources>

@@ -94,7 +94,8 @@
 	  style="@style/ColoredButton"
 	  android:enabled="false"
 	  android:textColor="@android:color/white"
-	  android:text="@string/change_text"
+	  android:text="@string/reset_pin"
+	  android:textAllCaps="false"
 	  app:layout_constraintTop_toBottomOf="@id/confirm_new_pin_field"
 	  android:layout_height="wrap_content" />
 
