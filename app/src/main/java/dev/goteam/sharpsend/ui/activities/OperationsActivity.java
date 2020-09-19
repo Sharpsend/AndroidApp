@@ -25,10 +25,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.hover.sdk.api.HoverConfigException;
 import com.hover.sdk.api.HoverParameters;
 
+import java.util.ArrayList;
+
 import dev.goteam.sharpsend.AccessibilityTipsFragment;
 import dev.goteam.sharpsend.BuildConfig;
 import dev.goteam.sharpsend.R;
-import dev.goteam.sharpsend.SharpsendApp;
 import dev.goteam.sharpsend.databinding.ActivityOperationsBinding;
 import dev.goteam.sharpsend.db.entities.Action;
 import dev.goteam.sharpsend.db.entities.NetworkItem;
@@ -56,6 +57,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
     private final String TAG = getClass().getSimpleName();
     private String operation_id;
+    ArrayList<NetworkItem.NetworkImpl> allNetworks;
     private MutableLiveData<StartActivityModel> startActivityModel = new MutableLiveData<>();
     private final static int SELECT_PHONE_NUMBER = 15;
 
@@ -99,8 +101,8 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
             }
         });
 
-        selectSimField.getEditText().setOnClickListener(view1 -> launchSimSelection());
-        selectSimField.setEndIconOnClickListener(view1 -> launchSimSelection());
+        selectSimField.getEditText().setOnClickListener(view1 -> launchSimSelection(operationsViewModel.getNetworks()));
+        selectSimField.setEndIconOnClickListener(view1 -> launchSimSelection(operationsViewModel.getNetworks()));
 
         startActivityModel.observe(this, startActivityModel1 -> {
             if (startActivityModel1 != null) {
@@ -113,9 +115,11 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         if (operationsViewModel.getNetworks() != null) {
             Log.d(TAG, "networks is not null");
             NetworkItem.NetworkImpl selectedNetwork = operationsViewModel.getNetworkFromSlot(user.getSlotIdx());
+            selectSimField.setVisibility(View.VISIBLE);
             selectSimField.getEditText().setText(selectedNetwork.getDisplayName());
         } else {
             Log.d(TAG, "networks is null");
+            selectSimField.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -165,12 +169,17 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         int slotIdx = user.getSlotIdx();
 
         try {
-            Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(slotIdx).getCheckBalanceCode(), slotIdx);
+            if (operationsViewModel.getNetworks() != null) {
+                Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(slotIdx).getCheckBalanceCode(), slotIdx);
 
-            if (intent != null) {
-                startActivity(intent);
+                if (intent != null) {
+                    startActivity(intent);
+                } else {
+                    throw new Exception();
+                }
             } else {
-                throw new Exception();
+                allNetworks = new NetworkItem().getAllNetworks();
+                launchSimSelection(allNetworks);
             }
 
             retryBtn.setOnClickListener(view -> newCheckAirtime());
@@ -213,12 +222,17 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         int slotIdx = user.getSlotIdx();
 
         try {
-            Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(slotIdx).getBuyDataCode(), slotIdx);
+            if (operationsViewModel.getNetworks() != null) {
+                Intent intent = operationsViewModel.getCallIntent(operationsViewModel.getNetworks().get(slotIdx).getBuyDataCode(), slotIdx);
 
-            if (intent != null) {
-                startActivity(intent);
+                if (intent != null) {
+                    startActivity(intent);
+                } else {
+                    throw new Exception();
+                }
             } else {
-                throw new Exception();
+                allNetworks = new NetworkItem().getAllNetworks();
+                launchSimSelection(allNetworks);
             }
 
             retryBtn.setOnClickListener(view -> buyData());
@@ -232,9 +246,9 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         }
     }
 
-    public void launchSimSelection() {
+    public void launchSimSelection(ArrayList<NetworkItem.NetworkImpl> networks) {
         SelectMobileNetworkBottomSheetFragment selectMobileNetworkBottomSheetFragment
-                = new SelectMobileNetworkBottomSheetFragment(this, operationsViewModel.getNetworks()
+                = new SelectMobileNetworkBottomSheetFragment(this, networks
         );
         selectMobileNetworkBottomSheetFragment.show(getSupportFragmentManager(), "networkSelection");
     }
@@ -245,7 +259,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         Log.i(TAG, "onActivityResult: " + requestCode + "." + resultCode + "." + data);
 
         try {
-            Log.i(TAG, "onActivityResult: " + requestCode + "." + resultCode + "." + data.getStringExtra("error") +  data.getStringArrayExtra("session_messages").length);
+            Log.i(TAG, "onActivityResult: " + requestCode + "." + resultCode + "." + data.getStringExtra("error") + data.getStringArrayExtra("session_messages").length);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -262,8 +276,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
             fragmentTransaction.replace(R.id.operations_fragment_container, newFragment, "transactionSuccessDialog");
             fragmentTransaction.commitAllowingStateLoss();
 
-        }
-        else if (requestCode == Constants.OPERATIONS_CODE && resultCode == Activity.RESULT_CANCELED) {
+        } else if (requestCode == Constants.OPERATIONS_CODE && resultCode == Activity.RESULT_CANCELED) {
             try {
                 Toast.makeText(this, "Error: " + data.getStringExtra("error"), Toast.LENGTH_LONG).show();
                 finish();
@@ -273,8 +286,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 }
                 e.printStackTrace();
             }
-        }
-        else if (requestCode == SELECT_PHONE_NUMBER && resultCode == RESULT_OK) {
+        } else if (requestCode == SELECT_PHONE_NUMBER && resultCode == RESULT_OK) {
             Uri contactUri = data.getData();
             String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
             Cursor cursor = getContentResolver().query(contactUri, projection,
@@ -299,7 +311,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 if (grantResults.length > 0 &&
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     operationsViewModel.getSims(this, user);
-                }  else {
+                } else {
                     // We need to call Toast.makeText() (and most other functions dealing with the UI) from within the main thread.
                     this.runOnUiThread(() -> Toast.makeText(OperationsActivity.this, "This feature is unavailable because the feature requires a permission that have been denied.", Toast.LENGTH_LONG).show());
 
@@ -322,11 +334,33 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
             selectSimField.getEditText().setText(selectedNetwork.getDisplayName());
             operationsViewModel.saveUserSim(user, selectedNetwork.getSlotIdx());
+        } else {
+            switch (operation_id) {
+                case Constants.CHECK_AIRTIME:
+
+                    // Finish Checking Airtime
+                    Intent intent = operationsViewModel.getCallIntent(allNetworks.get(slotIdx).getCheckBalanceCode(), slotIdx);
+
+                    if (intent != null) {
+                        startActivity(intent);
+                    }
+                    break;
+                case Constants.BUY_DATA:
+
+                    Intent intent1 = operationsViewModel.getCallIntent(allNetworks.get(slotIdx).getBuyDataCode(), slotIdx);
+
+                    if (intent1 != null) {
+                        startActivity(intent1);
+                    }
+                    break;
+            }
         }
+
     }
 
     @Override
-    public void onNetworkSelectionCanceled() { }
+    public void onNetworkSelectionCanceled() {
+    }
 
     @Override
     public void openContacts() {

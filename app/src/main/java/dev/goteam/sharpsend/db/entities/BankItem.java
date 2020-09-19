@@ -370,94 +370,6 @@ public class BankItem {
         }
     }
 
-    public class UBA implements Bank {
-
-        private final String name = "United Bank for Africa Plc";
-        private final ArrayList<PayBillItem> payBillItems;
-        private List<Action> transferBankActionList;
-        private boolean selected;
-
-        public UBA() {
-            transferBankActionList = new ArrayList<>();
-            payBillItems = new ArrayList<>();
-            selected = false;
-
-            // Transfer Data
-            transferBankActionList.add(new Action("2613379d", "ACB", "Access Bank Plc", Constants.Bank));
-            transferBankActionList.add(new Action("bc72668c", "FBN", "First Bank of Nigeria Limited", Constants.Bank));
-            transferBankActionList.add(new Action("04ea010f", "NMB", "NOVA Merchant Bank", Constants.Bank));
-            transferBankActionList.add(new Action("621a76e8", "UBA", "United Bank for Africa Plc", Constants.Bank));
-        }
-
-        @Override
-        public Action getSelfRechargeAction() {
-            return new Action("a22bb973", "SELF", Constants.MOBILE_NUMBER_SELF, Constants.Recharge);
-        }
-
-        @Override
-        public Action getOthersRechargeAction() {
-            return null;
-        }
-
-        @Override
-        public String getSelfRechargeCode(String amount) {
-            return String.format("*919*%s#", amount);
-        }
-
-        @Override
-        public String getOthersRechargeCode(String amount, String pNumber) {
-            return String.format("*919*%s*%s#", pNumber, amount);
-        }
-
-        @Override
-        public String getName() {
-            return "United Bank of Africa Plc";
-        }
-
-        @Override
-        public int getImageRes() {
-            return 0;
-        }
-
-        @Override
-        public String getTransferBankCode(String amount, String nuban) {
-            return String.format("*919*3*%s*%s#", nuban, amount);
-        }
-
-        @Override
-        public String getTransferSameBankCode(String amount, String nuban) {
-            return String.format("*919*4*%s*%s#", nuban, amount);
-        }
-
-        @Override
-        public ArrayList<Selectable.Item> getTransferItems() {
-            ArrayList<Selectable.Item> items = new ArrayList<>();
-            items.add(new TransferItem(name, Constants.TRANSFER_SAME_BANK));
-            items.add(new TransferItem("Other Banks", Constants.TRANSFER_OTHER_BANK));
-            return items;
-        }
-
-        @Override
-        public List<Action> getTransferBankActionList() {
-            return transferBankActionList;
-        }
-
-        @Override
-        public List<PayBillItem> getPayBillItems() {
-            return null;
-        }
-
-        @Override
-        public boolean isSelected() {
-            return selected;
-        }
-
-        @Override
-        public void setSelected(boolean selected) {
-            this.selected = selected;
-        }
-    }
-
     public class FBN implements Bank {
 
         private final ArrayList<PayBillItem> payBillItems;
@@ -578,7 +490,7 @@ public class BankItem {
 
         @Override
         public String getTransferBankCode(String amount, String nuban) {
-            return null;
+            return String.format("*901*%s*%s#", amount, nuban);
         }
 
         @Override
@@ -659,7 +571,7 @@ public class BankItem {
 
         @Override
         public String getTransferBankCode(String amount, String nuban) {
-            return null;
+            return String.format("*945*%s*%s#", nuban, amount);
         }
 
         @Override
@@ -675,6 +587,94 @@ public class BankItem {
         @Override
         public int getImageRes() {
             return 0;
+        }
+
+        @Override
+        public List<Action> getTransferBankActionList() {
+            return transferBankActionList;
+        }
+
+        @Override
+        public List<PayBillItem> getPayBillItems() {
+            return null;
+        }
+
+        @Override
+        public boolean isSelected() {
+            return selected;
+        }
+
+        @Override
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
+    }
+
+      public class UBA implements Bank {
+
+        private final String name = "United Bank for Africa Plc";
+        private final ArrayList<PayBillItem> payBillItems;
+        private List<Action> transferBankActionList;
+        private boolean selected;
+
+        public UBA() {
+            transferBankActionList = new ArrayList<>();
+            payBillItems = new ArrayList<>();
+            selected = false;
+
+            // Transfer Data
+            transferBankActionList.add(new Action("2613379d", "ACB", "Access Bank Plc", Constants.Bank));
+            transferBankActionList.add(new Action("bc72668c", "FBN", "First Bank of Nigeria Limited", Constants.Bank));
+            transferBankActionList.add(new Action("04ea010f", "NMB", "NOVA Merchant Bank", Constants.Bank));
+            transferBankActionList.add(new Action("621a76e8", "UBA", "United Bank for Africa Plc", Constants.Bank));
+        }
+
+        @Override
+        public Action getSelfRechargeAction() {
+            return new Action("a22bb973", "SELF", Constants.MOBILE_NUMBER_SELF, Constants.Recharge);
+        }
+
+        @Override
+        public Action getOthersRechargeAction() {
+            return null;
+        }
+
+        @Override
+        public String getSelfRechargeCode(String amount) {
+            return String.format("*919*%s#", amount);
+        }
+
+        @Override
+        public String getOthersRechargeCode(String amount, String pNumber) {
+            return String.format("*919*%s*%s#", pNumber, amount);
+        }
+
+        @Override
+        public String getName() {
+            return "United Bank of Africa Plc";
+        }
+
+        @Override
+        public int getImageRes() {
+            return 0;
+        }
+
+        @Override
+        public String getTransferBankCode(String amount, String nuban) {
+            return String.format("*919*3*%s*%s#", nuban, amount);
+        }
+
+        @Override
+        public String getTransferSameBankCode(String amount, String nuban) {
+            return String.format("*919*4*%s*%s#", nuban, amount);
+        }
+
+        @Override
+        public ArrayList<Selectable.Item> getTransferItems() {
+            ArrayList<Selectable.Item> items = new ArrayList<>();
+            items.add(new TransferItem(name, Constants.TRANSFER_SAME_BANK));
+            items.add(new TransferItem("Other Banks", Constants.TRANSFER_OTHER_BANK));
+            return items;
         }
 
         @Override

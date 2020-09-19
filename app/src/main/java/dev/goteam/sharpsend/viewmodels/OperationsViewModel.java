@@ -78,7 +78,11 @@ public class OperationsViewModel extends AndroidViewModel {
 
             return callIntent;
         } else {
-            return null;
+            Intent callIntent = new Intent(Intent.ACTION_CALL).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            callIntent.setData(Uri.parse("tel:" + Uri.encode(code)));
+
+            Log.i(TAG, "newCheckAirtime: Dialing Code: " + code);
+            return callIntent;
         }
     }
 
@@ -106,14 +110,13 @@ public class OperationsViewModel extends AndroidViewModel {
             ArrayList<NetworkItem.NetworkImpl> networks = new NetworkItem().getNetworksFromSimInfos(simInfos);
 
             if (networks != null && networks.size() > 0) {
+                // Select default user sim
                 networks.get(user.getSlotIdx()).setSelected(true);
 
                 Log.i(TAG, "onNetworkSelected: " + simInfos.get(0).getNetworkOperator() + "." + simInfos.get(0).getNetworkOperatorName());
             }
 
             this.networks = networks.size() > 0 ? networks : null;
-        } else {
-            Toast.makeText(context, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
         }
     }
 

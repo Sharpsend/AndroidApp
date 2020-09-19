@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -17,12 +18,16 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.hover.sdk.api.Hover;
+import com.hover.sdk.sims.SimInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentHomeBinding;
 import dev.goteam.sharpsend.db.entities.HomeItem;
+import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.ui.adapters.HomeRVAdapter;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.viewmodels.HomeViewModel;
@@ -89,6 +94,7 @@ public class HomeFragment extends Fragment implements HomeRVAdapter.OnHomeItemSe
                 return false;
             }
         }
+
         return true;
     }
 }

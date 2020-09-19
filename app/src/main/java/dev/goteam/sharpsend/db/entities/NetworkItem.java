@@ -22,8 +22,8 @@ public class NetworkItem {
         public Mtn(String operatorName, int slotIdx, String simId, String networkOperatorCode) {
             this.networkOperatorCode = networkOperatorCode;
             this.slotIdx = slotIdx;
-            displayName = operatorName;
-            this.id = simId;
+            displayName = operatorName != null ? operatorName : "MTN";
+            this.id = simId != null ? simId : Constants.MTN;
         }
 
         @Override
@@ -89,8 +89,8 @@ public class NetworkItem {
             this.networkOperatorCode = networkOperatorCode;
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
-            displayName = operatorName;
-            this.id = simId;
+            displayName = operatorName != null ? operatorName : "Glo";
+            this.id = simId != null ? simId : Constants.GLO;
         }
 
         @Override
@@ -142,6 +142,7 @@ public class NetworkItem {
             this.selected = selected;
         }
     }
+
     public static class Airtel implements NetworkImpl {
 
         String networkOperatorCode;
@@ -156,8 +157,8 @@ public class NetworkItem {
             this.networkOperatorCode = networkOperatorCode;
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
-            displayName = operatorName;
-            this.id = simId;
+            displayName = operatorName != null ? operatorName : "Airtel";
+            this.id = simId != null ? simId : Constants.AIRTEL;
         }
 
         @Override
@@ -209,6 +210,7 @@ public class NetworkItem {
             this.selected = selected;
         }
     }
+
     public static class Mobile_9 implements NetworkImpl {
         String networkOperatorCode;
         private int slotIdx;
@@ -222,8 +224,8 @@ public class NetworkItem {
             this.networkOperatorCode = networkOperatorCode;
             this.operatorName = operatorName;
             this.slotIdx = slotIdx;
-            displayname = operatorName;
-            this.id = simId;
+            displayname = operatorName != null ? operatorName : "9 Mobile";
+            this.id = simId != null ? simId : Constants.MOBILE_9;
         }
 
         @Override
@@ -286,6 +288,18 @@ public class NetworkItem {
                 networks.add(networkItemBuilder.build(siminfo.slotIdx, siminfo.getNetworkOperator()));
             }
         }
+
+        return networks;
+    }
+
+    public ArrayList<NetworkItem.NetworkImpl> getAllNetworks () {
+
+        ArrayList<NetworkItem.NetworkImpl> networks = new ArrayList<>();
+
+        networks.add(new Mtn(null, 0, null, null));
+        networks.add(new Glo(null, 1, null, null));
+        networks.add(new Airtel(null, 2, null, null));
+        networks.add(new Mobile_9(null, 3, null, null));
 
         return networks;
     }
