@@ -1,8 +1,10 @@
 package dev.goteam.sharpsend.ui.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.RadioButton;
@@ -12,9 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import dev.goteam.sharpsend.R;
+import dev.goteam.sharpsend.db.entities.Action;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankItemSelected;
 
@@ -22,19 +27,20 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
         implements Filterable {
 
     private final OnRecipientBankItemSelected onRecipientBankItemSelected;
-    private List<BankItem.TransferBankAction> transferBankActions;
-    private List<BankItem.TransferBankAction> finalTransferBankActions;
+    private List<Action> transferBankActions;
+    private List<Action> finalTransferBankActions;
 
     private Filter banksFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-            List<BankItem.TransferBankAction> filteredBanks = new ArrayList<>();
+            List<Action> filteredBanks = new ArrayList<>();
+            Log.d("RecipientBanksAdapter", "CharSequence: " + charSequence + " Size: " + finalTransferBankActions.size());
 
-            if (charSequence == null || charSequence == "") {
+            if (charSequence == null || charSequence.equals("") || charSequence.length() == 0) {
                 filteredBanks.addAll(finalTransferBankActions);
             } else {
                 String text = charSequence.toString().trim();
-                for (BankItem.TransferBankAction transferBankAction : transferBankActions) {
+                for (Action transferBankAction : transferBankActions) {
                     if (transferBankAction.getName().trim().contains(text)) {
                         filteredBanks.add(transferBankAction);
                     }
@@ -49,14 +55,22 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            List<BankItem.TransferBankAction> result = (List<BankItem.TransferBankAction>) filterResults.values;
+            List<Action> result = (List<Action>) filterResults.values;
             transferBankActions = result;
             notifyDataSetChanged();
         }
     };
 
-    public RecipientBanksRVAdapter(List<BankItem.TransferBankAction> transferBankActions,
+    public RecipientBanksRVAdapter(List<Action> transferBankActions,
                                    OnRecipientBankItemSelected onRecipientBankItemSelected) {
+
+        Collections.sort(transferBankActions, new Comparator<Action>() {
+            @Override
+            public int compare(Action transferBankAction, Action t1) {
+                return transferBankAction.getName().compareTo(t1.getName());
+            }
+        });
+
         this.transferBankActions = transferBankActions;
         this.finalTransferBankActions = transferBankActions;
         this.onRecipientBankItemSelected = onRecipientBankItemSelected;
@@ -78,21 +92,35 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
 
     @Override
     public void onBindViewHolder(@NonNull RecipientBanksRVAdapter.BankViewHolder holder, int position) {
-        BankItem.TransferBankAction bank = transferBankActions.get(position);
+        Action bank = transferBankActions.get(position);
         holder.bind(bank);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bankSelected(position);
-                onRecipientBankItemSelected.onBankItemSelected(transferBankActions.get(position));
-                return;
+                if (!holder.radioButton.isChecked()) {
+                    bankSelected(position);
+                    onRecipientBankItemSelected.onBankItemSelected(transferBankActions.get(position));
+                    return;
+                }
             }
         });
+
+        holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    bankSelected(position);
+                    onRecipientBankItemSelected.onBankItemSelected(transferBankActions.get(position));
+                    return;
+                }
+            }
+        });
+
     }
 
     public void bankSelected(int position) {
-        for (BankItem.TransferBankAction bank : transferBankActions) {
+        for (Action bank : transferBankActions) {
             bank.setSelected(false);
         }
         transferBankActions.get(position).setSelected(true);
@@ -116,7 +144,7 @@ public class RecipientBanksRVAdapter extends RecyclerView.Adapter<RecipientBanks
             radioButton = itemView.findViewById(R.id.recipient_radio_button);
         }
 
-        public void bind(BankItem.TransferBankAction bank) {
+        public void bind(Action bank) {
             bankName.setText(bank.getName());
             radioButton.setChecked(bank.isSelected());
         }

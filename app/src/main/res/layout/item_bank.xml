@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_margin="8dp"
-  android:layout_marginBottom="8dp"
-  android:paddingLeft="8dp"
-  android:paddingTop="16dp"
-  android:paddingRight="8dp"
-  android:paddingBottom="16dp">
+  android:background="@drawable/bank_unselected_bg"
+  android:layout_height="56dp"
+  android:layout_marginBottom="24dp"
+  >
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingEnd="8dp">
 
-  <ImageView
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:src="@drawable/check_circle"
-	android:id="@+id/selectorImage"
-	app:layout_constraintBottom_toBottomOf="parent"
-	app:layout_constraintEnd_toEndOf="parent"
-	app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+          android:id="@+id/bank_name"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_marginStart="20dp"
+          android:layout_weight="1"
+          android:fontFamily="@font/sf_pro_display_medium"
+          android:gravity="center_vertical"
+          android:textColor="@android:color/black"
+          android:textSize="14sp"
+          tools:text="Network Name" />
 
-	<TextView
-		android:id="@+id/bank_name"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:textColor="@android:color/black"
-		android:textSize="14sp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		tools:text="Bank Name" />
+        <ImageView
+          android:id="@+id/selectorImage"
+          android:layout_width="17dp"
+          android:layout_height="17dp"
+          android:layout_marginTop="8dp"
+          android:src="@drawable/check_circle" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -9,7 +9,7 @@ android {
         applicationId "dev.goteam.sharpsend"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 1
+        versionCode 3
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -60,5 +60,5 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // Use hover
-    implementation 'com.hover:android-sdk:1.5.1'
+    implementation 'com.hover:android-sdk:1.6.2-noSMS'
 }

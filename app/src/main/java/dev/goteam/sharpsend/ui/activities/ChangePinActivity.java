@@ -2,6 +2,8 @@ package dev.goteam.sharpsend.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,11 +16,17 @@ import com.google.android.material.snackbar.Snackbar;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.ActivityChangePinBinding;
+import dev.goteam.sharpsend.db.entities.User;
 import dev.goteam.sharpsend.utils.Prefs;
+import dev.goteam.sharpsend.viewmodels.ModifyPinViewModel;
 
 public class ChangePinActivity extends AppCompatActivity implements TextWatcher {
 
     private ActivityChangePinBinding binding;
+    private ModifyPinViewModel viewModel;
+
+    private String oldPin;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,16 @@ public class ChangePinActivity extends AppCompatActivity implements TextWatcher 
 
         binding.currentPinField.getEditText().addTextChangedListener(this);
         binding.newPinField.getEditText().addTextChangedListener(this);
+        viewModel = new ViewModelProvider(this).get(ModifyPinViewModel.class);
+        viewModel.getUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    mUser = user;
+                    oldPin = mUser.getPin();
+                }
+            }
+        });
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,9 +59,11 @@ public class ChangePinActivity extends AppCompatActivity implements TextWatcher 
                 String currentPIN = binding.currentPinField.getEditText().getText().toString();
                 String newPIN = binding.newPinField.getEditText().getText().toString();
 
-                boolean changed = Prefs.changePIN(getApplicationContext(), currentPIN, newPIN);
-                if (changed) {
+                boolean isValid = currentPIN.equals(oldPin);
+                if (isValid) {
                     Toast.makeText(ChangePinActivity.this, "Changing PIN....", Toast.LENGTH_SHORT).show();
+                    mUser.setPin(newPIN);
+                    viewModel.updatePin(mUser);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -58,6 +78,10 @@ public class ChangePinActivity extends AppCompatActivity implements TextWatcher 
             }
         });
 
+    }
+
+    public void closeBtn(View view) {
+        finish();
     }
 
     @Override

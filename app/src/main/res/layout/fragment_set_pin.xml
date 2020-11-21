@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_marginStart="16dp"
+	android:layout_marginEnd="16dp"
+	android:id="@+id/set_pin_modal_container"
+	android:padding="16dp">
+
+	<Button
+	  android:id="@+id/cancel_button"
+	  style="@style/Widget.MaterialComponents.Button.TextButton"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/cancel_text"
+	  android:textColor="@color/colorGreyDark"
+	  android:textSize="18sp"
+	  app:layout_constraintEnd_toEndOf="parent"
+	  app:layout_constraintTop_toTopOf="parent" />
+
+	<Button
+	  android:id="@+id/proceed_button"
+	  style="@style/ColoredButton"
+	  android:layout_width="match_parent"
+	  android:layout_height="wrap_content"
+	  android:layout_marginTop="10dp"
+	  android:enabled="false"
+	  android:text="@string/set_pin"
+	  android:textColor="@android:color/white"
+	  app:layout_constraintTop_toBottomOf="@id/pin_disclaimer" />
+
+	<TextView
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:id="@+id/pin_disclaimer"
+	  android:text="@string/pin_should_be_4_characters_long_text"
+	  android:textSize="16sp"
+	  android:layout_marginTop="5dp"
+	  android:textColor="@android:color/black"
+	  app:layout_constraintStart_toStartOf="parent"
+	  app:layout_constraintTop_toBottomOf="@id/set_pin_text_field" />
+
+	<TextView
+	  android:id="@+id/set_pin_heading"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:fontFamily="@font/sf_pro_display_medium"
+	  android:text="@string/set_pin"
+	  android:textColor="@android:color/black"
+	  android:textSize="18sp"
+	  app:layout_constraintBaseline_toBaselineOf="@id/cancel_button"
+	  app:layout_constraintLeft_toLeftOf="parent"
+	  app:layout_constraintTop_toTopOf="parent" />
+
+	<com.google.android.material.textfield.TextInputLayout
+	  android:id="@+id/set_pin_text_field"
+	  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+	  android:layout_width="match_parent"
+	  android:layout_height="wrap_content"
+	  android:layout_marginTop="20dp"
+	  android:hint="@string/enter_pin"
+	  app:endIconMode="password_toggle"
+	  app:layout_constraintTop_toBottomOf="@id/set_pin_heading">
+
+	  <com.google.android.material.textfield.TextInputEditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="numberPassword" />
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

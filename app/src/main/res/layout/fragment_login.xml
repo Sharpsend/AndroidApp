@@ -7,38 +7,62 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/colorScreenOnboarding"
-	tools:context="dev.goteam.sharpsend.ui.fragments.RegisterFragment">
+	tools:context="dev.goteam.sharpsend.ui.fragments.LoginFragment">
+
+	<Button
+	  android:id="@+id/login_button"
+	  style="@style/ColoredButton"
+	  android:layout_width="0dp"
+	  android:layout_height="wrap_content"
+	  android:layout_marginTop="20dp"
+	  android:enabled="false"
+	  android:fontFamily="@font/sf_pro_display_medium"
+	  android:text="@string/login_text"
+	  android:textAllCaps="false"
+	  android:textColor="@android:color/white"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
+	  app:layout_constraintStart_toEndOf="@id/left_guideline"
+	  app:layout_constraintTop_toBottomOf="@id/pinField" />
 
 	<ImageView
-	  android:id="@+id/close_button"
-	  android:layout_width="48dp"
-	  android:layout_height="48dp"
-	  android:layout_marginTop="20dp"
-	  android:background="@null"
-		android:contentDescription="cancel"
-	  android:src="@drawable/ic_close"
+	  android:id="@+id/fingerprint_cta"
+	  android:layout_width="96dp"
+	  android:layout_height="96dp"
+	  android:layout_marginBottom="20dp"
+	  android:contentDescription="@string/use_fingerprint_text"
+	  android:src="@drawable/fingerprint"
+	  android:visibility="gone"
+	  app:layout_constraintBottom_toBottomOf="parent"
+	  app:layout_constraintEnd_toEndOf="parent"
+	  app:layout_constraintStart_toStartOf="parent" />
+
+	<TextView
+	  android:id="@+id/forgot_pin_text"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:layout_marginTop="10dp"
+	  android:contentDescription="@string/forgot_pin_text"
+	  android:fontFamily="@font/sf_pro_display_regular"
+	  android:text="@string/forgot_pin_text"
+	  android:textSize="17sp"
+	  app:layout_constraintEnd_toEndOf="parent"
+	  app:layout_constraintStart_toStartOf="parent"
+	  app:layout_constraintTop_toBottomOf="@id/login_button" />
+
+	<TextView
+	  android:id="@+id/login_heading"
+	  android:layout_width="0dp"
+	  android:layout_height="wrap_content"
+	  android:fontFamily="@font/sf_pro_display_regular"
+	  android:text="@string/welcome_text_placeholder"
+	  android:textAlignment="center"
+	  android:textColor="@android:color/black"
+	  android:textSize="24sp"
+	  android:textStyle="bold"
+	  android:layout_marginTop="30dp"
+	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
 	  app:layout_constraintStart_toEndOf="@id/left_guideline"
 	  app:layout_constraintTop_toTopOf="parent" />
-
-	  <TextView
-		  android:id="@+id/login_heading"
-		  android:layout_width="0dp"
-		  android:layout_height="wrap_content"
-		  android:fontFamily="@font/sf_pro_display_regular"
-		  android:text="@string/welcome_text_placeholder"
-		  android:textColor="@color/colorPrimary"
-		  android:textSize="24sp"
-		  android:textStyle="bold"
-		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-		  app:layout_constraintStart_toEndOf="@id/left_guideline"
-		  app:layout_constraintTop_toBottomOf="@id/close_button" />
-
-	<androidx.constraintlayout.widget.Guideline
-	  android:id="@+id/left_guideline"
-	  android:layout_width="wrap_content"
-	  android:layout_height="match_parent"
-	  android:orientation="vertical"
-	  app:layout_constraintGuide_percent=".1" />
 
 	<androidx.constraintlayout.widget.Guideline
 	  android:id="@+id/right_guideline"
@@ -47,66 +71,34 @@
 	  android:orientation="vertical"
 	  app:layout_constraintGuide_percent=".9" />
 
+	<androidx.constraintlayout.widget.Guideline
+	  android:id="@+id/left_guideline"
+	  android:layout_width="wrap_content"
+	  android:layout_height="match_parent"
+	  android:orientation="vertical"
+	  app:layout_constraintGuide_percent=".1" />
+
+	<!--	this image would show if the user has enabled fingerprint-->
 	<com.google.android.material.textfield.TextInputLayout
 	  android:id="@+id/pinField"
 	  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 	  android:layout_width="0dp"
 	  android:layout_height="wrap_content"
 	  android:layout_marginTop="20dp"
-	  app:endIconMode="password_toggle"
 	  android:hint="@string/pin_label"
+	  app:endIconMode="password_toggle"
+	  app:helperText="PIN should be 4 characters long"
 	  app:layout_constraintEnd_toStartOf="@id/right_guideline"
 	  app:layout_constraintStart_toEndOf="@id/left_guideline"
 	  app:layout_constraintTop_toBottomOf="@id/login_heading">
 
-		<com.google.android.material.textfield.TextInputEditText
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:fontFamily="@font/sf_pro_display_regular"
-			android:inputType="numberPassword" />
+	  <com.google.android.material.textfield.TextInputEditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:fontFamily="@font/sf_pro_display_regular"
+		android:inputType="numberPassword" />
 
 	</com.google.android.material.textfield.TextInputLayout>
-
-	  <Button
-		  android:id="@+id/login_button"
-		  style="@style/ColoredButton"
-		  android:layout_width="0dp"
-		  android:layout_height="wrap_content"
-		  android:layout_marginTop="20dp"
-		  android:enabled="false"
-		  android:fontFamily="@font/sf_pro_display_medium"
-		  android:text="@string/login_text"
-		  android:textAllCaps="false"
-		  android:textColor="@android:color/white"
-		  app:layout_constraintEnd_toStartOf="@id/right_guideline"
-		  app:layout_constraintStart_toEndOf="@id/left_guideline"
-		  app:layout_constraintTop_toBottomOf="@id/pinField" />
-
-	<TextView
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:text="@string/forgot_pin_text"
-	  android:contentDescription="@string/forgot_pin_text"
-	  app:layout_constraintStart_toStartOf="parent"
-	  app:layout_constraintEnd_toEndOf="parent"
-	  android:id="@+id/forgot_pin_text"
-	  android:fontFamily="@font/sf_pro_display_regular"
-	  android:textSize="17sp"
-	  app:layout_constraintTop_toBottomOf="@id/login_button"
-	  android:layout_marginTop="10dp"/>
-
-<!--	this image would show if the user has enabled fingerprint-->
-	<ImageView
-	  android:layout_width="96dp"
-	  android:layout_height="96dp"
-	  app:layout_constraintStart_toStartOf="parent"
-	  app:layout_constraintEnd_toEndOf="parent"
-	  android:contentDescription="@string/use_fingerprint_text"
-	  app:layout_constraintBottom_toBottomOf="parent"
-	  android:id="@+id/fingerprint_cta"
-	  android:layout_marginBottom="20dp"
-	  android:visibility="gone"
-	  android:src="@drawable/fingerprint"/>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

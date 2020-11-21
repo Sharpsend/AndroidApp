@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import dev.goteam.sharpsend.db.AppDatabase;
+import dev.goteam.sharpsend.db.entities.NetworkItem;
 import dev.goteam.sharpsend.db.entities.Transaction;
 import dev.goteam.sharpsend.db.entities.User;
 
@@ -42,5 +43,13 @@ public class AppRepository {
 
     public void saveUser(User user) {
         AppDatabase.executors.diskIO().execute(() -> mDatabase.userDao().insert(user));
+    }
+
+    public void updateUser(User user) {
+        AppDatabase.executors.diskIO().execute(() -> mDatabase.userDao().updateUser(user));
+    }
+
+    public void saveDefaultSim(User user) {
+        AppDatabase.executors.diskIO().execute(() -> mDatabase.userDao().saveDefaultSim(user));
     }
 }

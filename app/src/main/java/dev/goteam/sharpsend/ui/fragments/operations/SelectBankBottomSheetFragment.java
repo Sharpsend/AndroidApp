@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import dev.goteam.sharpsend.R;
@@ -42,7 +43,8 @@ public class SelectBankBottomSheetFragment extends RoundedBottomSheetFragment im
         super.onViewCreated(view, savedInstanceState);
 
         adapter = new BanksRVAdapter(requireContext(), new BankItem().getSupportedBanks(), this);
-        binding.banksList.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        LinearLayoutManager llm = new LinearLayoutManager(requireContext());
+        binding.banksList.setLayoutManager(llm);
         binding.banksList.setAdapter(adapter);
 
         binding.proceedButton.setOnClickListener(new View.OnClickListener() {
@@ -67,3 +69,4 @@ public class SelectBankBottomSheetFragment extends RoundedBottomSheetFragment im
         bankSelection = bank;
     }
 }
+

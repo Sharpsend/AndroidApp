@@ -16,6 +16,7 @@ import java.util.List;
 
 import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentSelectRecipientBankBinding;
+import dev.goteam.sharpsend.db.entities.Action;
 import dev.goteam.sharpsend.db.entities.BankItem;
 import dev.goteam.sharpsend.ui.adapters.RecipientBanksRVAdapter;
 import dev.goteam.sharpsend.ui.listeners.OnRecipientBankItemSelected;
@@ -23,12 +24,12 @@ import dev.goteam.sharpsend.ui.listeners.OnRecipientBankSelection;
 
 public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFragment implements OnRecipientBankItemSelected {
 
-    private final List<BankItem.TransferBankAction> transferBankActions;
+    private final List<Action> transferBankActions;
     private FragmentSelectRecipientBankBinding binding;
     private OnRecipientBankSelection onRecipientBankSelectionListener;
     private RecipientBanksRVAdapter adapter;
 
-    public SelectRecipientBankBottomSheetFragment(OnRecipientBankSelection onRecipientBankSelectionListener, List<BankItem.TransferBankAction> transferBankActions) {
+    public SelectRecipientBankBottomSheetFragment(OnRecipientBankSelection onRecipientBankSelectionListener, List<Action> transferBankActions) {
         this.onRecipientBankSelectionListener = onRecipientBankSelectionListener;
         this.transferBankActions = transferBankActions;
     }
@@ -75,7 +76,7 @@ public class SelectRecipientBankBottomSheetFragment extends RoundedBottomSheetFr
     }
 
     @Override
-    public void onBankItemSelected(BankItem.TransferBankAction transferBankAction) {
+    public void onBankItemSelected(Action transferBankAction) {
         onRecipientBankSelectionListener.onRecipientBankSelected(transferBankAction);
         dismiss();
     }
