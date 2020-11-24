@@ -313,7 +313,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                     operationsViewModel.getSims(this, user);
                 } else {
                     // We need to call Toast.makeText() (and most other functions dealing with the UI) from within the main thread.
-                    this.runOnUiThread(() -> Toast.makeText(OperationsActivity.this, "This feature is unavailable because the feature requires a permission that have been denied.", Toast.LENGTH_LONG).show());
+                    this.runOnUiThread(() -> Toast.makeText(OperationsActivity.this, "This feature is unavailable because the feature requires a permission that has been denied.", Toast.LENGTH_LONG).show());
 
                     finish();
                 }
