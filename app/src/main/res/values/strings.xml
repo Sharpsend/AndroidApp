@@ -62,5 +62,8 @@
   <string name="pay_bills_text">Pay Bills</string>
   <string name="buy_text">Buy</string>
   <string name="reset_pin">Reset PIN</string>
+  <string name="enable_fingerprint_lock">Enable Fingerprint Lock</string>
+  <string name="change_username">Change Username</string>
+  <string name="enter_username">Enter New Username</string>
 
 </resources>

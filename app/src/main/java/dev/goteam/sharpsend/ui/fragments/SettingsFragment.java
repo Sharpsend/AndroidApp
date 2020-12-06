@@ -1,35 +1,31 @@
 package dev.goteam.sharpsend.ui.fragments;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
 
-import dev.goteam.sharpsend.R;
 import dev.goteam.sharpsend.databinding.FragmentSettingsBinding;
 import dev.goteam.sharpsend.db.entities.User;
 import dev.goteam.sharpsend.ui.activities.ChangePinActivity;
 import dev.goteam.sharpsend.ui.activities.OperationsActivity;
+import dev.goteam.sharpsend.ui.fragments.operations.ChangeUsernameBottomSheetFragment;
 import dev.goteam.sharpsend.ui.fragments.operations.SetPinBottomSheetFragment;
 import dev.goteam.sharpsend.ui.listeners.OnPinSetListener;
+import dev.goteam.sharpsend.ui.listeners.OnUsernameChangedListener;
 import dev.goteam.sharpsend.utils.Constants;
 import dev.goteam.sharpsend.utils.FingerprintUtils;
 import dev.goteam.sharpsend.utils.Prefs;
@@ -69,6 +65,28 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(requireActivity(), ChangePinActivity.class));
+            }
+        });
+
+        binding.changeUsernameText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChangeUsernameBottomSheetFragment changeUsernameBottomSheetFragment = new ChangeUsernameBottomSheetFragment(new OnUsernameChangedListener() {
+                    @Override
+                    public void onUsernameChanged(String newUsername) {
+                        mUser.setUserName(newUsername);
+                        settingsViewModel.updateUser(mUser);
+                        Prefs.saveUser(requireContext(), newUsername);
+
+                        Snackbar.make(view, "Username updated successfully!", Snackbar.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onProcessCanceled() {
+                    }
+                });
+
+                changeUsernameBottomSheetFragment.show(getParentFragmentManager(), "changeUsernameBottomSheetFragment");
             }
         });
 
