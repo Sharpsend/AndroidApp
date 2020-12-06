@@ -10,22 +10,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import dev.goteam.sharpsend.databinding.FragmentSetPinBinding;
-import dev.goteam.sharpsend.ui.listeners.OnPinSetListener;
+import dev.goteam.sharpsend.databinding.FragmentChangeUsernameBinding;
+import dev.goteam.sharpsend.ui.listeners.OnUsernameChangedListener;
 
-public class SetPinBottomSheetFragment extends RoundedBottomSheetFragment {
+public class ChangeUsernameBottomSheetFragment extends RoundedBottomSheetFragment {
 
-    private FragmentSetPinBinding binding;
-    private OnPinSetListener mOnPinSetListener;
+    private FragmentChangeUsernameBinding binding;
+    private OnUsernameChangedListener onUsernameChangedListener;
 
-    public SetPinBottomSheetFragment(OnPinSetListener mOnPinSetListener) {
-        this.mOnPinSetListener = mOnPinSetListener;
+    public ChangeUsernameBottomSheetFragment(OnUsernameChangedListener onUsernameChangedListener) {
+        this.onUsernameChangedListener = onUsernameChangedListener;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentSetPinBinding.inflate(inflater);
+        binding = FragmentChangeUsernameBinding.inflate(inflater);
 
         return binding.getRoot();
     }
@@ -34,16 +34,16 @@ public class SetPinBottomSheetFragment extends RoundedBottomSheetFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.proceedButton.setOnClickListener(new View.OnClickListener() {
+        binding.changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String PIN = binding.setPinTextField.getEditText().getText().toString();
-                mOnPinSetListener.onPinSet(PIN);
+                String newUsername = binding.changeUsernameTextField.getEditText().getText().toString();
+                onUsernameChangedListener.onUsernameChanged(newUsername);
                 dismiss();
             }
         });
 
-        binding.setPinTextField.getEditText().addTextChangedListener(new TextWatcher() {
+        binding.changeUsernameTextField.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -54,15 +54,15 @@ public class SetPinBottomSheetFragment extends RoundedBottomSheetFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String PIN = editable.toString();
-                binding.proceedButton.setEnabled(PIN.length() == 4);
+                String username = editable.toString();
+                binding.changeButton.setEnabled(username.length() > 0);
             }
         });
 
         binding.cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnPinSetListener.onPinSetCanceled();
+                onUsernameChangedListener.onProcessCanceled();
                 dismiss();
             }
         });
