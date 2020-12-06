@@ -50,7 +50,6 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
 
     private TextInputLayout selectSimField;
     private LinearLayout header;
-    private Button retryBtn;
     public static TextView title;
     private boolean isStarting = true;
     private ActivityOperationsBinding binding;
@@ -77,7 +76,6 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
         // View Binding is misbehaving, that is why i use this
         selectSimField = findViewById(R.id.select_sim_field);
         title = findViewById(R.id.title);
-        retryBtn = findViewById(R.id.retryBtn);
         header = findViewById(R.id.header);
 
         try {
@@ -148,11 +146,9 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 fragmentTransaction.commit();
                 break;
             case Constants.CHECK_AIRTIME:
-                //checkAirtime();
                 newCheckAirtime();
                 break;
             case Constants.BUY_DATA:
-
                 buyData();
                 break;
             default:
@@ -182,7 +178,6 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 launchSimSelection(allNetworks);
             }
 
-            retryBtn.setOnClickListener(view -> newCheckAirtime());
         } catch (Exception e) {
             if (BuildConfig.DEBUG) {
                 Toast.makeText(this, "Error: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -191,30 +186,6 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    private void checkAirtime() {
-        title.setText("Check Airtime");
-
-        if (operationsViewModel.getNetworks() != null && operationsViewModel.getNetworks().size() != 0) {
-            try {
-                Action action = operationsViewModel.getNetworks().get(user.getSlotIdx()).getCheckBalanceAction();
-
-                Intent i = new HoverParameters.Builder(this)
-                        .request(action.getActionID()) // Add your action ID here
-                        .finalMsgDisplayTime(0)
-                        .buildIntent();
-                getStartActivityModel()
-                        .postValue(new StartActivityModel(i, Constants.OPERATIONS_CODE));
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(TAG, "onClick: ERROR");
-            }
-        } else {
-            Toast.makeText(this, "Accept permissions for best User Experience", Toast.LENGTH_SHORT).show();
-        }
-
-        retryBtn.setOnClickListener(view -> newCheckAirtime());
     }
 
     private void buyData() {
@@ -235,7 +206,6 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                 launchSimSelection(allNetworks);
             }
 
-            retryBtn.setOnClickListener(view -> buyData());
         } catch (Exception e) {
             if (BuildConfig.DEBUG) {
                 Toast.makeText(this, "Error: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -313,7 +283,7 @@ public class OperationsActivity extends AppCompatActivity implements OnNetworkSe
                     operationsViewModel.getSims(this, user);
                 } else {
                     // We need to call Toast.makeText() (and most other functions dealing with the UI) from within the main thread.
-                    this.runOnUiThread(() -> Toast.makeText(OperationsActivity.this, "This feature is unavailable because the feature requires a permission that have been denied.", Toast.LENGTH_LONG).show());
+                    this.runOnUiThread(() -> Toast.makeText(OperationsActivity.this, "This feature is unavailable because the feature requires a permission that has been denied.", Toast.LENGTH_LONG).show());
 
                     finish();
                 }

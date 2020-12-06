@@ -45,4 +45,8 @@ public class User {
     public void setSlotIdx(int slotIdx) {
         this.slotIdx = slotIdx;
     }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
