@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Toast.makeText(this, "Try that again, please", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Operation failed, please try again", Toast.LENGTH_SHORT).show();
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

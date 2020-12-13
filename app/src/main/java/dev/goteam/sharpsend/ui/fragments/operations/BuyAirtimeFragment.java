@@ -122,7 +122,6 @@ public class BuyAirtimeFragment extends Fragment implements OnBankSelection, OnM
 
     private void buyAirtime(String airtimeRequestCode) {
         Intent buyAirtimeIntent = Utils.createCallIntent(airtimeRequestCode);
-        Toast.makeText(requireContext(), airtimeRequestCode, Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(requireContext(), "Permissions need to be granted", Toast.LENGTH_SHORT).show();
             return;
